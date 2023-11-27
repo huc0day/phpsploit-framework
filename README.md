@@ -61,4 +61,4 @@ The software license agreement content information, please visit: "https://githu
 
 The software technology document content information, please visit: "https://github.com/huc0day/phpsploit-framework/blob/main/Phpsploit-Framework_Software_Technology_White_Paper.pdf"
 
-The software error and function request tracking information, please visit: https://github.com/huc0day/phpsploit-framework/blob/main/issues
+The software error and function request tracking information, please visit: https://github.com/huc0day/phpsploit-framework/issues
