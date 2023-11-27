@@ -23,7 +23,7 @@ network security programming framework, memory based database core engine, GDSC 
 security communication protocol, and server intrusion alarm system since 2004. Contact email:
 huc0day@outlook.com .
 
-3.4.4. introduction to featured functions
+3. introduction to featured functions
 
 Phpsploit-Framework software pioneered a shell communication environment based on raw sockets (proxyshell), which can bypass more than 80% of the firewall rules when conducting CTF competitions or penetration tests. Because the shell communication environment communicates directly based on IPv6 protocol, the rules of packet filtering based on transport layer can be invalidated. Based on the extended header feature of IPv6 protocol, the shell environment using IPv6 protocol for communication can realize the proxy forwarding function for shell command requests, and can break through the network defense environment based on IP address restrictions. Comprehensive evaluation shows that the shell communicationenvironment based on the network layer will have a higher level of concealment when conducting CTF competition or penetration test. If properly used, this shell communication environment based on raw sockets can become an effective weaponfor CTF competition or penetration test behavior!
 
@@ -49,11 +49,11 @@ The built-in report function of the Phpsploit-Framework software can very conven
 
 The guidance manual function provided internally by the Phpsploit-Framework software integrates a large amount of penetration testing/security operation and maintenance documentation that the author of the Phpsploit-Framework software has been collecting and organizing for over a year (including the translation of a large amount of English materials, which consumes a lot of energy and time of the Phpsploit-Framework software author). In the guide function, specific usage of various commands is integrated. This includes utility related command usage in fields such as information collection, vulnerability analysis, web programs, database evaluation, password security, wireless security, reverse engineering, vulnerability exploitation, sniffing/spoofing, permission maintenance, digital forensics, security reporting, social engineering, etc.
 
-5、Open source protocol conflict resolution
+4、Open source protocol conflict resolution
 
 The open source rules of Phpsploit-Framework software are based on the GPLv3 open source protocol. However, Phpsploit-Framework software authors have added some additional terms on the basis of the GPLv3 open source protocol (this is mainly to ensure the healthy development of Phpsploit-Framework software: It can only be used for penetration testing, security audit, security technology research and learning under the premise of legal authorization). In case of conflict between the content in the GPLv3 open source agreement and the content in the additional terms, the content in the additional terms shall prevail. For details about additional terms, see the User Authorization and License Agreement in the Phpsploit-Framework software (Disclaimer) "content section or" User_Agreement_and_Disclaimer.pdf "file.
 
-
+5、Other Description
 
 The latest version of the software can be obtained from the following location: https://github.com/huc0day/phpsploit-framework
 
