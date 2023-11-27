@@ -52,3 +52,13 @@ The guidance manual function provided internally by the Phpsploit-Framework soft
 5、Open source protocol conflict resolution
 
 The open source rules of Phpsploit-Framework software are based on the GPLv3 open source protocol. However, Phpsploit-Framework software authors have added some additional terms on the basis of the GPLv3 open source protocol (this is mainly to ensure the healthy development of Phpsploit-Framework software: It can only be used for penetration testing, security audit, security technology research and learning under the premise of legal authorization). In case of conflict between the content in the GPLv3 open source agreement and the content in the additional terms, the content in the additional terms shall prevail. For details about additional terms, see the User Authorization and License Agreement in the Phpsploit-Framework software (Disclaimer) "content section or" User_Agreement_and_Disclaimer.pdf "file.
+
+
+
+The latest version of the software can be obtained from the following location: https://github.com/huc0day/phpsploit-framework
+
+The software license agreement content information, please visit: https://github.com/huc0day/phpsploit-framework/User Agreement and Disclaimer.docx"
+
+The software technology document content information, please visit: "https://github.com/huc0day/phpsploit-framework/Phpsploit-Framework Software Technology White Paper.docx"
+
+The software error and function request tracking information, please visit: https://github.com/huc0day/phpsploit-framework/issues
