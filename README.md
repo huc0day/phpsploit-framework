@@ -57,8 +57,8 @@ The open source rules of Phpsploit-Framework software are based on the GPLv3 ope
 
 The latest version of the software can be obtained from the following location: https://github.com/huc0day/phpsploit-framework
 
-The software license agreement content information, please visit: https://github.com/huc0day/phpsploit-framework/User Agreement and Disclaimer.docx"
+The software license agreement content information, please visit: https://github.com/huc0day/phpsploit-framework/User_Agreement_and_Disclaimer.docx"
 
-The software technology document content information, please visit: "https://github.com/huc0day/phpsploit-framework/Phpsploit-Framework Software Technology White Paper.docx"
+The software technology document content information, please visit: "https://github.com/huc0day/phpsploit-framework/Phpsploit-Framework_Software_Technology_White_Paper.docx"
 
 The software error and function request tracking information, please visit: https://github.com/huc0day/phpsploit-framework/issues
