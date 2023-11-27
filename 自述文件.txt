@@ -1,0 +1,11 @@
+Phpsploit-Framework 软件是在 GNU GPLv3 公共许可证下发布的，但对于Phpsploit-Framework 软件的使用和内容修改等行为，仍然会受到Phpsploit-Framework软件中的补充条款约束。有关补充条款内容，请参阅Phpsploit-Framework 软件中关于“用户协议与免责声明”内容部分的相应内容。
+
+该软件的最新版本可从以下位置获取：https://github.com/huc0day/phpsploit-framework
+
+该软件的授权协议内容的信息，请访问：”https://github.com/huc0day/phpsploit-framework/用户协议与免责声明.docx“
+
+该软件的技术文档内容的信息，请访问：“https://github.com/huc0day/phpsploit-framework/Phpsploit-Framework软件技术白皮书.docx”
+
+该软件的错误和功能请求跟踪器的信息，请访问：https://github.com/huc0day/phpsploit-framework/issues
+
+问题和建议可以发送至：Phpsploit-Framework 软件作者的电子邮箱（huc0day@outlook.com）
