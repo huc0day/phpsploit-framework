@@ -15,6 +15,7 @@ ELF文件解析（Class_Base_Elf64）：解析ELF文件头、程序头表、节�
 网络通信（Class_Base_RawSocket）：处理IPv6原始套接字，支持数据包收发。
 
 会话管理（Class_Base_Session）：基于共享内存和信号量的会话存储。
+
 核心技术
 
 ELF文件解析：
@@ -48,7 +49,8 @@ IPv6原始套接字实现数据包构造与发送。
 用户认证、权限分级（如特权用户与普通用户分离）。
 
 技术价值：实现安全的用户身份验证和权限控制。
-潜在风险点
+
+潜在风险点（须Phpsploit-Framework软件的使用者自行结合具体使用场景进行更进一步的改进与优化完善）
 
 代码注入漏洞：eval()函数直接执行用户输入（如Class_Base_Format::hexs_string_to_string），存在代码执行风险。
 
