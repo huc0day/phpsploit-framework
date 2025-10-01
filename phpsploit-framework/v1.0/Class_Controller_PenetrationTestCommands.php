@@ -29,55 +29,55 @@ along with this program.    If not, see <https://www.gnu.org/licenses/>.
 
 class Class_Controller_PenetrationTestCommands extends Class_Controller
 {
-    private static function _commands_format_to_form_inputs($commands, &$form)
+    private static function _commands_format_to_form_inputs ( $commands , &$form )
     {
-        foreach ($commands as $module_key => $module_item) {
-            foreach ($module_item as $command_key => $command_item) {
-                $form["inputs"][] = array(
-                    "id" => "key_id_" . $command_key,
-                    "title" => $command_item["title"],
-                    "describe" => $command_item["describe"],
-                    "value" => $command_item["command"],
-                    "disabled" => "disabled",
+        foreach ( $commands as $module_key => $module_item ) {
+            foreach ( $module_item as $command_key => $command_item ) {
+                $form[ "inputs" ][] = array (
+                    "id"       => "key_id_" . $command_key ,
+                    "title"    => $command_item[ "title" ] ,
+                    "describe" => $command_item[ "describe" ] ,
+                    "value"    => $command_item[ "command" ] ,
+                    "disabled" => "disabled" ,
                 );
-                foreach ($command_item["examples"] as $index => $example_info) {
-                    $form["inputs"][] = array(
-                        "id" => "examples_id_" . $command_key,
-                        "title" => $example_info["title"],
-                        "describe" => $example_info["describe"],
-                        "value" => $example_info["command"],
-                        "disabled" => "disabled",
+                foreach ( $command_item[ "examples" ] as $index => $example_info ) {
+                    $form[ "inputs" ][] = array (
+                        "id"       => "examples_id_" . $command_key ,
+                        "title"    => $example_info[ "title" ] ,
+                        "describe" => $example_info[ "describe" ] ,
+                        "value"    => $example_info[ "command" ] ,
+                        "disabled" => "disabled" ,
                     );
                 }
             }
         }
     }
 
-    private static function _commands_format_to_form_textareas($commands, &$form)
+    private static function _commands_format_to_form_textareas ( $commands , &$form )
     {
-        foreach ($commands as $module_key => $module_item) {
+        foreach ( $commands as $module_key => $module_item ) {
 
-            foreach ($module_item as $command_key => $command_item) {
-                $_textarea_value = ("\n\n" . "command : " . $command_item["command"] . "\n");
-                $_textarea_value .= ("\n\n" . "describe : " . $command_item["describe"] . "\n");
-                if ((!empty($command_item["examples"])) && (is_array($command_item["examples"]))) {
-                    $_textarea_value .= ("\n" . "examples : ");
-                    foreach ($command_item["examples"] as $index => $example_info) {
-                        if ($index != 0) {
-                            $_textarea_value .= ("\n");
-                            $_textarea_value .= ("           ");
+            foreach ( $module_item as $command_key => $command_item ) {
+                $_textarea_value = ( "\n\n" . "command : " . $command_item[ "command" ] . "\n" );
+                $_textarea_value .= ( "\n\n" . "describe : " . $command_item[ "describe" ] . "\n" );
+                if ( ( ! empty( $command_item[ "examples" ] ) ) && ( is_array ( $command_item[ "examples" ] ) ) ) {
+                    $_textarea_value .= ( "\n" . "examples : " );
+                    foreach ( $command_item[ "examples" ] as $index => $example_info ) {
+                        if ( $index != 0 ) {
+                            $_textarea_value .= ( "\n" );
+                            $_textarea_value .= ( "           " );
                         }
-                        $_textarea_value .= (($example_info["command"]) . (" ") . ("#" . $example_info["describe"]) . "\n");
+                        $_textarea_value .= ( ( $example_info[ "command" ] ) . ( " " ) . ( "#" . $example_info[ "describe" ] ) . "\n" );
 
                     }
                 }
-                $form["textareas"][] = array(
-                    "id" => "key_id_" . $command_key,
-                    "title" => ((!isset($command_item["title"])) ? ("") : ($command_item["title"])),
-                    "describe" => ((!isset($command_item["describe"])) ? ("") : ($command_item["describe"])),
-                    "value" => $_textarea_value,
-                    "disabled" => "disabled",
-                    "style" => ((!isset($command_item["style"])) ? ("") : ($command_item["style"])),
+                $form[ "textareas" ][] = array (
+                    "id"       => "key_id_" . $command_key ,
+                    "title"    => ( ( ! isset( $command_item[ "title" ] ) ) ? ( "" ) : ( $command_item[ "title" ] ) ) ,
+                    "describe" => ( ( ! isset( $command_item[ "describe" ] ) ) ? ( "" ) : ( $command_item[ "describe" ] ) ) ,
+                    "value"    => $_textarea_value ,
+                    "disabled" => "disabled" ,
+                    "style"    => ( ( ! isset( $command_item[ "style" ] ) ) ? ( "" ) : ( $command_item[ "style" ] ) ) ,
                 );
             }
         }
@@ -93,7 +93,7 @@ class Class_Controller_PenetrationTestCommands extends Class_Controller
         if ( ! is_cli () ) {
             $_top    = Class_View_Top::top ();
             $_body   = array (
-                "menu"    => Class_View_Guide_PenetrationTestCommands_Menu::menu()  ,
+                "menu"    => Class_View_Guide_PenetrationTestCommands_Menu::menu () ,
                 "content" => '<div style="width:100%;padding-top:64px;padding-bottom:64px;text-align: center;font-size:32px;">Disclaimers</div>
 <div>
 
@@ -115,17 +115,17 @@ class Class_Controller_PenetrationTestCommands extends Class_Controller
         return null;
     }
 
-    public static function information_gathering($params = array())
+    public static function information_gathering ( $params = array () )
     {
-        if ((!is_cli()) && (!Class_Base_Auth::is_login())) {
-            Class_Base_Response::redirect("/login");
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth::check_permission();
-        $_common_commands = array(
-            "information_gathering" => array(
-                "dmitry" => array(
-                    "title" => 'dmitry : ',
+        Class_Base_Auth::check_permission ();
+        $_common_commands = array (
+            "information_gathering" => array (
+                "dmitry"       => array (
+                    "title"    => 'dmitry : ' ,
                     "describe" => '深度信息收集工具（参数选项：
                     
 -o        将输出内容保存到主机信息文件（ %host.txt ）（或将输出内容保存到以参数选项 -o 指定的文本文件）；
@@ -148,28 +148,28 @@ class Class_Controller_PenetrationTestCommands extends Class_Controller
 
 -t        设置扫描 TCP 端口时的 TTL 值（取值范围： 0～9 ， 默认值为 2 ）（需要附加传递参数选项 -p ）
          
-                    ）',
-                    "command" => 'dmitry [-winsepfb] [-t 0-9] [-o %host.txt] host ',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "对目标主机执行端口扫描行为",
-                            "command" => "dmitry -p <IP地址>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "对目标主机的IP地址执行whois查询行为",
-                            "command" => "dmitry -i <IP地址>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "对目标主机的域名执行whois查询行为",
-                            "command" => "dmitry -w <域名>",
-                        ),
-                    ),
-                ),
-                "ike-scan" => array(
-                    "title" => 'ike-scan : ',
+                    ）' ,
+                    "command"  => 'dmitry [-winsepfb] [-t 0-9] [-o %host.txt] host ' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "对目标主机执行端口扫描行为" ,
+                            "command"  => "dmitry -p <IP地址>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "对目标主机的IP地址执行whois查询行为" ,
+                            "command"  => "dmitry -i <IP地址>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "对目标主机的域名执行whois查询行为" ,
+                            "command"  => "dmitry -w <域名>" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "ike-scan"     => array (
+                    "title"    => 'ike-scan : ' ,
                     "describe" => 'VPN服务嗅探工具（参数选项：
                     
 --help 或-h 显示帮助信息；
@@ -204,29 +204,29 @@ class Class_Controller_PenetrationTestCommands extends Class_Controller
 
 --vendor = <十六进制值>或-e <十六进制值> 将供应商的ID字符串内容设置为指定的十六进制值
                     
-                    ）',
-                    "command" => 'ike-scan <参数选项> <IP地址或域名>',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "根据IP地址嗅探目标主机的VPN服务",
-                            "command" => "ike-scan <IP地址>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "根据域名嗅探目标主机的VPN服务",
-                            "command" => "ike-scan <域名>",
-                        ),
-                    ),
-                ),
-                "legion（root）" => array(
-                    "title" => 'legion（root） : ',
-                    "describe" => '自动枚举工具（图形化工具）',
-                    "command" => 'legion',
-                    "examples" => array(),
-                ),
-                "netdiscover" => array(
-                    "title" => 'netdiscover : ',
+                    ）' ,
+                    "command"  => 'ike-scan <参数选项> <IP地址或域名>' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "根据IP地址嗅探目标主机的VPN服务" ,
+                            "command"  => "ike-scan <IP地址>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "根据域名嗅探目标主机的VPN服务" ,
+                            "command"  => "ike-scan <域名>" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "legion（root）" => array (
+                    "title"    => 'legion（root） : ' ,
+                    "describe" => '自动枚举工具（图形化工具）' ,
+                    "command"  => 'legion' ,
+                    "examples" => array () ,
+                ) ,
+                "netdiscover"  => array (
+                    "title"    => 'netdiscover : ' ,
                     "describe" => '探测局域网中的存活主机信息（参数选项：
 
 -i <网卡接口>：指定网卡接口；
@@ -261,18 +261,18 @@ class Class_Controller_PenetrationTestCommands extends Class_Controller
 
 如果-r、-l或-p未启用，则netdiscover将进行扫描公共LAN地址。 
                     
-                    ）',
-                    "command" => 'netdiscover [-i <网络接口名称>] [-r <网段地址范围>|-l <扫描范围文件>|-p] [-m <已知MAC和主机名的扫描列表文件>] [-F <过滤器名称>] [-s <毫秒数>] [-c <发送相同ARP请求的次数>] [-n <IPV4地址的最后一段数字>] [-dfPLNS] ',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "使用指定网卡扫描192.168.1.0网段下的存活主机（当前C类网段最多可容纳254台主机）",
-                            "command" => "netdiscover -i <网络接口名称> -r 192.168.1.0/24",
-                        ),
-                    ),
-                ),
-                "p0f" => array(
-                    "title" => 'p0f : ',
+                    ）' ,
+                    "command"  => 'netdiscover [-i <网络接口名称>] [-r <网段地址范围>|-l <扫描范围文件>|-p] [-m <已知MAC和主机名的扫描列表文件>] [-F <过滤器名称>] [-s <毫秒数>] [-c <发送相同ARP请求的次数>] [-n <IPV4地址的最后一段数字>] [-dfPLNS] ' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "使用指定网卡扫描192.168.1.0网段下的存活主机（当前C类网段最多可容纳254台主机）" ,
+                            "command"  => "netdiscover -i <网络接口名称> -r 192.168.1.0/24" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "p0f"          => array (
+                    "title"    => 'p0f : ' ,
                     "describe" => '操作系统指纹识别工具（参数选项：
                     
 网络接口选项：
@@ -310,264 +310,264 @@ class Class_Controller_PenetrationTestCommands extends Class_Controller
   
 可以在命令中指定可选的筛选器表达式（man-tcpdump）线路，以防止p0f查看附带的网络流量。
                     
-                    ）',
-                    "command" => 'p0f -i <网络接口名称> –p',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "监听指定网络接口，同时开启混杂模式",
-                            "command" => "p0f -i <网络接口名称> –p",
-                        ),
-                    ),
-                ),
-                "nmap" => array(
-                    "title" => 'nmap : ',
-                    "describe" => '网络扫描与嗅探工具',
-                    "command" => 'nmap <ip地址>',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "查看软件的帮助信息",
-                            "command" => "nmap -h",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "检测目标主机指定端口号的开放状态",
-                            "command" => "nmap <ip地址> -p <端口号>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "检测目标主机指定范围内全部端口号的开放状态",
-                            "command" => "nmap <ip地址> -p <起始端口号>-<结束端口号>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "检测目标主机指定范围内全部端口号的开放状态",
-                            "command" => "nmap <ip地址> -p <端口号列表，以 逗号“,”作为分隔符>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "检测目标主机全部端口号的开放状态",
-                            "command" => "nmap <ip地址> -p -",
-                        ),
+                    ）' ,
+                    "command"  => 'p0f -i <网络接口名称> –p' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "监听指定网络接口，同时开启混杂模式" ,
+                            "command"  => "p0f -i <网络接口名称> –p" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "nmap"         => array (
+                    "title"    => 'nmap : ' ,
+                    "describe" => '网络扫描与嗅探工具' ,
+                    "command"  => 'nmap <ip地址>' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "查看软件的帮助信息" ,
+                            "command"  => "nmap -h" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "检测目标主机指定端口号的开放状态" ,
+                            "command"  => "nmap <ip地址> -p <端口号>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "检测目标主机指定范围内全部端口号的开放状态" ,
+                            "command"  => "nmap <ip地址> -p <起始端口号>-<结束端口号>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "检测目标主机指定范围内全部端口号的开放状态" ,
+                            "command"  => "nmap <ip地址> -p <端口号列表，以 逗号“,”作为分隔符>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "检测目标主机全部端口号的开放状态" ,
+                            "command"  => "nmap <ip地址> -p -" ,
+                        ) ,
 
-                        array(
-                            "title" => "",
-                            "describe" => "以TCP全连接方式对目标主机进行端口扫描（使用完整的三次握手方式建立通信连接，连接成功，则一般情况下，代表端口处于开放状态）",
-                            "command" => "nmap <ip地址> -sT",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "以TCP半连接方式对目标主机进行端口扫描（仅进行两次通信握手，应答方返回确认帧（ACK=1），则一般情况下，代表端口处于开放状态）",
-                            "command" => "nmap <ip地址> -sS",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "以Fin方式对目标主机进行端口扫描（隐秘扫描方式，向目标主机的端口发送TCP FIN包，收到目标主机返回的RST响应包，则一般情况下，代表端口处于关闭状态！否则，目标端口可能处于开放（open）或屏蔽（filtered）状态）",
-                            "command" => "nmap <ip地址> -sF",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "以Null方式（（向目标主机发送全部标志位（flags）均为0的TCP数据包））对目标主机进行端口扫描（隐秘扫描方式，向目标主机的端口发送Null包，收到目标主机返回的RST响应包，则一般情况下，代表端口处于关闭状态！否则，目标端口可能处于开放（open）或屏蔽（filtered）状态））",
-                            "command" => "nmap <ip地址> -sN",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "以Xmas方式（（向目标主机发送FIN标志位、URG标志位、PUSH标志位均为1的TCP数据包））对目标主机进行端口扫描（隐秘扫描方式，向目标主机的端口发送Xmas tree包，收到目标主机返回的RST响应包，则一般情况下，代表端口处于关闭状态！否则，目标端口可能处于开放（open）或屏蔽（filtered）状态））",
-                            "command" => "nmap <ip地址> -sX",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "对目标主机进行存活探测（以ping方式（icmp请求+icmp回显的通信方式）进行主机存活探测，能接收到来自目标主机的icmp回显数据包，则一般情况下，代表目标主机存活）",
-                            "command" => "nmap <ip地址> -sP",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "对目标主机进行服务识别",
-                            "command" => "nmap <ip地址> -sV",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "对目标主机进行系统识别",
-                            "command" => "nmap <ip地址> -sP",
-                        ),
+                        array (
+                            "title"    => "" ,
+                            "describe" => "以TCP全连接方式对目标主机进行端口扫描（使用完整的三次握手方式建立通信连接，连接成功，则一般情况下，代表端口处于开放状态）" ,
+                            "command"  => "nmap <ip地址> -sT" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "以TCP半连接方式对目标主机进行端口扫描（仅进行两次通信握手，应答方返回确认帧（ACK=1），则一般情况下，代表端口处于开放状态）" ,
+                            "command"  => "nmap <ip地址> -sS" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "以Fin方式对目标主机进行端口扫描（隐秘扫描方式，向目标主机的端口发送TCP FIN包，收到目标主机返回的RST响应包，则一般情况下，代表端口处于关闭状态！否则，目标端口可能处于开放（open）或屏蔽（filtered）状态）" ,
+                            "command"  => "nmap <ip地址> -sF" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "以Null方式（（向目标主机发送全部标志位（flags）均为0的TCP数据包））对目标主机进行端口扫描（隐秘扫描方式，向目标主机的端口发送Null包，收到目标主机返回的RST响应包，则一般情况下，代表端口处于关闭状态！否则，目标端口可能处于开放（open）或屏蔽（filtered）状态））" ,
+                            "command"  => "nmap <ip地址> -sN" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "以Xmas方式（（向目标主机发送FIN标志位、URG标志位、PUSH标志位均为1的TCP数据包））对目标主机进行端口扫描（隐秘扫描方式，向目标主机的端口发送Xmas tree包，收到目标主机返回的RST响应包，则一般情况下，代表端口处于关闭状态！否则，目标端口可能处于开放（open）或屏蔽（filtered）状态））" ,
+                            "command"  => "nmap <ip地址> -sX" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "对目标主机进行存活探测（以ping方式（icmp请求+icmp回显的通信方式）进行主机存活探测，能接收到来自目标主机的icmp回显数据包，则一般情况下，代表目标主机存活）" ,
+                            "command"  => "nmap <ip地址> -sP" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "对目标主机进行服务识别" ,
+                            "command"  => "nmap <ip地址> -sV" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "对目标主机进行系统识别" ,
+                            "command"  => "nmap <ip地址> -sP" ,
+                        ) ,
 
-                        array(
-                            "title" => "",
-                            "describe" => "以文本格式（txt）导出扫描结果",
-                            "command" => "nmap <ip地址> -oN <文本文件的绝对路径>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "以可扩展标记语言格式（xml）导出扫描结果",
-                            "command" => "nmap <ip地址> -oX <xml文件的绝对路径>",
-                        ),
-                    ),
-                ),
-                "recon-ng" => array(
-                    "title" => 'recon-ng : ',
-                    "describe" => '信息收集框架（使用 regon-ng 工具，有时需要使用代理方式，是否需要使用代理方式，一定程度上取决于您当前所处的网络环境。注意，使用代理方式，可能会存在一定安全风险！例如：网络通信数据被恶意的代理服务器劫持、窃取和恶意利用等！代理程序的安装命令为 aptitude install proxychains ，您可能需要编辑代理程序的配置文件（vim /etc/proxychains.conf）（注意，在不同系统环境中，proxychains 工具的配置文件路径可能会有所不同） ， 并在文件内容末尾添加指定格式内容： socks5 127.0.0.1 <代理环境的本地监听端口>）（如您的网络环境无法直接访问regon-ng 工具的官方资源，同时您也不愿使用代理方式访问regon-ng 工具的官方资源，您也可以酌情考虑从github平台下载相关文件（git clone https://github.com/lanmaster53/recon-ng-marketplace.git）。注意，由于相关文件来源于第三方，因此可能会存在一定的安全风险！您需自行鉴别相关文件的安全性与正确性等情况，并自行决定是否进行相关文件的下载与引用）（在线文档 https://www.blackhillsinfosec.com/wp-content/uploads/2019/11/recon-ng-5.x-cheat-sheet-Sheet1-1.pdf 来源于第三方，它记录了 Recon-ng 5.1版本 较之前版本的一些变化）',
-                    "command" => 'recon-ng 或 proxychains recon-ng',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "创建一个新的工作区",
-                            "command" => "recon-ng -w <工作区名称>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "查看帮助信息",
-                            "command" => "help",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "退出recon-ng软件",
-                            "command" => "exit",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "返回到上一层",
-                            "command" => "back",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "显示概要",
-                            "command" => "dashboard",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "数据库接口",
-                            "command" => "db <insert/delete/query/schema/notes> companies",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "查看全部的模块索引",
-                            "command" => "index all",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "查看全部的第三方凭证",
-                            "command" => "keys list",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "添加指定的第三方凭证",
-                            "command" => "keys add <凭证名称> <凭证内容>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "删除指定的第三方凭证",
-                            "command" => "keys remove <凭证名称>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "显示全部模块的相关信息",
-                            "command" => "marketplace info all",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "显示模块列表",
-                            "command" => "marketplace search",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "刷新模块接口",
-                            "command" => "marketplace refresh",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "安装全部模块",
-                            "command" => "marketplace install all",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "搜索指定模块",
-                            "command" => "marketplace search <模块名称>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "安装指定模块",
-                            "command" => "marketplace install <模块路径>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "管理指定模块",
-                            "command" => "modules <load/reload/search> <模块路径>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "查看模块的配置信息",
-                            "command" => "info",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "查看模块配置中的全部变量内容",
-                            "command" => "options list",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "更新模块配置中的指定变量的内容",
-                            "command" => "options set <模块变量名称> <模块变量内容>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "清空模块配置中的指定变量的内容",
-                            "command" => "options unset <模块变量名称> <模块变量内容>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "执行模块内容",
-                            "command" => "run",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "启动内置的python",
-                            "command" => "pdb",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "记录并执行命令脚本",
-                            "command" => "srcipt <<record [filename]>/<execute [filename]>/stop/status>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "执行shell命令",
-                            "command" => "shell <指定命令>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "查看各类框架模块的相应内容",
-                            "command" => "show <companies|contacts|credentials|domains|hosts|leaks|locations|netblocks|ports|profiles|pushpins|repositories|vulnerabilities>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "管理工作区快照",
-                            "command" => "snapshots <take/remove/list/<load [snapshot_name]>>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "输出到文件",
-                            "command" => "spool <<start [filename]>/stop/status>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "管理工作区",
-                            "command" => "workspaces <create/load/list/remove>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "项目的官方地址",
-                            "command" => "https://github.com/lanmaster53/recon-ng",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "故障排除的官方说明页",
-                            "command" => "https://github.com/lanmaster53/recon-ng/wiki/Troubleshooting#issue-reporting",
-                        ),
-                    ),
-                ),
-                "altdns" => array(
-                    "title" => 'altdns : ',
+                        array (
+                            "title"    => "" ,
+                            "describe" => "以文本格式（txt）导出扫描结果" ,
+                            "command"  => "nmap <ip地址> -oN <文本文件的绝对路径>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "以可扩展标记语言格式（xml）导出扫描结果" ,
+                            "command"  => "nmap <ip地址> -oX <xml文件的绝对路径>" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "recon-ng"     => array (
+                    "title"    => 'recon-ng : ' ,
+                    "describe" => '信息收集框架（使用 regon-ng 工具，有时需要使用代理方式，是否需要使用代理方式，一定程度上取决于您当前所处的网络环境。注意，使用代理方式，可能会存在一定安全风险！例如：网络通信数据被恶意的代理服务器劫持、窃取和恶意利用等！代理程序的安装命令为 aptitude install proxychains ，您可能需要编辑代理程序的配置文件（vim /etc/proxychains.conf）（注意，在不同系统环境中，proxychains 工具的配置文件路径可能会有所不同） ， 并在文件内容末尾添加指定格式内容： socks5 127.0.0.1 <代理环境的本地监听端口>）（如您的网络环境无法直接访问regon-ng 工具的官方资源，同时您也不愿使用代理方式访问regon-ng 工具的官方资源，您也可以酌情考虑从github平台下载相关文件（git clone https://github.com/lanmaster53/recon-ng-marketplace.git）。注意，由于相关文件来源于第三方，因此可能会存在一定的安全风险！您需自行鉴别相关文件的安全性与正确性等情况，并自行决定是否进行相关文件的下载与引用）（在线文档 https://www.blackhillsinfosec.com/wp-content/uploads/2019/11/recon-ng-5.x-cheat-sheet-Sheet1-1.pdf 来源于第三方，它记录了 Recon-ng 5.1版本 较之前版本的一些变化）' ,
+                    "command"  => 'recon-ng 或 proxychains recon-ng' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "创建一个新的工作区" ,
+                            "command"  => "recon-ng -w <工作区名称>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "查看帮助信息" ,
+                            "command"  => "help" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "退出recon-ng软件" ,
+                            "command"  => "exit" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "返回到上一层" ,
+                            "command"  => "back" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "显示概要" ,
+                            "command"  => "dashboard" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "数据库接口" ,
+                            "command"  => "db <insert/delete/query/schema/notes> companies" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "查看全部的模块索引" ,
+                            "command"  => "index all" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "查看全部的第三方凭证" ,
+                            "command"  => "keys list" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "添加指定的第三方凭证" ,
+                            "command"  => "keys add <凭证名称> <凭证内容>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "删除指定的第三方凭证" ,
+                            "command"  => "keys remove <凭证名称>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "显示全部模块的相关信息" ,
+                            "command"  => "marketplace info all" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "显示模块列表" ,
+                            "command"  => "marketplace search" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "刷新模块接口" ,
+                            "command"  => "marketplace refresh" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "安装全部模块" ,
+                            "command"  => "marketplace install all" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "搜索指定模块" ,
+                            "command"  => "marketplace search <模块名称>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "安装指定模块" ,
+                            "command"  => "marketplace install <模块路径>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "管理指定模块" ,
+                            "command"  => "modules <load/reload/search> <模块路径>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "查看模块的配置信息" ,
+                            "command"  => "info" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "查看模块配置中的全部变量内容" ,
+                            "command"  => "options list" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "更新模块配置中的指定变量的内容" ,
+                            "command"  => "options set <模块变量名称> <模块变量内容>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "清空模块配置中的指定变量的内容" ,
+                            "command"  => "options unset <模块变量名称> <模块变量内容>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "执行模块内容" ,
+                            "command"  => "run" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "启动内置的python" ,
+                            "command"  => "pdb" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "记录并执行命令脚本" ,
+                            "command"  => "srcipt <<record [filename]>/<execute [filename]>/stop/status>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "执行shell命令" ,
+                            "command"  => "shell <指定命令>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "查看各类框架模块的相应内容" ,
+                            "command"  => "show <companies|contacts|credentials|domains|hosts|leaks|locations|netblocks|ports|profiles|pushpins|repositories|vulnerabilities>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "管理工作区快照" ,
+                            "command"  => "snapshots <take/remove/list/<load [snapshot_name]>>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "输出到文件" ,
+                            "command"  => "spool <<start [filename]>/stop/status>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "管理工作区" ,
+                            "command"  => "workspaces <create/load/list/remove>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "项目的官方地址" ,
+                            "command"  => "https://github.com/lanmaster53/recon-ng" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "故障排除的官方说明页" ,
+                            "command"  => "https://github.com/lanmaster53/recon-ng/wiki/Troubleshooting#issue-reporting" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "altdns"       => array (
+                    "title"    => 'altdns : ' ,
                     "describe" => '子域名信息枚举工具（参数选项：
 
   -h 或 --help    查看帮助信息
@@ -590,13 +590,13 @@ class Class_Controller_PenetrationTestCommands extends Class_Controller
   
   -t <同时运行的线程数量> 或 --threads <同时运行的线程数量>  要同时运行的线程数 
                       
-                    ）',
-                    "command" => 'altdns [-h] -i INPUT -o OUTPUT [-w WORDLIST] [-r] [-n] [-e] [-d DNSSERVER] [-s SAVE] [-t THREADS]',
-                    "examples" => array(),
+                    ）' ,
+                    "command"  => 'altdns [-h] -i INPUT -o OUTPUT [-w WORDLIST] [-r] [-n] [-e] [-d DNSSERVER] [-s SAVE] [-t THREADS]' ,
+                    "examples" => array () ,
 
-                ),
-                "spiderfoot" => array(
-                    "title" => 'spiderfoot : ',
+                ) ,
+                "spiderfoot"   => array (
+                    "title"    => 'spiderfoot : ' ,
                     "describe" => '网站信息收集工具（参数选项：
                             
 -h --help 显示帮助信息；
@@ -645,66 +645,66 @@ class Class_Controller_PenetrationTestCommands extends Class_Controller
 
 -max-threads <最大线程数量> 指定当前软件进程可同时运行的功能模块数量
                             
-                            ）',
-                    "command" => 'spiderfoot [-h] [-d] [-l IP:port] [-m mod1,mod2,...] [-M] [-C scanID] [-s TARGET] [-t type1,type2,...] [-u {all,footprint,investigate,passive}] [-T] [-o {tab,csv,json}] [-H] [-n] [-r] [-S LENGTH] [-D DELIMITER] [-f] [-F type1,type2,...] [-x] [-q] [-V] [-max-threads MAX_THREADS]',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => '以调试模式启动spiderfoot软件对应的web环境（在启动时指定本地监听IP与监听端口）（当提示 Correlation rules directory does not exist: /usr/share/spiderfoot/correlations/ 时，可使用适当账户及权限执行目录创建命令 mkdir -p /usr/share/spiderfoot/correlations/ ,之后重新尝试启动 spiderfoot ）',
-                            "command" => "spiderfoot -l <本地IP地址>:<本地监听端口> --debug",
-                        ),
-                    ),
-                ),
-            ),
+                            ）' ,
+                    "command"  => 'spiderfoot [-h] [-d] [-l IP:port] [-m mod1,mod2,...] [-M] [-C scanID] [-s TARGET] [-t type1,type2,...] [-u {all,footprint,investigate,passive}] [-T] [-o {tab,csv,json}] [-H] [-n] [-r] [-S LENGTH] [-D DELIMITER] [-f] [-F type1,type2,...] [-x] [-q] [-V] [-max-threads MAX_THREADS]' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => '以调试模式启动spiderfoot软件对应的web环境（在启动时指定本地监听IP与监听端口）（当提示 Correlation rules directory does not exist: /usr/share/spiderfoot/correlations/ 时，可使用适当账户及权限执行目录创建命令 mkdir -p /usr/share/spiderfoot/correlations/ ,之后重新尝试启动 spiderfoot ）' ,
+                            "command"  => "spiderfoot -l <本地IP地址>:<本地监听端口> --debug" ,
+                        ) ,
+                    ) ,
+                ) ,
+            ) ,
         );
-        if (!is_cli()) {
+        if ( ! is_cli () ) {
             $_form_top = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Information Gathering Commands</div>';
-            $_form = array(
-                "action" => "/guide/penetration_test_commands",
-                "inputs" => array(),
-                "textareas" => array(),
-                "submit" => array(
-                    "value" => " return to Penetration Test Commands ",
-                    "display" => true,
-                ),
-                "reset" => array(
-                    "display" => false,
-                ),
+            $_form     = array (
+                "action"    => "/guide/penetration_test_commands" ,
+                "inputs"    => array () ,
+                "textareas" => array () ,
+                "submit"    => array (
+                    "value"   => " return to Penetration Test Commands " ,
+                    "display" => true ,
+                ) ,
+                "reset"     => array (
+                    "display" => false ,
+                ) ,
             );
-            self::_commands_format_to_form_textareas($_common_commands, $_form);
-            $_top = Class_View_Top::top();
-            $_body = array(
-                "menu" => Class_View_Guide_PenetrationTestCommands_Menu::menu(),
-                "content" => (($_form_top) . Class_View::form_body($_form)),
+            self::_commands_format_to_form_textareas ( $_common_commands , $_form );
+            $_top    = Class_View_Top::top ();
+            $_body   = array (
+                "menu"    => Class_View_Guide_PenetrationTestCommands_Menu::menu () ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
-            $_bottom = Class_View_Bottom::bottom();
-            Class_Base_Response::output(Class_View::index($_top, $_body, $_bottom), "text", 0);
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
-    public static function vulnerability_analysis($params = array())
+    public static function vulnerability_analysis ( $params = array () )
     {
-        if ((!is_cli()) && (!Class_Base_Auth::is_login())) {
-            Class_Base_Response::redirect("/login");
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        $_common_commands = array(
-            "vulnerability_analysis" => array(
-                "openvas" => array(
-                    "title" => 'openvas : ',
-                    "describe" => '开放式漏洞评估系统（Web界面）（默认监听 tcp 9390 端口）',
-                    "command" => 'openvas',
-                    "examples" => array(),
-                ),
-                "nessus" => array(
-                    "title" => 'nessus : ',
-                    "describe" => '系统漏洞扫描与分析软件（Web界面）（默认监听 tcp 8834 端口）',
-                    "command" => 'nessus',
-                    "examples" => array(),
-                ),
-                "nikto" => array(
-                    "title" => 'nikto : ',
+        $_common_commands = array (
+            "vulnerability_analysis" => array (
+                "openvas"            => array (
+                    "title"    => 'openvas : ' ,
+                    "describe" => '开放式漏洞评估系统（Web界面）（默认监听 tcp 9390 端口）' ,
+                    "command"  => 'openvas' ,
+                    "examples" => array () ,
+                ) ,
+                "nessus"             => array (
+                    "title"    => 'nessus : ' ,
+                    "describe" => '系统漏洞扫描与分析软件（Web界面）（默认监听 tcp 8834 端口）' ,
+                    "command"  => 'nessus' ,
+                    "examples" => array () ,
+                ) ,
+                "nikto"              => array (
+                    "title"    => 'nikto : ' ,
                     "describe" => '开源WEB安全扫描器（
 
    Options:
@@ -811,33 +811,33 @@ class Class_Controller_PenetrationTestCommands extends Class_Controller
    		+ requires a value
 
                     ）
-                    ',
-                    "command" => 'nikto -h <目标URL>',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "对指定URL进行HTTP扫描（访问指定端口）",
-                            "command" => "nikto -h <目标URL> -p 80",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "对指定URL进行HTTPS扫描（访问指定端口）",
-                            "command" => "nikto -h <目标URL> -p 443 -ssl",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "对指定URL进行HTTPS扫描（访问指定端口）",
-                            "command" => "nikto -h <目标站点域名> -p 443 -ssl",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "对目标站点的进行目录爆破（使用HTTPS协议）",
-                            "command" => "nikto -h <目标站点域名> -p 443 -ssl -c all",
-                        ),
-                    ),
-                ),
-                "unix-privesc-check" => array(
-                    "title" => 'unix-privesc-check : ',
+                    ' ,
+                    "command"  => 'nikto -h <目标URL>' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "对指定URL进行HTTP扫描（访问指定端口）" ,
+                            "command"  => "nikto -h <目标URL> -p 80" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "对指定URL进行HTTPS扫描（访问指定端口）" ,
+                            "command"  => "nikto -h <目标URL> -p 443 -ssl" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "对指定URL进行HTTPS扫描（访问指定端口）" ,
+                            "command"  => "nikto -h <目标站点域名> -p 443 -ssl" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "对目标站点的进行目录爆破（使用HTTPS协议）" ,
+                            "command"  => "nikto -h <目标站点域名> -p 443 -ssl -c all" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "unix-privesc-check" => array (
+                    "title"    => 'unix-privesc-check : ' ,
                     "describe" => '提权漏洞快速检测工具（
                     
 unix权限检查v1.4（http://pentestmonkey.net/tools/unix-privesc-check）
@@ -856,60 +856,60 @@ unix权限检查v1.4（http://pentestmonkey.net/tools/unix-privesc-check）
 
 在输出中搜索单词“WARNING”。如果你没有看到，那么这个脚本并没有发现任何问题。
                     
-                    ）',
-                    "command" => 'unix-privesc-check',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "以标准模式进行本地扫描",
-                            "command" => "unix-privesc-check standard",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "以详细模式进行本地扫描",
-                            "command" => "unix-privesc-check detailed",
-                        ),
-                    ),
-                ),
-            ),
+                    ）' ,
+                    "command"  => 'unix-privesc-check' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "以标准模式进行本地扫描" ,
+                            "command"  => "unix-privesc-check standard" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "以详细模式进行本地扫描" ,
+                            "command"  => "unix-privesc-check detailed" ,
+                        ) ,
+                    ) ,
+                ) ,
+            ) ,
         );
-        Class_Base_Auth::check_permission();
-        if (!is_cli()) {
+        Class_Base_Auth::check_permission ();
+        if ( ! is_cli () ) {
             $_form_top = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Vulnerability Analysis Commands</div>';
-            $_form = array(
-                "action" => "/guide/penetration_test_commands",
-                "inputs" => array(),
-                "textareas" => array(),
-                "submit" => array(
-                    "value" => " return to Penetration Test Commands ",
-                    "display" => true,
-                ),
-                "reset" => array(
-                    "display" => false,
-                ),
+            $_form     = array (
+                "action"    => "/guide/penetration_test_commands" ,
+                "inputs"    => array () ,
+                "textareas" => array () ,
+                "submit"    => array (
+                    "value"   => " return to Penetration Test Commands " ,
+                    "display" => true ,
+                ) ,
+                "reset"     => array (
+                    "display" => false ,
+                ) ,
             );
-            self::_commands_format_to_form_textareas($_common_commands, $_form);
-            $_top = Class_View_Top::top();
-            $_body = array(
-                "menu" => Class_View_Guide_PenetrationTestCommands_Menu::menu(),
-                "content" => (($_form_top) . Class_View::form_body($_form)),
+            self::_commands_format_to_form_textareas ( $_common_commands , $_form );
+            $_top    = Class_View_Top::top ();
+            $_body   = array (
+                "menu"    => Class_View_Guide_PenetrationTestCommands_Menu::menu () ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
-            $_bottom = Class_View_Bottom::bottom();
-            Class_Base_Response::output(Class_View::index($_top, $_body, $_bottom), "text", 0);
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
-    public static function web_program($params = array())
+    public static function web_program ( $params = array () )
     {
-        if ((!is_cli()) && (!Class_Base_Auth::is_login())) {
-            Class_Base_Response::redirect("/login");
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        $_common_commands = array(
-            "web_program" => array(
-                "dirb" => array(
-                    "title" => 'dirb : ',
+        $_common_commands = array (
+            "web_program" => array (
+                "dirb"      => array (
+                    "title"    => 'dirb : ' ,
                     "describe" => 'web网站目录猜解工具（参数选项：
                     
  -a <agent_string>  : 指定自定义的USER_AGENT信息；
@@ -955,35 +955,35 @@ unix权限检查v1.4（http://pentestmonkey.net/tools/unix-privesc-check）
  -z <millisecs> : 添加一个毫秒延迟以避免引发过大的洪水；
   
                     
-                    ）',
-                    "command" => 'dirb <url_base> [<wordlist_file(s)>] [options]',
-                    "style" => 'height:250px;',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "转到下一个目录",
-                            "command" => "n",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "停止扫描（保存当前状态，以备进行后续查询）",
-                            "command" => "q",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "剩余扫描统计数据",
-                            "command" => "r",
-                        ),
-                    ),
-                ),
-                "burpsuite" => array(
-                    "title" => 'burpsuite : ',
-                    "describe" => '开放式漏洞评估系统（Web界面）',
-                    "command" => 'burpsuite',
-                    "examples" => array(),
-                ),
-                "commix" => array(
-                    "title" => 'commix : ',
+                    ）' ,
+                    "command"  => 'dirb <url_base> [<wordlist_file(s)>] [options]' ,
+                    "style"    => 'height:250px;' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "转到下一个目录" ,
+                            "command"  => "n" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "停止扫描（保存当前状态，以备进行后续查询）" ,
+                            "command"  => "q" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "剩余扫描统计数据" ,
+                            "command"  => "r" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "burpsuite" => array (
+                    "title"    => 'burpsuite : ' ,
+                    "describe" => '开放式漏洞评估系统（Web界面）' ,
+                    "command"  => 'burpsuite' ,
+                    "examples" => array () ,
+                ) ,
+                "commix"    => array (
+                    "title"    => 'commix : ' ,
                     "describe" => '开源自动化检测系统命令注入工具（
                     
 Options: 
@@ -1194,19 +1194,19 @@ Options:
     --disable-coloring  Disable console output coloring. （禁用控制台输出着色）
 
                     
-                    ）',
-                    "command" => 'commix [option(s)]',
-                    "style" => 'height:400px;',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "commix注入",
-                            "command" => "commix --url \"<目标URL>\" --cookie=\"<目标COOKIE>\" --data=\"<POST格式字符串>\"",
-                        ),
-                    ),
-                ),
-                "skipfish" => array(
-                    "title" => 'skipfish : ',
+                    ）' ,
+                    "command"  => 'commix [option(s)]' ,
+                    "style"    => 'height:400px;' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "commix注入" ,
+                            "command"  => "commix --url \"<目标URL>\" --cookie=\"<目标COOKIE>\" --data=\"<POST格式字符串>\"" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "skipfish"  => array (
+                    "title"    => 'skipfish : ' ,
                     "describe" => '高度自动化的Web应用程序安全测试工具（
                     
 Authentication and access options: （身份验证和访问选项）
@@ -1329,18 +1329,18 @@ Other settings:（其它设置）
 
 Send comments and complaints to <heinenn@google.com>. （将评论和投诉发送到<heinenn@google.com>。）
                     
-                    ）',
-                    "command" => 'skipfish [ options ... ] -W wordlist -o output_dir start_url [ start_url2 ... ]',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "对指定URL进行安全扫描（-o 将输出结果写入到指定目录，-I 只跟踪匹配'string'的url）",
-                            "command" => "skipfish -o <指定输出目录> -I <指定字符串> <指定URL>",
-                        ),
-                    ),
-                ),
-                "wpscan" => array(
-                    "title" => 'wpscan : ',
+                    ）' ,
+                    "command"  => 'skipfish [ options ... ] -W wordlist -o output_dir start_url [ start_url2 ... ]' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "对指定URL进行安全扫描（-o 将输出结果写入到指定目录，-I 只跟踪匹配'string'的url）" ,
+                            "command"  => "skipfish -o <指定输出目录> -I <指定字符串> <指定URL>" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "wpscan"    => array (
+                    "title"    => 'wpscan : ' ,
                     "describe" => '基于白盒测试的WordPress安全扫描器（
                     
 options: 
@@ -1455,86 +1455,86 @@ options:
 [!] To see full list of options use --hh.
 
         
-                    ）',
-                    "command" => 'wpscan [options]',
-                    "style" => 'height:300px;line-height:24px;',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "常规扫描",
-                            "command" => "wpscan --url \"<目标URL>\"",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "主题扫描",
-                            "command" => "wpscan --url \"<目标URL>\" --enumerate t",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "主题漏洞扫描",
-                            "command" => "wpscan --url \"<目标URL>\" --enumerate vt",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "插件扫描",
-                            "command" => "wpscan --url \"<目标URL>\" --enumerate p",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "插件漏洞扫描",
-                            "command" => "wpscan --url \"<目标URL>\" --enumerate vp",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "枚举wordpress用户",
-                            "command" => "wpscan --url \"<目标URL>\" --enumerate u",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "用户名密码暴力破解",
-                            "command" => "wpscan --url \"<目标URL>\" --username <用户名> --wordlist <密码字典文件>",
-                        ),
-                    ),
-                ),
-            ),
+                    ）' ,
+                    "command"  => 'wpscan [options]' ,
+                    "style"    => 'height:300px;line-height:24px;' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "常规扫描" ,
+                            "command"  => "wpscan --url \"<目标URL>\"" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "主题扫描" ,
+                            "command"  => "wpscan --url \"<目标URL>\" --enumerate t" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "主题漏洞扫描" ,
+                            "command"  => "wpscan --url \"<目标URL>\" --enumerate vt" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "插件扫描" ,
+                            "command"  => "wpscan --url \"<目标URL>\" --enumerate p" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "插件漏洞扫描" ,
+                            "command"  => "wpscan --url \"<目标URL>\" --enumerate vp" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "枚举wordpress用户" ,
+                            "command"  => "wpscan --url \"<目标URL>\" --enumerate u" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "用户名密码暴力破解" ,
+                            "command"  => "wpscan --url \"<目标URL>\" --username <用户名> --wordlist <密码字典文件>" ,
+                        ) ,
+                    ) ,
+                ) ,
+            ) ,
         );
-        Class_Base_Auth::check_permission();
-        if (!is_cli()) {
+        Class_Base_Auth::check_permission ();
+        if ( ! is_cli () ) {
             $_form_top = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Web Program Commands</div>';
-            $_form = array(
-                "action" => "/guide/penetration_test_commands",
-                "inputs" => array(),
-                "textareas" => array(),
-                "submit" => array(
-                    "value" => " return to Penetration Test Commands ",
-                    "display" => true,
-                ),
-                "reset" => array(
-                    "display" => false,
-                ),
+            $_form     = array (
+                "action"    => "/guide/penetration_test_commands" ,
+                "inputs"    => array () ,
+                "textareas" => array () ,
+                "submit"    => array (
+                    "value"   => " return to Penetration Test Commands " ,
+                    "display" => true ,
+                ) ,
+                "reset"     => array (
+                    "display" => false ,
+                ) ,
             );
-            self::_commands_format_to_form_textareas($_common_commands, $_form);
-            $_top = Class_View_Top::top();
-            $_body = array(
-                "menu" => Class_View_Guide_PenetrationTestCommands_Menu::menu(),
-                "content" => (($_form_top) . Class_View::form_body($_form)),
+            self::_commands_format_to_form_textareas ( $_common_commands , $_form );
+            $_top    = Class_View_Top::top ();
+            $_body   = array (
+                "menu"    => Class_View_Guide_PenetrationTestCommands_Menu::menu () ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
-            $_bottom = Class_View_Bottom::bottom();
-            Class_Base_Response::output(Class_View::index($_top, $_body, $_bottom), "text", 0);
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
-    public static function database_evaluation($params = array())
+    public static function database_evaluation ( $params = array () )
     {
-        if ((!is_cli()) && (!Class_Base_Auth::is_login())) {
-            Class_Base_Response::redirect("/login");
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        $_common_commands = array(
-            "database_evaluation" => array(
-                "sqlmap" => array(
-                    "title" => 'sqlmap : ',
+        $_common_commands = array (
+            "database_evaluation" => array (
+                "sqlmap"                  => array (
+                    "title"    => 'sqlmap : ' ,
                     "describe" => '自动化的SQL注入工具（
                     
 Options:
@@ -1658,97 +1658,97 @@ Request:
 [!] to see full list of options run with \'-hh\'
 
                     
-                    ）',
-                    "command" => 'python3 sqlmap [options]',
-                    "style" => 'height:300px;line-height:24px;',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "探测目标是否存在GET方式的SQL注入漏洞",
-                            "command" => "python3 sqlmap -u <目标URL>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "探测目标是否存在POST方式的SQL注入漏洞（注意，每次SQL注入测试，均需使用保存有HTTP最新报文内容的指定文件）",
-                            "command" => "python3 sqlmap -r <内容为HTTP请求报文的指定文件的绝对路径>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "利用存在SQL注入漏洞的目标URL探测数据库服务器中的数据库名称列表",
-                            "command" => "python3 sqlmap -u <目标URL> --dbs",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "利用存在SQL注入漏洞的目标URL探测数据库服务器中的当前数据库名称",
-                            "command" => "python3 sqlmap -u <目标URL> --current-db",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "利用存在SQL注入漏洞的目标URL探测数据库服务器中的指定数据库对应的数据表名称列表",
-                            "command" => "python3 sqlmap -u <目标URL> –D <数据库名称> --tables",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "利用存在SQL注入漏洞的目标URL探测数据库服务器中的指定数据库的指定数据表对应的数据字段名称列表",
-                            "command" => "python3 sqlmap -u <目标URL> -D <数据库名称> –T <数据表名称> --columns",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "利用存在SQL注入漏洞的目标URL探测数据库服务器中的指定数据库的指定数据表对的指定数据字段对应的字段值列表",
-                            "command" => "python3 sqlmap -u <目标URL> -D <数据库名称> –T <数据表名称> -C <数据字段名称> --dump",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "对登陆框（表单）进行SQL注入",
-                            "command" => "python3 sqlmap -u <目标URL> --form",
-                        ),
-                    ),
-                ),
-                "sqlite-database-browser" => array(
-                    "title" => 'sqlite-database-browser : ',
-                    "describe" => 'Sqlite数据库可视化管理工具（图形化界面）',
-                    "command" => 'sqlitebrowser',
-                    "examples" => array(),
-                ),
-            ),
+                    ）' ,
+                    "command"  => 'python3 sqlmap [options]' ,
+                    "style"    => 'height:300px;line-height:24px;' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "探测目标是否存在GET方式的SQL注入漏洞" ,
+                            "command"  => "python3 sqlmap -u <目标URL>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "探测目标是否存在POST方式的SQL注入漏洞（注意，每次SQL注入测试，均需使用保存有HTTP最新报文内容的指定文件）" ,
+                            "command"  => "python3 sqlmap -r <内容为HTTP请求报文的指定文件的绝对路径>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "利用存在SQL注入漏洞的目标URL探测数据库服务器中的数据库名称列表" ,
+                            "command"  => "python3 sqlmap -u <目标URL> --dbs" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "利用存在SQL注入漏洞的目标URL探测数据库服务器中的当前数据库名称" ,
+                            "command"  => "python3 sqlmap -u <目标URL> --current-db" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "利用存在SQL注入漏洞的目标URL探测数据库服务器中的指定数据库对应的数据表名称列表" ,
+                            "command"  => "python3 sqlmap -u <目标URL> –D <数据库名称> --tables" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "利用存在SQL注入漏洞的目标URL探测数据库服务器中的指定数据库的指定数据表对应的数据字段名称列表" ,
+                            "command"  => "python3 sqlmap -u <目标URL> -D <数据库名称> –T <数据表名称> --columns" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "利用存在SQL注入漏洞的目标URL探测数据库服务器中的指定数据库的指定数据表对的指定数据字段对应的字段值列表" ,
+                            "command"  => "python3 sqlmap -u <目标URL> -D <数据库名称> –T <数据表名称> -C <数据字段名称> --dump" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "对登陆框（表单）进行SQL注入" ,
+                            "command"  => "python3 sqlmap -u <目标URL> --form" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "sqlite-database-browser" => array (
+                    "title"    => 'sqlite-database-browser : ' ,
+                    "describe" => 'Sqlite数据库可视化管理工具（图形化界面）' ,
+                    "command"  => 'sqlitebrowser' ,
+                    "examples" => array () ,
+                ) ,
+            ) ,
         );
-        Class_Base_Auth::check_permission();
-        if (!is_cli()) {
+        Class_Base_Auth::check_permission ();
+        if ( ! is_cli () ) {
             $_form_top = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Database Evaluation Commands</div>';
-            $_form = array(
-                "action" => "/guide/penetration_test_commands",
-                "inputs" => array(),
-                "textareas" => array(),
-                "submit" => array(
-                    "value" => " return to Penetration Test Commands ",
-                    "display" => true,
-                ),
-                "reset" => array(
-                    "display" => false,
-                ),
+            $_form     = array (
+                "action"    => "/guide/penetration_test_commands" ,
+                "inputs"    => array () ,
+                "textareas" => array () ,
+                "submit"    => array (
+                    "value"   => " return to Penetration Test Commands " ,
+                    "display" => true ,
+                ) ,
+                "reset"     => array (
+                    "display" => false ,
+                ) ,
             );
-            self::_commands_format_to_form_textareas($_common_commands, $_form);
-            $_top = Class_View_Top::top();
-            $_body = array(
-                "menu" => Class_View_Guide_PenetrationTestCommands_Menu::menu(),
-                "content" => (($_form_top) . Class_View::form_body($_form)),
+            self::_commands_format_to_form_textareas ( $_common_commands , $_form );
+            $_top    = Class_View_Top::top ();
+            $_body   = array (
+                "menu"    => Class_View_Guide_PenetrationTestCommands_Menu::menu () ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
-            $_bottom = Class_View_Bottom::bottom();
-            Class_Base_Response::output(Class_View::index($_top, $_body, $_bottom), "text", 0);
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
-    public static function password_attack($params = array())
+    public static function password_attack ( $params = array () )
     {
-        if ((!is_cli()) && (!Class_Base_Auth::is_login())) {
-            Class_Base_Response::redirect("/login");
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        $_common_commands = array(
-            "password_attack" => array(
-                "cewl" => array(
-                    "title" => 'cewl : ',
+        $_common_commands = array (
+            "password_attack" => array (
+                "cewl"         => array (
+                    "title"    => 'cewl : ' ,
                     "describe" => '利用网络爬虫技术来进行字典生成的工具软件（
                     
 Options:
@@ -1827,23 +1827,23 @@ Options:
     <url>: The site to spider.
 
                     
-                    ）',
-                    "command" => 'cewl [OPTIONS] ... <url>',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "利用爬虫创建字典文件",
-                            "command" => "cewl <目标URL> -w <字典文件保存路径>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "利用爬虫创建字典文件（电子邮件地址列表）",
-                            "command" => "cewl <目标URL> -n -e  -w <字典文件保存路径>",
-                        ),
-                    ),
-                ),
-                "crunch" => array(
-                    "title" => 'crunch : ',
+                    ）' ,
+                    "command"  => 'cewl [OPTIONS] ... <url>' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "利用爬虫创建字典文件" ,
+                            "command"  => "cewl <目标URL> -w <字典文件保存路径>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "利用爬虫创建字典文件（电子邮件地址列表）" ,
+                            "command"  => "cewl <目标URL> -n -e  -w <字典文件保存路径>" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "crunch"       => array (
+                    "title"    => 'crunch : ' ,
                     "describe" => '密码字典生成工具（
                     
 Options:
@@ -1944,18 +1944,18 @@ Options:
               est but has the best compression.
 
                     
-                    ）',
-                    "command" => 'crunch <min‐len> <max‐len> [<charset string>] [options]',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "创建指定长度范围的字典文件（字典内容为纯数字组合）",
-                            "command" => "crunch 6 11 0123456789 -o <字典文件保存路径>",
-                        ),
-                    ),
-                ),
-                "hashcat" => array(
-                    "title" => 'hashcat : ',
+                    ）' ,
+                    "command"  => 'crunch <min‐len> <max‐len> [<charset string>] [options]' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "创建指定长度范围的字典文件（字典内容为纯数字组合）" ,
+                            "command"  => "crunch 6 11 0123456789 -o <字典文件保存路径>" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "hashcat"      => array (
+                    "title"    => 'hashcat : ' ,
                     "describe" => '密码解密渗透工具（
   
 参数选项：
@@ -1983,18 +1983,18 @@ Options:
 
 -h   查看帮助
                     
-                    ）',
-                    "command" => 'hashcat [options]... hash|hashfile|hccapxfile [dictionary|mask|directory]...',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "利用指定规则在当前目录下生成字典文件（--stdout 指定基础文件 -r 指定规则文件 -o 指定字典文件）",
-                            "command" => "hashcat --stdout base.txt -r rules\dive.rule -o test.txt",
-                        ),
-                    ),
-                ),
-                "john" => array(
-                    "title" => 'john : ',
+                    ）' ,
+                    "command"  => 'hashcat [options]... hash|hashfile|hccapxfile [dictionary|mask|directory]...' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "利用指定规则在当前目录下生成字典文件（--stdout 指定基础文件 -r 指定规则文件 -o 指定字典文件）" ,
+                            "command"  => "hashcat --stdout base.txt -r rules\dive.rule -o test.txt" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "john"         => array (
+                    "title"    => 'john : ' ,
                     "describe" => '密码解密渗透工具（
   
 --help : 查看帮助信息；
@@ -2035,33 +2035,33 @@ Options:
 
 --save-memory=level：允许保存当前解密进程的内存快照（level为指定等级，取值范围：1、2、3等）      
                     
-                    ）',
-                    "command" => 'john [OPTIONS] [PASSWORD-FILES]',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "单用户模式解密",
-                            "command" => "sudo john --wordlist=/path/to/wordlist /path/to/password/file",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "多用户模式解密",
-                            "command" => "sudo unshadow /etc/passwd /etc/shadow > passwords.txt && sudo john --wordlist=/path/to/wordlist passwords.txt",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "暴力解密",
-                            "command" => "sudo john --incremental /path/to/password/file",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "彩虹表方式解密",
-                            "command" => "sudo john --format=nt /path/to/password/file --pot=filename && sudo john --session=filename --restore",
-                        ),
-                    ),
-                ),
-                "medusa" => array(
-                    "title" => 'medusa : ',
+                    ）' ,
+                    "command"  => 'john [OPTIONS] [PASSWORD-FILES]' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "单用户模式解密" ,
+                            "command"  => "sudo john --wordlist=/path/to/wordlist /path/to/password/file" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "多用户模式解密" ,
+                            "command"  => "sudo unshadow /etc/passwd /etc/shadow > passwords.txt && sudo john --wordlist=/path/to/wordlist passwords.txt" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "暴力解密" ,
+                            "command"  => "sudo john --incremental /path/to/password/file" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "彩虹表方式解密" ,
+                            "command"  => "sudo john --format=nt /path/to/password/file --pot=filename && sudo john --session=filename --restore" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "medusa"       => array (
+                    "title"    => 'medusa : ' ,
                     "describe" => '密码解密工具（参数选项 :           
                     
 -h [TEXT]：目标主机名或IP地址；
@@ -2122,33 +2122,33 @@ Options:
 
 -Z [TEXT]：根据上次扫描的地图继续扫描；
                     
-                    ）',
-                    "command" => 'medusa [-h host|-H file] [-u username|-U file] [-p password|-P file] [-C file] -M module [OPT]',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "显示所有已安装的模块",
-                            "command" => "medusa -d",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "显示指定模块的特定选项信息",
-                            "command" => "medusa -M smbnt -q",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "利用SMB服务解密指定主机中指定账户的密码信息",
-                            "command" => "medusa -h <IP地址> -u <用户名> -P <密码字典文件> -e ns -M smbnt",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "利用指定服务解密指定主机列表中指定账户列表的所有密码信息（注意，这可能会耗费很长时间！）",
-                            "command" => "medusa -H <IP地址字典文件> -U <账户字典文件> -P <密码字典文件> -T <并行测试的主机总数（多线程）> -t <并行测试的账户总数（多线程）> -L -F -M <指定模块的名称>",
-                        ),
-                    ),
-                ),
-                "hydra" => array(
-                    "title" => 'hydra : ',
+                    ）' ,
+                    "command"  => 'medusa [-h host|-H file] [-u username|-U file] [-p password|-P file] [-C file] -M module [OPT]' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "显示所有已安装的模块" ,
+                            "command"  => "medusa -d" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "显示指定模块的特定选项信息" ,
+                            "command"  => "medusa -M smbnt -q" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "利用SMB服务解密指定主机中指定账户的密码信息" ,
+                            "command"  => "medusa -h <IP地址> -u <用户名> -P <密码字典文件> -e ns -M smbnt" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "利用指定服务解密指定主机列表中指定账户列表的所有密码信息（注意，这可能会耗费很长时间！）" ,
+                            "command"  => "medusa -H <IP地址字典文件> -U <账户字典文件> -P <密码字典文件> -T <并行测试的主机总数（多线程）> -t <并行测试的账户总数（多线程）> -L -F -M <指定模块的名称>" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "hydra"        => array (
+                    "title"    => 'hydra : ' ,
                     "describe" => '开源的多功能解密工具（参数选项:
 
 -l LOGIN or -L FILE  使用login名称登录，或从FILE加载多个登录；
@@ -2173,33 +2173,33 @@ service   要破解的服务（请参阅下面的支持协议） ；
 
 OPT       一些服务模块支持额外的输入（-U表示模块帮助）
                     
-                    ）',
-                    "command" => 'hydra [[[-l LOGIN|-L FILE] [-p PASS|-P FILE]] | [-C FILE]] [-e nsr] [-o FILE] [-t TASKS] [-M FILE [-T TASKS]] [-w TIME] [-W TIME] [-f] [-s PORT] [-x MIN:MAX:CHARSET] [-c TIME] [-ISOuvVd46] [-m MODULE_OPT] [service://server[:PORT][/OPT]]',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "解密ssh",
-                            "command" => "hydra -L <账户字典文件> -P <密码字典文件> -t 2 -vV -e ns <目标IP地址> ssh",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "解密ftp",
-                            "command" => "hydra ip ftp -l <账户名称> -P <密码字典文件> -e ns -vV",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "解密teamspeak",
-                            "command" => "hydra -l <账户名称> -P <密码字典文件> -s <指定端口号> -vV ip teamspeak",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "解密pop3",
-                            "command" => "hydra -l <账户名称> -P <密码字典文件> <pop3服务器域名> pop3",
-                        ),
-                    ),
-                ),
-                "ncrack" => array(
-                    "title" => 'ncrack : ',
+                    ）' ,
+                    "command"  => 'hydra [[[-l LOGIN|-L FILE] [-p PASS|-P FILE]] | [-C FILE]] [-e nsr] [-o FILE] [-t TASKS] [-M FILE [-T TASKS]] [-w TIME] [-W TIME] [-f] [-s PORT] [-x MIN:MAX:CHARSET] [-c TIME] [-ISOuvVd46] [-m MODULE_OPT] [service://server[:PORT][/OPT]]' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "解密ssh" ,
+                            "command"  => "hydra -L <账户字典文件> -P <密码字典文件> -t 2 -vV -e ns <目标IP地址> ssh" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "解密ftp" ,
+                            "command"  => "hydra ip ftp -l <账户名称> -P <密码字典文件> -e ns -vV" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "解密teamspeak" ,
+                            "command"  => "hydra -l <账户名称> -P <密码字典文件> -s <指定端口号> -vV ip teamspeak" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "解密pop3" ,
+                            "command"  => "hydra -l <账户名称> -P <密码字典文件> <pop3服务器域名> pop3" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "ncrack"       => array (
+                    "title"    => 'ncrack : ' ,
                     "describe" => '网络认证解密工具（参数选项：
                     
 TARGET SPECIFICATION:
@@ -2280,29 +2280,29 @@ EXAMPLES:
   
 SEE THE MAN PAGE (http://nmap.org/ncrack/man.html) FOR MORE OPTIONS AND EXAMPLES                    
                     
-                    ）',
-                    "command" => 'ncrack [Options] {target and service specification}',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "对指定IP地址的指定端口的指定账户进行密码测试",
-                            "command" => "ncrack --user <账户名称> -P <密码字典文件> <目标IP地址:目标端口号>",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "对指定IP地址的指定端口的指定账户列表下的所有账户进行密码测试",
-                            "command" => "ncrack -v -U <账户字典文件> -P <密码字典文件> <目标IP地址:目标端口号>",
-                        ),
-                    ),
-                ),
-                "ophcrack" => array(
-                    "title" => 'ophcrack : ',
-                    "describe" => '图形化的跨平台密码解密工具（使用彩虹表（ Table）破解哈希算法，彩虹表的原理为结合使用暴力法与查表法，在两种方法之间寻找平衡，在人类能够承受的计算时间和字典存储空间的条件下进行哈希算法解密）',
-                    "command" => 'ophcrack',
-                    "examples" => array(),
-                ),
-                "rainbowcrack" => array(
-                    "title" => 'rainbowcrack : ',
+                    ）' ,
+                    "command"  => 'ncrack [Options] {target and service specification}' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "对指定IP地址的指定端口的指定账户进行密码测试" ,
+                            "command"  => "ncrack --user <账户名称> -P <密码字典文件> <目标IP地址:目标端口号>" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "对指定IP地址的指定端口的指定账户列表下的所有账户进行密码测试" ,
+                            "command"  => "ncrack -v -U <账户字典文件> -P <密码字典文件> <目标IP地址:目标端口号>" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "ophcrack"     => array (
+                    "title"    => 'ophcrack : ' ,
+                    "describe" => '图形化的跨平台密码解密工具（使用彩虹表（ Table）破解哈希算法，彩虹表的原理为结合使用暴力法与查表法，在两种方法之间寻找平衡，在人类能够承受的计算时间和字典存储空间的条件下进行哈希算法解密）' ,
+                    "command"  => 'ophcrack' ,
+                    "examples" => array () ,
+                ) ,
+                "rainbowcrack" => array (
+                    "title"    => 'rainbowcrack : ' ,
                     "describe" => '密码解密工具（
 
 使用方法：
@@ -2335,23 +2335,23 @@ sha1 HashLen=20 PlaintextLen=0-20
 
 sha256 HashLen=32 PlaintextLen=0-20
                     
-                    ）',
-                    "command" => 'rcrack path <存储彩虹表（*.rt，*.rtc）的目录的绝对路径> [...] <选项参数名称> <选项参数值>',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "使用单个哈希值进行解密工作（这里的 . 表示存储彩虹表的目录为当前目录）",
-                            "command" => "rcrack . -h 5d41402abc4b2a76b9719d911017c592",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "使用哈希值字典文件进行解密工作（这里的 . 表示存储彩虹表的目录为当前目录）",
-                            "command" => "rcrack . -l hash.txt",
-                        ),
-                    ),
-                ),
-                "wordlists" => array(
-                    "title" => 'wordlists : ',
+                    ）' ,
+                    "command"  => 'rcrack path <存储彩虹表（*.rt，*.rtc）的目录的绝对路径> [...] <选项参数名称> <选项参数值>' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "使用单个哈希值进行解密工作（这里的 . 表示存储彩虹表的目录为当前目录）" ,
+                            "command"  => "rcrack . -h 5d41402abc4b2a76b9719d911017c592" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "使用哈希值字典文件进行解密工作（这里的 . 表示存储彩虹表的目录为当前目录）" ,
+                            "command"  => "rcrack . -l hash.txt" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "wordlists"    => array (
+                    "title"    => 'wordlists : ' ,
                     "describe" => 'kali linux 自带字典（
                     
 字典文件列表：
@@ -2372,49 +2372,49 @@ sha256 HashLen=32 PlaintextLen=0-20
 ├── wfuzz -> /usr/share/wfuzz/wordlist
 └── wifite.txt -> /usr/share/dict/wordlist-probable.txt
                     
-                    ）',
-                    "command" => 'ls -l /usr/share/wordlists',
-                    "examples" => array(),
-                ),
-            ),
+                    ）' ,
+                    "command"  => 'ls -l /usr/share/wordlists' ,
+                    "examples" => array () ,
+                ) ,
+            ) ,
         );
-        Class_Base_Auth::check_permission();
-        if (!is_cli()) {
+        Class_Base_Auth::check_permission ();
+        if ( ! is_cli () ) {
             $_form_top = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Password Attack Commands</div>';
-            $_form = array(
-                "action" => "/guide/penetration_test_commands",
-                "inputs" => array(),
-                "textareas" => array(),
-                "submit" => array(
-                    "value" => " return to Penetration Test Commands ",
-                    "display" => true,
-                ),
-                "reset" => array(
-                    "display" => false,
-                ),
+            $_form     = array (
+                "action"    => "/guide/penetration_test_commands" ,
+                "inputs"    => array () ,
+                "textareas" => array () ,
+                "submit"    => array (
+                    "value"   => " return to Penetration Test Commands " ,
+                    "display" => true ,
+                ) ,
+                "reset"     => array (
+                    "display" => false ,
+                ) ,
             );
-            self::_commands_format_to_form_textareas($_common_commands, $_form);
-            $_top = Class_View_Top::top();
-            $_body = array(
-                "menu" => Class_View_Guide_PenetrationTestCommands_Menu::menu(),
-                "content" => (($_form_top) . Class_View::form_body($_form)),
+            self::_commands_format_to_form_textareas ( $_common_commands , $_form );
+            $_top    = Class_View_Top::top ();
+            $_body   = array (
+                "menu"    => Class_View_Guide_PenetrationTestCommands_Menu::menu () ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
-            $_bottom = Class_View_Bottom::bottom();
-            Class_Base_Response::output(Class_View::index($_top, $_body, $_bottom), "text", 0);
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
-    public static function wireless_attacks($params = array())
+    public static function wireless_attacks ( $params = array () )
     {
-        if ((!is_cli()) && (!Class_Base_Auth::is_login())) {
-            Class_Base_Response::redirect("/login");
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        $_common_commands = array(
-            "wireless_attacks" => array(
-                "aircrack-ng" => array(
-                    "title" => 'aircrack-ng : ',
+        $_common_commands = array (
+            "wireless_attacks" => array (
+                "aircrack-ng"               => array (
+                    "title"    => 'aircrack-ng : ' ,
                     "describe" => '基于802.11标准的进行无线网络分析的安全软件（
                     
   Common options:
@@ -2531,12 +2531,12 @@ sha256 HashLen=32 PlaintextLen=0-20
       
       --help     : Displays this usage screen   
                     
-                    ）',
-                    "command" => 'aircrack-ng [options] <input file(s)>',
-                    "examples" => array(),
-                ),
-                "cowpatty" => array(
-                    "title" => 'cowpatty : ',
+                    ）' ,
+                    "command"  => 'aircrack-ng [options] <input file(s)>' ,
+                    "examples" => array () ,
+                ) ,
+                "cowpatty"                  => array (
+                    "title"    => 'cowpatty : ' ,
                     "describe" => '无线解密工具（WPA-PSK）（
                     
 options:
@@ -2557,18 +2557,18 @@ options:
 	
 	-V 	Print program version and exit
                     
-                    ）',
-                    "command" => 'cowpatty [options]',
-                    "examples" => array(),
-                ),
-                "fern-wifi-crack ( root ) " => array(
-                    "title" => 'fern-wifi-crack ( root ) : ',
-                    "describe" => '无线安全审计测试软件（图形化界面）',
-                    "command" => 'fern-wifi-crack',
-                    "examples" => array(),
-                ),
-                "kismet" => array(
-                    "title" => 'kismet : ',
+                    ）' ,
+                    "command"  => 'cowpatty [options]' ,
+                    "examples" => array () ,
+                ) ,
+                "fern-wifi-crack ( root ) " => array (
+                    "title"    => 'fern-wifi-crack ( root ) : ' ,
+                    "describe" => '无线安全审计测试软件（图形化界面）' ,
+                    "command"  => 'fern-wifi-crack' ,
+                    "examples" => array () ,
+                ) ,
+                "kismet"                    => array (
+                    "title"    => 'kismet : ' ,
                     "describe" => '无线网络嗅探工具（
                     
  *** Generic Options ***
@@ -2622,12 +2622,12 @@ options:
  
      --device-timeout=n       Expire devices after N seconds
                     
-                    ）',
-                    "command" => 'kismet [OPTION]',
-                    "examples" => array(),
-                ),
-                "pixiewps" => array(
-                    "title" => 'pixiewps : ',
+                    ）' ,
+                    "command"  => 'kismet [OPTION]' ,
+                    "examples" => array () ,
+                ) ,
+                "pixiewps"                  => array (
+                    "title"    => 'pixiewps : ' ,
                     "describe" => '无线破解工具（
                     
  Required arguments:
@@ -2683,12 +2683,12 @@ options:
 
  pixiewps -e <pke> -r <pkr> -s <e-hash1> -z <e-hash2> -a <authkey> -n <e-nonce>                   
                     
-                    ）',
-                    "command" => 'pixiewps <arguments>',
-                    "examples" => array(),
-                ),
-                "reaver" => array(
-                    "title" => 'reaver : ',
+                    ）' ,
+                    "command"  => 'pixiewps <arguments>' ,
+                    "examples" => array () ,
+                ) ,
+                "reaver"                    => array (
+                    "title"    => 'reaver : ' ,
                     "describe" => 'WiFi保护设置渗透工具（
                     
 Required Arguments:
@@ -2766,12 +2766,12 @@ Example:
 
 	reaver -i wlan0mon -b 00:90:4C:C1:AC:21 -vv   
                     
-                    ）',
-                    "command" => 'reaver -h',
-                    "examples" => array(),
-                ),
-                "wifite" => array(
-                    "title" => 'wifite : ',
+                    ）' ,
+                    "command"  => 'reaver -h' ,
+                    "examples" => array () ,
+                ) ,
+                "wifite"                    => array (
+                    "title"    => 'wifite : ' ,
                     "describe" => '自动化wep、wpa解密工具（
                     
 options:
@@ -2858,49 +2858,49 @@ COMMANDS:
   
   --crack                                    Show commands to crack a captured handshake    
                     
-                    ）',
-                    "command" => 'wifite --help',
-                    "examples" => array(),
-                ),
-            ),
+                    ）' ,
+                    "command"  => 'wifite --help' ,
+                    "examples" => array () ,
+                ) ,
+            ) ,
         );
-        Class_Base_Auth::check_permission();
-        if (!is_cli()) {
+        Class_Base_Auth::check_permission ();
+        if ( ! is_cli () ) {
             $_form_top = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Wireless Attacks Commands</div>';
-            $_form = array(
-                "action" => "/guide/penetration_test_commands",
-                "inputs" => array(),
-                "textareas" => array(),
-                "submit" => array(
-                    "value" => " return to Penetration Test Commands ",
-                    "display" => true,
-                ),
-                "reset" => array(
-                    "display" => false,
-                ),
+            $_form     = array (
+                "action"    => "/guide/penetration_test_commands" ,
+                "inputs"    => array () ,
+                "textareas" => array () ,
+                "submit"    => array (
+                    "value"   => " return to Penetration Test Commands " ,
+                    "display" => true ,
+                ) ,
+                "reset"     => array (
+                    "display" => false ,
+                ) ,
             );
-            self::_commands_format_to_form_textareas($_common_commands, $_form);
-            $_top = Class_View_Top::top();
-            $_body = array(
-                "menu" => Class_View_Guide_PenetrationTestCommands_Menu::menu(),
-                "content" => (($_form_top) . Class_View::form_body($_form)),
+            self::_commands_format_to_form_textareas ( $_common_commands , $_form );
+            $_top    = Class_View_Top::top ();
+            $_body   = array (
+                "menu"    => Class_View_Guide_PenetrationTestCommands_Menu::menu () ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
-            $_bottom = Class_View_Bottom::bottom();
-            Class_Base_Response::output(Class_View::index($_top, $_body, $_bottom), "text", 0);
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
-    public static function reverse_engineering($params = array())
+    public static function reverse_engineering ( $params = array () )
     {
-        if ((!is_cli()) && (!Class_Base_Auth::is_login())) {
-            Class_Base_Response::redirect("/login");
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        $_common_commands = array(
-            "reverse_engineering" => array(
-                "clang" => array(
-                    "title" => 'clang : ',
+        $_common_commands = array (
+            "reverse_engineering" => array (
+                "clang"        => array (
+                    "title"    => 'clang : ' ,
                     "describe" => '一个C语言、C++、Objective-C语言的轻量级编译器（
                     
 OPTIONS:
@@ -4076,12 +4076,12 @@ OPTIONS:
   -z <arg>                Pass -z <arg> to the linker
 
                     
-                    ）',
-                    "command" => 'clang [options] file...',
-                    "examples" => array(),
-                ),
-                "clang++" => array(
-                    "title" => 'clang++ : ',
+                    ）' ,
+                    "command"  => 'clang [options] file...' ,
+                    "examples" => array () ,
+                ) ,
+                "clang++"      => array (
+                    "title"    => 'clang++ : ' ,
                     "describe" => '一个C语言、C++、Objective-C语言的轻量级编译器（
                     
 OPTIONS:
@@ -5257,24 +5257,24 @@ OPTIONS:
   -z <arg>                Pass -z <arg> to the linker
 
                     
-                    ）',
-                    "command" => 'clang [options] file...',
-                    "examples" => array(),
-                ),
-                "edb-debugger" => array(
-                    "title" => 'edb-debugger : ',
-                    "describe" => '一个跨平台的AArch32/x86/x86-64调试器（图形化界面）',
-                    "command" => 'edb',
-                    "examples" => array(),
-                ),
-                "nasm-shell" => array(
-                    "title" => 'nasm-shell : ',
-                    "describe" => '逆向工程工具（可根据汇编指令生成动态机器码，一般适用于x32环境，对于x64汇编代码的支持还并不是很好）',
-                    "command" => 'nasm_shell.rb',
-                    "examples" => array(),
-                ),
-                "radare2" => array(
-                    "title" => 'radare2 : ',
+                    ）' ,
+                    "command"  => 'clang [options] file...' ,
+                    "examples" => array () ,
+                ) ,
+                "edb-debugger" => array (
+                    "title"    => 'edb-debugger : ' ,
+                    "describe" => '一个跨平台的AArch32/x86/x86-64调试器（图形化界面）' ,
+                    "command"  => 'edb' ,
+                    "examples" => array () ,
+                ) ,
+                "nasm-shell"   => array (
+                    "title"    => 'nasm-shell : ' ,
+                    "describe" => '逆向工程工具（可根据汇编指令生成动态机器码，一般适用于x32环境，对于x64汇编代码的支持还并不是很好）' ,
+                    "command"  => 'nasm_shell.rb' ,
+                    "examples" => array () ,
+                ) ,
+                "radare2"      => array (
+                    "title"    => 'radare2 : ' ,
                     "describe" => '逆向分析工具（
                     
 Options:
@@ -5326,56 +5326,56 @@ Options:
  -X           same as -e bin.usextr=false (useful for dyldcache)
  -z, -zz      do not load strings or load them even in raw
                     
-                    ）',
-                    "command" => 'r2 [-ACdfLMnNqStuvwzX] [-P patch] [-p prj] [-a arch] [-b bits] [-i file]
-                                      [-s addr] [-B baddr] [-m maddr] [-c cmd] [-e k=v] file|pid|-|--|=',
-                    "examples" => array(),
-                ),
-            ),
+                    ）' ,
+                    "command"  => 'r2 [-ACdfLMnNqStuvwzX] [-P patch] [-p prj] [-a arch] [-b bits] [-i file]
+                                      [-s addr] [-B baddr] [-m maddr] [-c cmd] [-e k=v] file|pid|-|--|=' ,
+                    "examples" => array () ,
+                ) ,
+            ) ,
         );
-        Class_Base_Auth::check_permission();
-        if (!is_cli()) {
+        Class_Base_Auth::check_permission ();
+        if ( ! is_cli () ) {
             $_form_top = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Reverse Engineering Commands</div>';
-            $_form = array(
-                "action" => "/guide/penetration_test_commands",
-                "inputs" => array(),
-                "textareas" => array(),
-                "submit" => array(
-                    "value" => " return to Penetration Test Commands ",
-                    "display" => true,
-                ),
-                "reset" => array(
-                    "display" => false,
-                ),
+            $_form     = array (
+                "action"    => "/guide/penetration_test_commands" ,
+                "inputs"    => array () ,
+                "textareas" => array () ,
+                "submit"    => array (
+                    "value"   => " return to Penetration Test Commands " ,
+                    "display" => true ,
+                ) ,
+                "reset"     => array (
+                    "display" => false ,
+                ) ,
             );
-            self::_commands_format_to_form_textareas($_common_commands, $_form);
-            $_top = Class_View_Top::top();
-            $_body = array(
-                "menu" => Class_View_Guide_PenetrationTestCommands_Menu::menu(),
-                "content" => (($_form_top) . Class_View::form_body($_form)),
+            self::_commands_format_to_form_textareas ( $_common_commands , $_form );
+            $_top    = Class_View_Top::top ();
+            $_body   = array (
+                "menu"    => Class_View_Guide_PenetrationTestCommands_Menu::menu () ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
-            $_bottom = Class_View_Bottom::bottom();
-            Class_Base_Response::output(Class_View::index($_top, $_body, $_bottom), "text", 0);
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
-    public static function vulnerability_exploitation($params = array())
+    public static function vulnerability_exploitation ( $params = array () )
     {
-        if ((!is_cli()) && (!Class_Base_Auth::is_login())) {
-            Class_Base_Response::redirect("/login");
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        $_common_commands = array(
-            "vulnerability_exploitation" => array(
-                "armitage" => array(
-                    "title" => 'armitage : ',
-                    "describe" => '图形化的Metasploit软件（底层基于命令行方式的Metasploit-Framework）',
-                    "command" => 'armitage',
-                    "examples" => array(),
-                ),
-                "crackmapexec" => array(
-                    "title" => 'crackmapexec : ',
+        $_common_commands = array (
+            "vulnerability_exploitation" => array (
+                "armitage"                            => array (
+                    "title"    => 'armitage : ' ,
+                    "describe" => '图形化的Metasploit软件（底层基于命令行方式的Metasploit-Framework）' ,
+                    "command"  => 'armitage' ,
+                    "examples" => array () ,
+                ) ,
+                "crackmapexec"                        => array (
+                    "title"    => 'crackmapexec : ' ,
                     "describe" => '针对大型Windows活动目录(AD)的后渗透利用工具（
                     
 options:
@@ -5405,12 +5405,12 @@ protocols:
     ssh                 own stuff using SSH
     rdp                 own stuff using RDP
                     
-                    ）',
-                    "command" => 'crackmapexec [-h] [-t THREADS] [--timeout TIMEOUT] [--jitter INTERVAL] [--darrell] [--verbose] {smb,ftp,mssql,ldap,winrm,ssh,rdp} ...',
-                    "examples" => array(),
-                ),
-                "metasploit-framework" => array(
-                    "title" => 'metasploit-framework : ',
+                    ）' ,
+                    "command"  => 'crackmapexec [-h] [-t THREADS] [--timeout TIMEOUT] [--jitter INTERVAL] [--darrell] [--verbose] {smb,ftp,mssql,ldap,winrm,ssh,rdp} ...' ,
+                    "examples" => array () ,
+                ) ,
+                "metasploit-framework"                => array (
+                    "title"    => 'metasploit-framework : ' ,
                     "describe" => '编写、测试和使用exploit代码的完善环境（
                     
 Core Commands
@@ -5667,18 +5667,18 @@ Target a block from a resolved domain name:
     set RHOSTS www.example.test/24
 
                     
-                    ）',
-                    "command" => 'msfconsole',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "初始化框架数据库（基于postgresql）与启动渗透测试环境",
-                            "command" => "sudo msfdb init && msfconsole",
-                        ),
-                    ),
-                ),
-                "msf-payload-creator" => array(
-                    "title" => 'msf-payload-creator : ',
+                    ）' ,
+                    "command"  => 'msfconsole' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "初始化框架数据库（基于postgresql）与启动渗透测试环境" ,
+                            "command"  => "sudo msfdb init && msfconsole" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "msf-payload-creator"                 => array (
+                    "title"    => 'msf-payload-creator : ' ,
                     "describe" => 'Metasploit渗透载荷生成工具（
                     
  <TYPE>:
@@ -5755,43 +5755,43 @@ Target a block from a resolved domain name:
 
  <VERBOSE> will display more information.
                     
-                    ）',
-                    "command" => '/usr/bin/msfpc <TYPE> (<DOMAIN/IP>) (<PORT>) (<CMD/MSF>) (<BIND/REVERSE>) (<STAGED/STAGELESS>) (<TCP/HTTP/HTTPS/FIND_PORT>) (<BATCH/LOOP>) (<VERBOSE>)',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "Windows & manual IP （Windows手动IP（&M））",
-                            "command" => "/usr/bin/msfpc windows 192.168.1.10",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "Linux, eth0's IP & manual port （Linux，eth0的IP和手动端口）",
-                            "command" => "/usr/bin/msfpc elf bind eth0 4444",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "Python, stageless command prompt （Python，无阶段命令提示符）",
-                            "command" => "/usr/bin/msfpc stageless cmd py https",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "A payload for every type, using eth1's IP （每种类型的有效负载，使用eth1的IP）",
-                            "command" => "/usr/bin/msfpc verbose loop eth1",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "All possible Meterpreter payloads, using WAN IP （所有可能的Meteorpeter有效载荷，使用WAN IP）",
-                            "command" => "/usr/bin/msfpc msf batch wan",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "Help screen, with even more information （帮助屏幕，包含更多信息）",
-                            "command" => "/usr/bin/msfpc help verbose",
-                        ),
-                    ),
-                ),
-                "searchsploit" => array(
-                    "title" => 'searchsploit : ',
+                    ）' ,
+                    "command"  => '/usr/bin/msfpc <TYPE> (<DOMAIN/IP>) (<PORT>) (<CMD/MSF>) (<BIND/REVERSE>) (<STAGED/STAGELESS>) (<TCP/HTTP/HTTPS/FIND_PORT>) (<BATCH/LOOP>) (<VERBOSE>)' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "Windows & manual IP （Windows手动IP（&M））" ,
+                            "command"  => "/usr/bin/msfpc windows 192.168.1.10" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "Linux, eth0's IP & manual port （Linux，eth0的IP和手动端口）" ,
+                            "command"  => "/usr/bin/msfpc elf bind eth0 4444" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "Python, stageless command prompt （Python，无阶段命令提示符）" ,
+                            "command"  => "/usr/bin/msfpc stageless cmd py https" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "A payload for every type, using eth1's IP （每种类型的有效负载，使用eth1的IP）" ,
+                            "command"  => "/usr/bin/msfpc verbose loop eth1" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "All possible Meterpreter payloads, using WAN IP （所有可能的Meteorpeter有效载荷，使用WAN IP）" ,
+                            "command"  => "/usr/bin/msfpc msf batch wan" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "Help screen, with even more information （帮助屏幕，包含更多信息）" ,
+                            "command"  => "/usr/bin/msfpc help verbose" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "searchsploit"                        => array (
+                    "title"    => 'searchsploit : ' ,
                     "describe" => '用于Exploit-DB的命令行搜索工具（ExploitDB是一个面向全世界信息安全专业人士的漏洞提交平台，Exploit-DB是一个漏洞平台对应的漏洞信息仓库）（
                     
 =========
@@ -5861,58 +5861,58 @@ Target a block from a resolved domain name:
  * When using \'--nmap\', adding \'-v\' (verbose), it will search for even more combinations
  * When updating or displaying help, search terms will be ignored
                     
-                    ）',
-                    "command" => 'searchsploit [options] term1 [term2] ... [termN]',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "123 （ ）",
-                            "command" => "searchsploit afd windows local",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "123 （ ）",
-                            "command" => "searchsploit -t oracle windows",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "123 （ ）",
-                            "command" => "searchsploit -p 39446",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "123 （ ）",
-                            "command" => 'searchsploit linux kernel 3.2 --exclude="(PoC)|/dos/"',
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "123 （ ）",
-                            "command" => "searchsploit -s Apache Struts 2.0.0",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "123 （ ）",
-                            "command" => "searchsploit linux reverse password",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "123 （ ）",
-                            "command" => "searchsploit -j 55555 | jq",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "123 （ ）",
-                            "command" => "searchsploit --cve 2021-44228",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "For more examples, see the manual: https://www.exploit-db.com/searchsploit （有关更多示例，请参阅手册：https://www.exploit-db.com/searchsploit）",
-                            "command" => "https://www.exploit-db.com/searchsploit",
-                        ),
-                    ),
-                ),
-                "social-engineering-toolkit ( root )" => array(
-                    "title" => 'social-engineering-toolkit ( root ) : ',
+                    ）' ,
+                    "command"  => 'searchsploit [options] term1 [term2] ... [termN]' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "123 （ ）" ,
+                            "command"  => "searchsploit afd windows local" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "123 （ ）" ,
+                            "command"  => "searchsploit -t oracle windows" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "123 （ ）" ,
+                            "command"  => "searchsploit -p 39446" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "123 （ ）" ,
+                            "command"  => 'searchsploit linux kernel 3.2 --exclude="(PoC)|/dos/"' ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "123 （ ）" ,
+                            "command"  => "searchsploit -s Apache Struts 2.0.0" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "123 （ ）" ,
+                            "command"  => "searchsploit linux reverse password" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "123 （ ）" ,
+                            "command"  => "searchsploit -j 55555 | jq" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "123 （ ）" ,
+                            "command"  => "searchsploit --cve 2021-44228" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "For more examples, see the manual: https://www.exploit-db.com/searchsploit （有关更多示例，请参阅手册：https://www.exploit-db.com/searchsploit）" ,
+                            "command"  => "https://www.exploit-db.com/searchsploit" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "social-engineering-toolkit ( root )" => array (
+                    "title"    => 'social-engineering-toolkit ( root ) : ' ,
                     "describe" => '社会工程工具包（
                     
 1) Social-Engineering Attacks （社会工程攻击）
@@ -5949,55 +5949,55 @@ Target a block from a resolved domain name:
 10) Third Party Modules （第三方模块）
 
                     
-                    ）',
-                    "command" => 'social-engineering-toolkit',
-                    "examples" => array(),
-                ),
-            ),
+                    ）' ,
+                    "command"  => 'social-engineering-toolkit' ,
+                    "examples" => array () ,
+                ) ,
+            ) ,
         );
-        Class_Base_Auth::check_permission();
-        if (!is_cli()) {
+        Class_Base_Auth::check_permission ();
+        if ( ! is_cli () ) {
             $_form_top = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Vulnerability Exploitation Commands</div>';
-            $_form = array(
-                "action" => "/guide/penetration_test_commands",
-                "inputs" => array(),
-                "textareas" => array(),
-                "submit" => array(
-                    "value" => " return to Penetration Test Commands ",
-                    "display" => true,
-                ),
-                "reset" => array(
-                    "display" => false,
-                ),
+            $_form     = array (
+                "action"    => "/guide/penetration_test_commands" ,
+                "inputs"    => array () ,
+                "textareas" => array () ,
+                "submit"    => array (
+                    "value"   => " return to Penetration Test Commands " ,
+                    "display" => true ,
+                ) ,
+                "reset"     => array (
+                    "display" => false ,
+                ) ,
             );
-            self::_commands_format_to_form_textareas($_common_commands, $_form);
-            $_top = Class_View_Top::top();
-            $_body = array(
-                "menu" => Class_View_Guide_PenetrationTestCommands_Menu::menu(),
-                "content" => (($_form_top) . Class_View::form_body($_form)),
+            self::_commands_format_to_form_textareas ( $_common_commands , $_form );
+            $_top    = Class_View_Top::top ();
+            $_body   = array (
+                "menu"    => Class_View_Guide_PenetrationTestCommands_Menu::menu () ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
-            $_bottom = Class_View_Bottom::bottom();
-            Class_Base_Response::output(Class_View::index($_top, $_body, $_bottom), "text", 0);
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
-    public static function sniff_deception($params = array())
+    public static function sniff_deception ( $params = array () )
     {
-        if ((!is_cli()) && (!Class_Base_Auth::is_login())) {
-            Class_Base_Response::redirect("/login");
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        $_common_commands = array(
-            "sniff_deception" => array(
-                "ettercap-graphical" => array(
-                    "title" => 'ettercap-graphical : ',
-                    "describe" => '图形化的网络抓包软件',
-                    "command" => 'ettercap-graphical',
-                    "examples" => array(),
-                ),
-                "macchanger" => array(
-                    "title" => 'macchanger : ',
+        $_common_commands = array (
+            "sniff_deception" => array (
+                "ettercap-graphical" => array (
+                    "title"    => 'ettercap-graphical : ' ,
+                    "describe" => '图形化的网络抓包软件' ,
+                    "command"  => 'ettercap-graphical' ,
+                    "examples" => array () ,
+                ) ,
+                "macchanger"         => array (
+                    "title"    => 'macchanger : ' ,
                     "describe" => '网卡（MAC）地址更改工具（
                     
 Options:
@@ -6029,12 +6029,12 @@ Options:
 
 Report bugs to https://github.com/alobbs/macchanger/issues
                     
-                    ）',
-                    "command" => 'macchanger [options] device',
-                    "examples" => array(),
-                ),
-                "minicom" => array(
-                    "title" => 'minicom : ',
+                    ）' ,
+                    "command"  => 'macchanger [options] device' ,
+                    "examples" => array () ,
+                ) ,
+                "minicom"            => array (
+                    "title"    => 'minicom : ' ,
                     "describe" => '串口通信工具（
                     
 Options:
@@ -6091,12 +6091,12 @@ Options:
   
   configuration          : configuration file to use
                     
-                    ）',
-                    "command" => 'minicom [OPTION]... [configuration]',
-                    "examples" => array(),
-                ),
-                "mitmproxy" => array(
-                    "title" => 'mitmproxy : ',
+                    ）' ,
+                    "command"  => 'minicom [OPTION]... [configuration]' ,
+                    "examples" => array () ,
+                ) ,
+                "mitmproxy"          => array (
+                    "title"    => 'mitmproxy : ' ,
                     "describe" => '网络代理与抓包工具（
                     
 options:
@@ -6309,18 +6309,18 @@ Filters:
   
   --view-filter FILTER  Limit the view to matching flows.
                   
-                    ）',
-                    "command" => 'mitmproxy [options]',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "使用指定网卡扫描192.168.1.0网段下的存活主机（当前C类网段最多可容纳254台主机）",
-                            "command" => "netdiscover -i <网络接口名称> -r 192.168.1.0/24",
-                        ),
-                    ),
-                ),
-                "netsniff-ng" => array(
-                    "title" => 'netsniff-ng : ',
+                    ）' ,
+                    "command"  => 'mitmproxy [options]' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "使用指定网卡扫描192.168.1.0网段下的存活主机（当前C类网段最多可容纳254台主机）" ,
+                            "command"  => "netdiscover -i <网络接口名称> -r 192.168.1.0/24" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "netsniff-ng"        => array (
+                    "title"    => 'netsniff-ng : ' ,
                     "describe" => '网络包分析工具（
                     
 Options:
@@ -6409,58 +6409,58 @@ Note:
   while replaying pcaps, make use of tc(8) with its disciplines (e.g. netem).
 
                     
-                    ）',
-                    "command" => 'netsniff-ng [options] [filter-expression]',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "",
-                            "command" => "netsniff-ng --in eth0 --out dump.pcap -s -T 0xa1b2c3d4 --bind-cpu 0 tcp or udp",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "",
-                            "command" => "netsniff-ng --in wlan0 --rfraw --out dump.pcap --silent --bind-cpu 0",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "",
-                            "command" => "netsniff-ng --in dump.pcap --mmap --out eth0 -k1000 --silent --bind-cpu 0",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "",
-                            "command" => "netsniff-ng --in dump.pcap --out dump.cfg --silent --bind-cpu 0",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "",
-                            "command" => "netsniff-ng --in dump.pcap --out dump2.pcap --silent tcp",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "",
-                            "command" => "netsniff-ng --in eth0 --out eth1 --silent --bind-cpu 0 -J --type host",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "",
-                            "command" => "netsniff-ng --in eth1 --out /opt/probe/ -s -m --interval 100MiB -b 0",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "",
-                            "command" => "netsniff-ng --in vlan0 --out dump.pcap -c -u `id -u bob` -g `id -g bob",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "",
-                            "command" => "netsniff-ng --in any --filter http.bpf --jumbo-support --ascii -V",
-                        ),
-                    ),
-                ),
-                "responder" => array(
-                    "title" => 'responder : ',
+                    ）' ,
+                    "command"  => 'netsniff-ng [options] [filter-expression]' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "" ,
+                            "command"  => "netsniff-ng --in eth0 --out dump.pcap -s -T 0xa1b2c3d4 --bind-cpu 0 tcp or udp" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "" ,
+                            "command"  => "netsniff-ng --in wlan0 --rfraw --out dump.pcap --silent --bind-cpu 0" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "" ,
+                            "command"  => "netsniff-ng --in dump.pcap --mmap --out eth0 -k1000 --silent --bind-cpu 0" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "" ,
+                            "command"  => "netsniff-ng --in dump.pcap --out dump.cfg --silent --bind-cpu 0" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "" ,
+                            "command"  => "netsniff-ng --in dump.pcap --out dump2.pcap --silent tcp" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "" ,
+                            "command"  => "netsniff-ng --in eth0 --out eth1 --silent --bind-cpu 0 -J --type host" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "" ,
+                            "command"  => "netsniff-ng --in eth1 --out /opt/probe/ -s -m --interval 100MiB -b 0" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "" ,
+                            "command"  => "netsniff-ng --in vlan0 --out dump.pcap -c -u `id -u bob` -g `id -g bob" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "" ,
+                            "command"  => "netsniff-ng --in any --filter http.bpf --jumbo-support --ascii -V" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "responder"          => array (
+                    "title"    => 'responder : ' ,
                     "describe" => '嗅探/欺骗工具（
                     
 Options:
@@ -6500,12 +6500,12 @@ Options:
   -v, --verbose         Increase verbosity.
 
                     
-                    ）',
-                    "command" => 'responder -I eth0 -w -d',
-                    "examples" => array(),
-                ),
-                "scapy" => array(
-                    "title" => 'scapy : ',
+                    ）' ,
+                    "command"  => 'responder -I eth0 -w -d' ,
+                    "examples" => array () ,
+                ) ,
+                "scapy"              => array (
+                    "title"    => 'scapy : ' ,
                     "describe" => '强大的Python网络包解析库（
                     
 使用示例：
@@ -6532,12 +6532,12 @@ file_handle.close() //关闭文件句柄
 
 send(IP(dst="<指定的IP地址>")/fuzz(UDP()/NTP(version=4)),loop=1) //对指定IP地址对应的主机目标进行模糊测试（针对UDP和NTP协议进行测试）
                     
-                    ）',
-                    "command" => 'scapy',
-                    "examples" => array(),
-                ),
-                "tcpdump" => array(
-                    "title" => 'tcpdump : ',
+                    ）' ,
+                    "command"  => 'scapy' ,
+                    "examples" => array () ,
+                ) ,
+                "tcpdump"            => array (
+                    "title"    => 'tcpdump : ' ,
                     "describe" => '非常好用的LINUX环境下的抓包工具（
                     
 参数选项：
@@ -6584,55 +6584,55 @@ send(IP(dst="<指定的IP地址>")/fuzz(UDP()/NTP(version=4)),loop=1) //对指�
 
      -X      将数据包协议头部分和数据包内容部分均进行原样输出（以16进制格式 + ASCII格式的方式进行内容输出）（在进行协议分析操作时，会经常用到！）
                     
-                    ）',
-                    "command" => 'tcpdump [-AbdDefhHIJKlLnNOpqStuUvxX#] [ -B size ] [ -c count ] [--count] [ -C file_size ] [ -E algo:secret ] [ -F file ] [ -G seconds ] [ -i interface ] [ --immediate-mode ] [ -j tstamptype ] [ -M secret ] [ --number ] [ --print ] [ -Q in|out|inout ] [ -r file ] [ -s snaplen ] [ -T type ] [ --version ] [ -V file ] [ -w file ] [ -W filecount ] [ -y datalinktype ] [ --time-stamp-precision precision ] [ --micro ] [ --nano ] [ -z postrotate-command ] [ -Z user ] [ expression ]',
-                    "examples" => array(),
-                ),
-                "wireshark" => array(
-                    "title" => 'wireshark : ',
-                    "describe" => '一款强大的可视化抓包工具',
-                    "command" => 'wireshark',
-                    "examples" => array(),
-                ),
-            ),
+                    ）' ,
+                    "command"  => 'tcpdump [-AbdDefhHIJKlLnNOpqStuUvxX#] [ -B size ] [ -c count ] [--count] [ -C file_size ] [ -E algo:secret ] [ -F file ] [ -G seconds ] [ -i interface ] [ --immediate-mode ] [ -j tstamptype ] [ -M secret ] [ --number ] [ --print ] [ -Q in|out|inout ] [ -r file ] [ -s snaplen ] [ -T type ] [ --version ] [ -V file ] [ -w file ] [ -W filecount ] [ -y datalinktype ] [ --time-stamp-precision precision ] [ --micro ] [ --nano ] [ -z postrotate-command ] [ -Z user ] [ expression ]' ,
+                    "examples" => array () ,
+                ) ,
+                "wireshark"          => array (
+                    "title"    => 'wireshark : ' ,
+                    "describe" => '一款强大的可视化抓包工具' ,
+                    "command"  => 'wireshark' ,
+                    "examples" => array () ,
+                ) ,
+            ) ,
         );
-        Class_Base_Auth::check_permission();
-        if (!is_cli()) {
+        Class_Base_Auth::check_permission ();
+        if ( ! is_cli () ) {
             $_form_top = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Sniff Deception Commands</div>';
-            $_form = array(
-                "action" => "/guide/penetration_test_commands",
-                "inputs" => array(),
-                "textareas" => array(),
-                "submit" => array(
-                    "value" => " return to Penetration Test Commands ",
-                    "display" => true,
-                ),
-                "reset" => array(
-                    "display" => false,
-                ),
+            $_form     = array (
+                "action"    => "/guide/penetration_test_commands" ,
+                "inputs"    => array () ,
+                "textareas" => array () ,
+                "submit"    => array (
+                    "value"   => " return to Penetration Test Commands " ,
+                    "display" => true ,
+                ) ,
+                "reset"     => array (
+                    "display" => false ,
+                ) ,
             );
-            self::_commands_format_to_form_textareas($_common_commands, $_form);
-            $_top = Class_View_Top::top();
-            $_body = array(
-                "menu" => Class_View_Guide_PenetrationTestCommands_Menu::menu(),
-                "content" => (($_form_top) . Class_View::form_body($_form)),
+            self::_commands_format_to_form_textareas ( $_common_commands , $_form );
+            $_top    = Class_View_Top::top ();
+            $_body   = array (
+                "menu"    => Class_View_Guide_PenetrationTestCommands_Menu::menu () ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
-            $_bottom = Class_View_Bottom::bottom();
-            Class_Base_Response::output(Class_View::index($_top, $_body, $_bottom), "text", 0);
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
-    public static function permission_maintenance($params = array())
+    public static function permission_maintenance ( $params = array () )
     {
-        if ((!is_cli()) && (!Class_Base_Auth::is_login())) {
-            Class_Base_Response::redirect("/login");
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        $_common_commands = array(
-            "permission_maintenance" => array(
-                "evil-winrm" => array(
-                    "title" => 'evil-winrm : ',
+        $_common_commands = array (
+            "permission_maintenance" => array (
+                "evil-winrm"        => array (
+                    "title"    => 'evil-winrm : ' ,
                     "describe" => '远程渗透管理工具（
                     
 Options:
@@ -6673,12 +6673,12 @@ Options:
     
     -h, --help                       Display this help message                    
                     
-                    ）',
-                    "command" => 'evil-winrm -i IP -u USER [-s SCRIPTS_PATH] [-e EXES_PATH] [-P PORT] [-p PASS] [-H HASH] [-U URL] [-S] [-c PUBLIC_KEY_PATH ] [-k PRIVATE_KEY_PATH ] [-r REALM] [--spn SPN_PREFIX] [-l]',
-                    "examples" => array(),
-                ),
-                "exe2hex" => array(
-                    "title" => 'exe2hex : ',
+                    ）' ,
+                    "command"  => 'evil-winrm -i IP -u USER [-s SCRIPTS_PATH] [-e EXES_PATH] [-P PORT] [-p PASS] [-H HASH] [-U URL] [-S] [-c PUBLIC_KEY_PATH ] [-k PRIVATE_KEY_PATH ] [-r REALM] [--spn SPN_PREFIX] [-l]' ,
+                    "examples" => array () ,
+                ) ,
+                "exe2hex"           => array (
+                    "title"    => 'exe2hex : ' ,
                     "describe" => '二进制文件内容格式转换工具（
                     
 Options:
@@ -6709,12 +6709,12 @@ Options:
   
   -v          Enable verbose mode
                     
-                    ）',
-                    "command" => 'exe2hex [options]',
-                    "examples" => array(),
-                ),
-                "impacket" => array(
-                    "title" => 'impacket : ',
+                    ）' ,
+                    "command"  => 'exe2hex [options]' ,
+                    "examples" => array () ,
+                ) ,
+                "impacket"          => array (
+                    "title"    => 'impacket : ' ,
                     "describe" => '域渗透工具包（
                     
 $ (cd /usr/bin/ && ls --color=auto impacket-*)
@@ -6739,12 +6739,12 @@ impacket-karmaSMB         impacket-reg                impacket-wmipersist
 impacket-keylistattack    impacket-registry-read      impacket-wmiquery
 impacket-kintercept       impacket-rpcdump
                     
-                    ）',
-                    "command" => '(cd /usr/bin/ && ls --color=auto impacket-*)',
-                    "examples" => array(),
-                ),
-                "mimikatz" => array(
-                    "title" => 'mimikatz : ',
+                    ）' ,
+                    "command"  => '(cd /usr/bin/ && ls --color=auto impacket-*)' ,
+                    "examples" => array () ,
+                ) ,
+                "mimikatz"          => array (
+                    "title"    => 'mimikatz : ' ,
                     "describe" => '系统密码解密工具（
                     
 > mimikatz ~ Uses admin rights on Windows to display passwords in plaintext
@@ -6764,12 +6764,12 @@ impacket-kintercept       impacket-rpcdump
     ├── mimilib.dll
     └── mimispool.dll
                     
-                    ）',
-                    "command" => 'mimikatz',
-                    "examples" => array(),
-                ),
-                "netcat" => array(
-                    "title" => 'netcat : ',
+                    ）' ,
+                    "command"  => 'mimikatz' ,
+                    "examples" => array () ,
+                ) ,
+                "netcat"            => array (
+                    "title"    => 'netcat : ' ,
                     "describe" => '网络测试工具（使用UDP和TCP协议）（
                     
 connect to somewhere:	nc [-options] hostname port[s] [ports] ... 
@@ -6803,12 +6803,12 @@ options:
 port numbers can be individual or ranges: lo-hi [inclusive];
 hyphens in port names must be backslash escaped (e.g. \'ftp\-data\').
 
-                    ）',
-                    "command" => 'netcat -h',
-                    "examples" => array(),
-                ),
-                "powershell-empire" => array(
-                    "title" => 'powershell-empire : ',
+                    ）' ,
+                    "command"  => 'netcat -h' ,
+                    "examples" => array () ,
+                ) ,
+                "powershell-empire" => array (
+                    "title"    => 'powershell-empire : ' ,
                     "describe" => '后渗透利用工具（
                     
 positional arguments:
@@ -6862,23 +6862,23 @@ usemodule         Use an Empire module. （使用Empire模块）
 
 usestager         Use an Empire stager. （使用Empire舞台）
                     
-                    ）',
-                    "command" => 'empire.py [-h] {server,client} ...',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "开启powershell-empire服务",
-                            "command" => "powershell-empire server",
-                        ),
-                        array(
-                            "title" => "",
-                            "describe" => "启动客户端",
-                            "command" => "powershell-empire client",
-                        ),
-                    ),
-                ),
-                "powersploit" => array(
-                    "title" => 'powersploit : ',
+                    ）' ,
+                    "command"  => 'empire.py [-h] {server,client} ...' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "开启powershell-empire服务" ,
+                            "command"  => "powershell-empire server" ,
+                        ) ,
+                        array (
+                            "title"    => "" ,
+                            "describe" => "启动客户端" ,
+                            "command"  => "powershell-empire client" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "powersploit"       => array (
+                    "title"    => 'powersploit : ' ,
                     "describe" => '基于PowerShell的后渗透框架软件（
                     
 /usr/share/windows-resources/powersploit
@@ -6896,12 +6896,12 @@ usestager         Use an Empire stager. （使用Empire舞台）
 ├── ScriptModification
 └── Tests               
                     
-                    ）',
-                    "command" => 'powersploit',
-                    "examples" => array(),
-                ),
-                "proxychains4" => array(
-                    "title" => 'proxychains4 : ',
+                    ）' ,
+                    "command"  => 'powersploit' ,
+                    "examples" => array () ,
+                ) ,
+                "proxychains4"      => array (
+                    "title"    => 'proxychains4 : ' ,
                     "describe" => '强制应用的TCP连接通过代理的工具（
                     
 Options:
@@ -6912,12 +6912,12 @@ Options:
 	
 More help in README file
                     
-                    ）',
-                    "command" => 'proxychains4 -q -f config_file program_name [arguments]',
-                    "examples" => array(),
-                ),
-                "weevely" => array(
-                    "title" => 'weevely : ',
+                    ）' ,
+                    "command"  => 'proxychains4 -q -f config_file program_name [arguments]' ,
+                    "examples" => array () ,
+                ) ,
+                "weevely"           => array (
+                    "title"    => 'weevely : ' ,
                     "describe" => '基于python编写的webshell管理工具（
                     
 positional arguments:
@@ -6928,55 +6928,55 @@ positional arguments:
 options:
   -h, --help  show this help message and exit
                     
-                    ）',
-                    "command" => 'weevely terminal [-h] url password [cmd]',
-                    "examples" => array(),
-                ),
-            ),
+                    ）' ,
+                    "command"  => 'weevely terminal [-h] url password [cmd]' ,
+                    "examples" => array () ,
+                ) ,
+            ) ,
         );
-        Class_Base_Auth::check_permission();
-        if (!is_cli()) {
+        Class_Base_Auth::check_permission ();
+        if ( ! is_cli () ) {
             $_form_top = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Permission Maintenance Commands</div>';
-            $_form = array(
-                "action" => "/guide/penetration_test_commands",
-                "inputs" => array(),
-                "textareas" => array(),
-                "submit" => array(
-                    "value" => " return to Penetration Test Commands ",
-                    "display" => true,
-                ),
-                "reset" => array(
-                    "display" => false,
-                ),
+            $_form     = array (
+                "action"    => "/guide/penetration_test_commands" ,
+                "inputs"    => array () ,
+                "textareas" => array () ,
+                "submit"    => array (
+                    "value"   => " return to Penetration Test Commands " ,
+                    "display" => true ,
+                ) ,
+                "reset"     => array (
+                    "display" => false ,
+                ) ,
             );
-            self::_commands_format_to_form_textareas($_common_commands, $_form);
-            $_top = Class_View_Top::top();
-            $_body = array(
-                "menu" => Class_View_Guide_PenetrationTestCommands_Menu::menu(),
-                "content" => (($_form_top) . Class_View::form_body($_form)),
+            self::_commands_format_to_form_textareas ( $_common_commands , $_form );
+            $_top    = Class_View_Top::top ();
+            $_body   = array (
+                "menu"    => Class_View_Guide_PenetrationTestCommands_Menu::menu () ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
-            $_bottom = Class_View_Bottom::bottom();
-            Class_Base_Response::output(Class_View::index($_top, $_body, $_bottom), "text", 0);
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
-    public static function data_forensics($params = array())
+    public static function data_forensics ( $params = array () )
     {
-        if ((!is_cli()) && (!Class_Base_Auth::is_login())) {
-            Class_Base_Response::redirect("/login");
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        $_common_commands = array(
-            "data_forensics" => array(
-                "autopsy(root)" => array(
-                    "title" => 'autopsy ( root ) : ',
-                    "describe" => '数字取证工具（Web界面，默认监听9999端口）',
-                    "command" => 'autopsy',
-                    "examples" => array(),
-                ),
-                "binwalk" => array(
-                    "title" => 'binwalk : ',
+        $_common_commands = array (
+            "data_forensics" => array (
+                "autopsy(root)"  => array (
+                    "title"    => 'autopsy ( root ) : ' ,
+                    "describe" => '数字取证工具（Web界面，默认监听9999端口）' ,
+                    "command"  => 'autopsy' ,
+                    "examples" => array () ,
+                ) ,
+                "binwalk"        => array (
+                    "title"    => 'binwalk : ' ,
                     "describe" => '一款快速、易用，用于分析，逆向工程和提取固件映像的工具（
                     
 Signature Scan Options:
@@ -7098,12 +7098,12 @@ General Options:
     
     -s, --status=<int>           Enable the status server on the specified port
 
-                    ）',
-                    "command" => 'binwalk [OPTIONS] [FILE1] [FILE2] [FILE3] ...',
-                    "examples" => array(),
-                ),
-                "bulk_extractor" => array(
-                    "title" => 'bulk_extractor : ',
+                    ）' ,
+                    "command"  => 'binwalk [OPTIONS] [FILE1] [FILE2] [FILE3] ...' ,
+                    "examples" => array () ,
+                ) ,
+                "bulk_extractor" => array (
+                    "title"    => 'bulk_extractor : ' ,
                     "describe" => '一款从数字证据文件中提取相应取证信息（诸如，电子邮件地址、信用卡号、URL、以及其他类型信息等）的工具软件（
                     
 Options:
@@ -7296,12 +7296,12 @@ These scanners disabled; enable with -e:
    -e xor - enable scanner xor
      -S xor_mask=255    XOR mask value, in decimal
                     
-                    ）',
-                    "command" => 'bulk_extractor [OPTION...] image_name',
-                    "examples" => array(),
-                ),
-                "hashdeep" => array(
-                    "title" => 'hashdeep : ',
+                    ）' ,
+                    "command"  => 'bulk_extractor [OPTION...] image_name' ,
+                    "examples" => array () ,
+                ) ,
+                "hashdeep"       => array (
+                    "title"    => 'hashdeep : ' ,
                     "describe" => '文件完整性检测工具（
                     
 Options:
@@ -7344,55 +7344,55 @@ Options:
 
 -j <num>  - use num threads (default 4)
      
-                    ）',
-                    "command" => 'hashdeep [OPTION]... [FILES]...',
-                    "examples" => array(),
-                ),
-            ),
+                    ）' ,
+                    "command"  => 'hashdeep [OPTION]... [FILES]...' ,
+                    "examples" => array () ,
+                ) ,
+            ) ,
         );
-        Class_Base_Auth::check_permission();
-        if (!is_cli()) {
+        Class_Base_Auth::check_permission ();
+        if ( ! is_cli () ) {
             $_form_top = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Data Forensics Commands</div>';
-            $_form = array(
-                "action" => "/guide/penetration_test_commands",
-                "inputs" => array(),
-                "textareas" => array(),
-                "submit" => array(
-                    "value" => " return to Penetration Test Commands ",
-                    "display" => true,
-                ),
-                "reset" => array(
-                    "display" => false,
-                ),
+            $_form     = array (
+                "action"    => "/guide/penetration_test_commands" ,
+                "inputs"    => array () ,
+                "textareas" => array () ,
+                "submit"    => array (
+                    "value"   => " return to Penetration Test Commands " ,
+                    "display" => true ,
+                ) ,
+                "reset"     => array (
+                    "display" => false ,
+                ) ,
             );
-            self::_commands_format_to_form_textareas($_common_commands, $_form);
-            $_top = Class_View_Top::top();
-            $_body = array(
-                "menu" => Class_View_Guide_PenetrationTestCommands_Menu::menu(),
-                "content" => (($_form_top) . Class_View::form_body($_form)),
+            self::_commands_format_to_form_textareas ( $_common_commands , $_form );
+            $_top    = Class_View_Top::top ();
+            $_body   = array (
+                "menu"    => Class_View_Guide_PenetrationTestCommands_Menu::menu () ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
-            $_bottom = Class_View_Bottom::bottom();
-            Class_Base_Response::output(Class_View::index($_top, $_body, $_bottom), "text", 0);
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
-    public static function reporting($params = array())
+    public static function reporting ( $params = array () )
     {
-        if ((!is_cli()) && (!Class_Base_Auth::is_login())) {
-            Class_Base_Response::redirect("/login");
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        $_common_commands = array(
-            "reporting" => array(
-                "cherrytree" => array(
-                    "title" => 'CherryTree : ',
-                    "describe" => '一款支持无限层级分类的笔记软件（采用 Python 语言编写，支持富文本编辑与代码高亮模式，支持 Linux、Windows 等平台）',
-                    "command" => 'cherrytree',
-                    "examples" => array(),
-                ),
-                "cutycapt" => array(
-                    "title" => 'cutycapt : ',
+        $_common_commands = array (
+            "reporting" => array (
+                "cherrytree"      => array (
+                    "title"    => 'CherryTree : ' ,
+                    "describe" => '一款支持无限层级分类的笔记软件（采用 Python 语言编写，支持富文本编辑与代码高亮模式，支持 Linux、Windows 等平台）' ,
+                    "command"  => 'cherrytree' ,
+                    "examples" => array () ,
+                ) ,
+                "cutycapt"        => array (
+                    "title"    => 'cutycapt : ' ,
                     "describe" => '网页截图工具（
       
 Options:
@@ -7465,30 +7465,30 @@ Options:
  -----------------------------------------------------------------------------
  http://cutycapt.sf.net - (c) 2003-2013 Bjoern Hoehrmann - bjoern@hoehrmann.de
                     
-                    ）',
-                    "command" => 'CutyCapt --url=<url> --out=<image save path> ',
-                    "examples" => array(),
-                ),
-                "faraday" => array(
-                    "title" => 'faraday : ',
-                    "describe" => '渗透测试IDE和漏洞管理平台（Web界面，默认监听端口为5985）',
-                    "command" => 'faraday',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "重置密码",
-                            "command" => "faraday-manage change-password",
-                        ),
-                    ),
-                ),
-                "maltego" => array(
-                    "title" => 'maltego : ',
-                    "describe" => '网络空间情报分析工具（图形化界面）',
-                    "command" => 'maltego',
-                    "examples" => array(),
-                ),
-                "pipal" => array(
-                    "title" => 'pipal : ',
+                    ）' ,
+                    "command"  => 'CutyCapt --url=<url> --out=<image save path> ' ,
+                    "examples" => array () ,
+                ) ,
+                "faraday"         => array (
+                    "title"    => 'faraday : ' ,
+                    "describe" => '渗透测试IDE和漏洞管理平台（Web界面，默认监听端口为5985）' ,
+                    "command"  => 'faraday' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "重置密码" ,
+                            "command"  => "faraday-manage change-password" ,
+                        ) ,
+                    ) ,
+                ) ,
+                "maltego"         => array (
+                    "title"    => 'maltego : ' ,
+                    "describe" => '网络空间情报分析工具（图形化界面）' ,
+                    "command"  => 'maltego' ,
+                    "examples" => array () ,
+                ) ,
+                "pipal"           => array (
+                    "title"    => 'pipal : ' ,
                     "describe" => '密码统计分析工具（
                     
 Options:
@@ -7508,12 +7508,12 @@ Options:
 
 	FILENAME: The file to count
 	             
-                    ）',
-                    "command" => 'pipal [OPTION] ... FILENAME',
-                    "examples" => array(),
-                ),
-                "recordmydesktop" => array(
-                    "title" => 'recordmydesktop : ',
+                    ）' ,
+                    "command"  => 'pipal [OPTION] ... FILENAME' ,
+                    "examples" => array () ,
+                ) ,
+                "recordmydesktop" => array (
+                    "title"    => 'recordmydesktop : ' ,
                     "describe" => '屏幕录像工具（
                     
 Generic Options
@@ -7607,84 +7607,84 @@ Misc Options
 
 	If no other options are specified, filename can be given without the -o switch.
                    
-                    ）',
-                    "command" => 'recordmydesktop [OPTIONS]^filename',
-                    "examples" => array(),
-                ),
-            ),
+                    ）' ,
+                    "command"  => 'recordmydesktop [OPTIONS]^filename' ,
+                    "examples" => array () ,
+                ) ,
+            ) ,
         );
-        Class_Base_Auth::check_permission();
-        if (!is_cli()) {
+        Class_Base_Auth::check_permission ();
+        if ( ! is_cli () ) {
             $_form_top = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Reporting Commands</div>';
-            $_form = array(
-                "action" => "/guide/penetration_test_commands",
-                "inputs" => array(),
-                "textareas" => array(),
-                "submit" => array(
-                    "value" => " return to Penetration Test Commands ",
-                    "display" => true,
-                ),
-                "reset" => array(
-                    "display" => false,
-                ),
+            $_form     = array (
+                "action"    => "/guide/penetration_test_commands" ,
+                "inputs"    => array () ,
+                "textareas" => array () ,
+                "submit"    => array (
+                    "value"   => " return to Penetration Test Commands " ,
+                    "display" => true ,
+                ) ,
+                "reset"     => array (
+                    "display" => false ,
+                ) ,
             );
-            self::_commands_format_to_form_textareas($_common_commands, $_form);
-            $_top = Class_View_Top::top();
-            $_body = array(
-                "menu" => Class_View_Guide_PenetrationTestCommands_Menu::menu(),
-                "content" => (($_form_top) . Class_View::form_body($_form)),
+            self::_commands_format_to_form_textareas ( $_common_commands , $_form );
+            $_top    = Class_View_Top::top ();
+            $_body   = array (
+                "menu"    => Class_View_Guide_PenetrationTestCommands_Menu::menu () ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
-            $_bottom = Class_View_Bottom::bottom();
-            Class_Base_Response::output(Class_View::index($_top, $_body, $_bottom), "text", 0);
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
-    public static function social_engineering($params = array())
+    public static function social_engineering ( $params = array () )
     {
-        if ((!is_cli()) && (!Class_Base_Auth::is_login())) {
-            Class_Base_Response::redirect("/login");
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        $_common_commands = array(
-            "social_engineering" => array(
-                "setoolmaster" => array(
-                    "title" => 'setoolmaster : ',
-                    "describe" => '开源的社会工程学工具',
-                    "command" => 'setoolmaster',
-                    "examples" => array(
-                        array(
-                            "title" => "",
-                            "describe" => "查看帮助信息",
-                            "command" => "help",
-                        ),
-                    ),
-                ),
-            ),
+        $_common_commands = array (
+            "social_engineering" => array (
+                "setoolmaster" => array (
+                    "title"    => 'setoolmaster : ' ,
+                    "describe" => '开源的社会工程学工具' ,
+                    "command"  => 'setoolmaster' ,
+                    "examples" => array (
+                        array (
+                            "title"    => "" ,
+                            "describe" => "查看帮助信息" ,
+                            "command"  => "help" ,
+                        ) ,
+                    ) ,
+                ) ,
+            ) ,
         );
-        Class_Base_Auth::check_permission();
-        if (!is_cli()) {
+        Class_Base_Auth::check_permission ();
+        if ( ! is_cli () ) {
             $_form_top = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Social Engineering Commands</div>';
-            $_form = array(
-                "action" => "/guide/penetration_test_commands",
-                "inputs" => array(),
-                "textareas" => array(),
-                "submit" => array(
-                    "value" => " return to Penetration Test Commands ",
-                    "display" => true,
-                ),
-                "reset" => array(
-                    "display" => false,
-                ),
+            $_form     = array (
+                "action"    => "/guide/penetration_test_commands" ,
+                "inputs"    => array () ,
+                "textareas" => array () ,
+                "submit"    => array (
+                    "value"   => " return to Penetration Test Commands " ,
+                    "display" => true ,
+                ) ,
+                "reset"     => array (
+                    "display" => false ,
+                ) ,
             );
-            self::_commands_format_to_form_textareas($_common_commands, $_form);
-            $_top = Class_View_Top::top();
-            $_body = array(
-                "menu" => Class_View_Guide_PenetrationTestCommands_Menu::menu(),
-                "content" => (($_form_top) . Class_View::form_body($_form)),
+            self::_commands_format_to_form_textareas ( $_common_commands , $_form );
+            $_top    = Class_View_Top::top ();
+            $_body   = array (
+                "menu"    => Class_View_Guide_PenetrationTestCommands_Menu::menu () ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
-            $_bottom = Class_View_Bottom::bottom();
-            Class_Base_Response::output(Class_View::index($_top, $_body, $_bottom), "text", 0);
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }

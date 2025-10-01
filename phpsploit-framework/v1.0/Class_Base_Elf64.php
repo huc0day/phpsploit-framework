@@ -116,7 +116,7 @@ class Class_Base_Elf64 extends Class_Base_Elf
                         $_program_head_count             = $_file_info[ "file_header" ]->get_program_header_count ();
                         $_program_head_size              = Class_Base_Elf64_Program_Header::get_Program_header_size ();
                         $_program_head_offset            = intval ( $_file_info[ "file_header" ]->get_program_header_offset () );
-                        for ( $programs_index = 0 ; $programs_index < $_program_head_count ; $programs_index++ ) {
+                        for ( $programs_index = 0 ; $programs_index < $_program_head_count ; $programs_index ++ ) {
                             fseek ( $_file_point , $_program_head_offset , SEEK_SET );
                             $_program_head_content = @fread ( $_file_point , $_program_head_size );
                             if ( ! empty( $_program_head_content ) ) {
@@ -139,7 +139,7 @@ class Class_Base_Elf64 extends Class_Base_Elf
                                             $_file_info[ "programs" ][ $_file_info[ "program_headers" ][ $_program_head_offset ]->get_p_offset () ] = $_program_info;
                                         }
                                     }
-                                    //Class_Base_Response::outputln ( array ($_file_info[ "program_headers" ][ $_program_head_offset ]->get_format_program_header() , $_file_info[ "programs" ][ $_file_info[ "program_headers" ][ $_program_head_offset ]->get_p_offset () ] ) );
+                                    /* Class_Base_Response::outputln ( array ($_file_info[ "program_headers" ][ $_program_head_offset ]->get_format_program_header() , $_file_info[ "programs" ][ $_file_info[ "program_headers" ][ $_program_head_offset ]->get_p_offset () ] ) ); */
                                 }
                             }
                             $_program_head_offset += $_program_head_size;
@@ -152,7 +152,7 @@ class Class_Base_Elf64 extends Class_Base_Elf
                         $_section_header_count            = $_file_info[ "file_header" ]->get_section_header_count ();
                         $_section_header_size             = Class_Base_Elf64_Section_Header::get_section_header_size ();
                         $_section_header_offset           = intval ( $_file_info[ "file_header" ]->get_section_header_offset () );
-                        for ( $section_index = 0 ; $section_index < $_section_header_count ; $section_index++ ) {
+                        for ( $section_index = 0 ; $section_index < $_section_header_count ; $section_index ++ ) {
                             fseek ( $_file_point , $_section_header_offset , SEEK_SET );
                             $_section_header_content = @fread ( $_file_point , $_section_header_size );
                             if ( ! empty( $_section_header_content ) ) {
@@ -199,7 +199,7 @@ class Class_Base_Elf64 extends Class_Base_Elf
                 $_section_header_count  = $file_header_object->get_section_header_count ();
                 $_section_header_size   = Class_Base_Elf64_Section_Header::get_section_header_size ();
                 $_section_header_offset = intval ( $file_header_object->get_section_header_offset () );
-                for ( $section_header_index = 0 ; $section_header_index < $_section_header_count ; $section_header_index++ ) {
+                for ( $section_header_index = 0 ; $section_header_index < $_section_header_count ; $section_header_index ++ ) {
                     fseek ( $_file_point , $_section_header_offset , SEEK_SET );
                     $_section_header_content = @fread ( $_file_point , $_section_header_size );
                     if ( ! empty( $_section_header_content ) ) {
@@ -243,7 +243,7 @@ class Class_Base_Elf64 extends Class_Base_Elf
                 $_section_header_count  = $file_header_object->get_section_header_count ();
                 $_section_header_size   = Class_Base_Elf64_Section_Header::get_section_header_size ();
                 $_section_header_offset = intval ( $file_header_object->get_section_header_offset () );
-                for ( $section_header_index = 0 ; $section_header_index < $_section_header_count ; $section_header_index++ ) {
+                for ( $section_header_index = 0 ; $section_header_index < $_section_header_count ; $section_header_index ++ ) {
                     fseek ( $_file_point , $_section_header_offset , SEEK_SET );
                     $_section_header_content = @fread ( $_file_point , $_section_header_size );
                     if ( ! empty( $_section_header_content ) ) {
@@ -282,7 +282,7 @@ class Class_Base_Elf64 extends Class_Base_Elf
     {
         $_h           = 0;
         $_name_length = strlen ( $name );
-        for ( $index = 0 ; $index < $_name_length ; $index++ ) {
+        for ( $index = 0 ; $index < $_name_length ; $index ++ ) {
             $_h = ( ( $_h << 4 ) + ( ord ( substr ( $name , $index , 1 ) ) ) );
             if ( $_g = ( $_h & 0xf0000000 ) ) {
                 $_h ^= ( $_g >> 24 );

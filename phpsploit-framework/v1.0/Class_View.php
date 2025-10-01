@@ -40,7 +40,7 @@ class Class_View extends Class_Root implements Interface_View
 
     public static function index ( $top = array ( "menu" => null , "content" => null ) , $body = array ( "menu" => null , "content" => null ) , $bottom = array ( "menu" => null , "content" => null ) )
     {
-        return self ::index_page ( $top , $body , $bottom );
+        return self::index_page ( $top , $body , $bottom );
     }
 
     public static function top ( $top )
@@ -80,11 +80,11 @@ class Class_View extends Class_Root implements Interface_View
             if ( ! isset( $item[ "title" ] ) || ( ! is_string ( $item[ "title" ] ) ) ) {
                 $item[ "title" ] = "";
             }
-            $_menu .= '<td style="text-align: center;"><a href="' . Class_Base_Format ::htmlentities ( $item[ "href" ] ) . '">' . Class_Base_Format ::htmlentities ( $item[ "title" ] ) . '</a></td>';
+            $_menu .= '<td style="text-align: center;"><a href="' . Class_Base_Format::htmlentities ( $item[ "href" ] ) . '">' . Class_Base_Format::htmlentities ( $item[ "title" ] ) . '</a></td>';
         }
         $_menu    .= '</tr></table>';
         $_content = $top[ "content" ];
-        $_html    = '<!DOCTYPE html><html lang="' . $top[ "lang" ] . '"><head><meta charset="' . Class_Base_Format ::htmlentities ( $_charset ) . '"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" /><meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Expires" content="0" /><title>' . Class_Base_Format ::htmlentities ( $_title ) . '</title>' . $_javascript . '</head><body onload="init();"><div style="padding-top:3%;">' . $_content . '</div><div>' . $_menu . '</div>';
+        $_html    = '<!DOCTYPE html><html lang="' . $top[ "lang" ] . '"><head><meta charset="' . Class_Base_Format::htmlentities ( $_charset ) . '"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" /><meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Expires" content="0" /><title>' . Class_Base_Format::htmlentities ( $_title ) . '</title>' . $_javascript . '</head><body onload="init();"><div style="padding-top:3%;">' . $_content . '</div><div>' . $_menu . '</div>';
         return $_html;
     }
 
@@ -113,7 +113,7 @@ class Class_View extends Class_Root implements Interface_View
             if ( ! isset( $item[ "title" ] ) || ( ! is_string ( $item[ "title" ] ) ) ) {
                 $item[ "title" ] = "";
             }
-            $_menu .= '<td style="text-align: center;"><a title="' . Class_Base_Format ::htmlentities ( $item[ "describe" ] ) . '" href="' . Class_Base_Format ::htmlentities ( $item[ "href" ] ) . '">' . Class_Base_Format ::htmlentities ( $item[ "title" ] ) . '</a></td>';
+            $_menu .= '<td style="text-align: center;"><a title="' . Class_Base_Format::htmlentities ( $item[ "describe" ] ) . '" href="' . Class_Base_Format::htmlentities ( $item[ "href" ] ) . '">' . Class_Base_Format::htmlentities ( $item[ "title" ] ) . '</a></td>';
         }
         $_menu       .= '</tr></table>';
         $_content    = $bottom[ "content" ];
@@ -141,7 +141,7 @@ class Class_View extends Class_Root implements Interface_View
             if ( ( ! isset( $item[ "title" ] ) ) || ( ! is_string ( $item[ "title" ] ) ) ) {
                 $item[ "title" ] = "";
             }
-            $_html .= '<div style="text-align: center;" title="' . Class_Base_Format ::htmlentities ( $item[ "describe" ] ) . '"><a href="' . Class_Base_Format ::htmlentities ( $item[ "href" ] ) . '">' . Class_Base_Format ::htmlentities ( $item[ "title" ] ) . '</a></div>';
+            $_html .= '<div style="text-align: center;" title="' . Class_Base_Format::htmlentities ( $item[ "describe" ] ) . '"><a href="' . Class_Base_Format::htmlentities ( $item[ "href" ] ) . '">' . Class_Base_Format::htmlentities ( $item[ "title" ] ) . '</a></div>';
         }
         $_html .= '</div>';
         return $_html;
@@ -175,7 +175,7 @@ class Class_View extends Class_Root implements Interface_View
             if ( ! isset( $item[ "title" ] ) || ( ! is_string ( $item[ "title" ] ) ) ) {
                 $item[ "title" ] = "";
             }
-            $_menu .= '<tr style="height:64px;line-height: 64px;"><td style="text-align: left;"><a title="' . Class_Base_Format ::htmlentities ( $item[ "describe" ] ) . '" href="' . Class_Base_Format ::htmlentities ( $item[ "href" ] ) . '" target="' . ( empty( $item[ "window" ] ) ? "_self" : "_blank" ) . '" >' . Class_Base_Format ::htmlentities ( $item[ "title" ] ) . '</a></td></tr>';
+            $_menu .= '<tr style="height:64px;line-height: 64px;"><td style="text-align: left;"><a title="' . Class_Base_Format::htmlentities ( $item[ "describe" ] ) . '" href="' . Class_Base_Format::htmlentities ( $item[ "href" ] ) . '" target="' . ( empty( $item[ "window" ] ) ? "_self" : "_blank" ) . '" >' . Class_Base_Format::htmlentities ( $item[ "title" ] ) . '</a></td></tr>';
         }
         $_menu    .= '</table>';
         $_content = $body[ "content" ];
@@ -185,7 +185,7 @@ class Class_View extends Class_Root implements Interface_View
 
     public static function index_page ( $top = array ( "menu" => null , "content" => null , "javascript" => null ) , $body = array ( "menu" => null , "content" => null ) , $bottom = array ( "menu" => null , "content" => null , "javascript" => null ) )
     {
-        $_html = self ::top ( $top ) . self ::body ( $body ) . self ::bottom ( $bottom );
+        $_html = self::top ( $top ) . self::body ( $body ) . self::bottom ( $bottom );
         return $_html;
     }
 
@@ -209,7 +209,7 @@ class Class_View extends Class_Root implements Interface_View
         if ( ( ! isset( $list[ "search" ] ) ) || ( ! is_string ( $list[ "search" ] ) ) ) {
             $list[ "search" ] = "";
         }
-        $_html = self ::top ( $top ) . self ::list_table ( $list[ "page" ] , $list[ "pagesize" ] , $list[ "total" ] , $list[ "list" ] , $list[ "search" ] ) . self ::bottom ( $bottom );
+        $_html = self::top ( $top ) . self::list_table ( $list[ "page" ] , $list[ "pagesize" ] , $list[ "total" ] , $list[ "list" ] , $list[ "search" ] ) . self::bottom ( $bottom );
         return $_html;
     }
 
@@ -236,7 +236,7 @@ class Class_View extends Class_Root implements Interface_View
 
         $_list      = '';
         $_list      .= '<div>';
-        $_list      .= '<div style="padding-top: 32px;font-size: 18px;"><table style="width:100%;"><tr><td width="20%">search:</td><td width="80%" style="text-align: left;"><form action="' . Class_Base_Format ::htmlentities ( Class_Base_Format ::action ( $search[ "action" ] ) ) . '" method="post"><input name="' . Class_Base_Format ::htmlentities ( $search[ "name" ] ) . '" type="text" value="' . Class_Base_Format ::htmlentities ( $search[ "value" ] ) . '" style="width:60%;line-height:24px;font-size:18px;border-width:2px;text-align:center;">&nbsp;&nbsp;<input name="submit" type="submit" value="&nbsp;submit&nbsp;" style="line-height:25px;font-size:20px;border-width:2px;"></form></td></tr></table></div>';
+        $_list      .= '<div style="padding-top: 32px;font-size: 18px;"><table style="width:100%;"><tr><td width="20%">search:</td><td width="80%" style="text-align: left;"><form action="' . Class_Base_Format::htmlentities ( Class_Base_Format::action ( $search[ "action" ] ) ) . '" method="post"><input name="' . Class_Base_Format::htmlentities ( $search[ "name" ] ) . '" type="text" value="' . Class_Base_Format::htmlentities ( $search[ "value" ] ) . '" style="width:60%;line-height:24px;font-size:18px;border-width:2px;text-align:center;">&nbsp;&nbsp;<input name="submit" type="submit" value="&nbsp;submit&nbsp;" style="line-height:25px;font-size:20px;border-width:2px;"></form></td></tr></table></div>';
         $_list      .= '<div style="padding-top: 32px;"><table style="width:90%;">';
         $_item_size = 0;
         foreach ( $list as $index => $item ) {
@@ -259,7 +259,7 @@ class Class_View extends Class_Root implements Interface_View
         }
         $_list .= '</table></div>';
         $_list .= '<div style="padding-top: 32px;font-size:18px;"><table style="width:100%;text-align: left;"><tr><td>page:</td><td style="text-align: left;padding-right:32px;">' . $page . '</td><td>page size:</td><td style="text-align: left;padding-right:32px;">' . $page_size . '</td><td>max page:</td><td style="text-align: left;padding-right:32px;">' . $max_page . '</td><td>row total:</td><td style="text-align: left;padding-right:32px;">' . $row_total . '</td><td>to page:</td><td>';
-        $_list .= '<select name="page" size="1" style="width:100%;height:32px;line-height:24px;font-size:18px;border-width:2px;text-align:center;" onchange="document.location.href=\'' . Class_Base_Response ::get_url ( $search[ "action" ] ) . '&page=\'+this.value+\'&page_size=' . $page_size . '&key=' . Class_Base_Format ::htmlentities ( $search[ "value" ] ) . '\';">';
+        $_list .= '<select name="page" size="1" style="width:100%;height:32px;line-height:24px;font-size:18px;border-width:2px;text-align:center;" onchange="document.location.href=\'' . Class_Base_Response::get_url ( $search[ "action" ] ) . '&page=\'+this.value+\'&page_size=' . $page_size . '&key=' . Class_Base_Format::htmlentities ( $search[ "value" ] ) . '\';">';
         for ( $index = 1 ; $index <= $max_page ; $index ++ ) {
             $_list .= '<option value="' . $index . '" ' . ( ( $page != $index ) ? "" : "selected" ) . '>' . $index . '</option>';
         }
@@ -271,7 +271,7 @@ class Class_View extends Class_Root implements Interface_View
 
     public static function detail_page ( $top , $detail , $bottom )
     {
-        $_html = self ::top ( $top ) . self ::detail ( $detail ) . self ::bottom ( $bottom );
+        $_html = self::top ( $top ) . self::detail ( $detail ) . self::bottom ( $bottom );
         return $_html;
     }
 
@@ -433,15 +433,15 @@ class Class_View extends Class_Root implements Interface_View
 
     public static function form_page ( $top , $form , $bottom )
     {
-        $form  = self ::init_form ( $form );
-        $_html = self ::top ( $top ) . self ::form ( $form[ "action" ] , $form[ "hiddens" ] , $form[ "selects" ] , $form[ "inputs" ] , $form[ "textareas" ] , $form[ "files" ] , $form[ "gets" ] , $form[ "id" ] , $form[ "name" ] , $form[ "enctype" ] , $form[ "submit" ] , $form[ "reset" ] , $form[ "button" ] , $form[ "div_show_dyn_id" ] ) . self ::bottom ( $bottom );
+        $form  = self::init_form ( $form );
+        $_html = self::top ( $top ) . self::form ( $form[ "action" ] , $form[ "hiddens" ] , $form[ "selects" ] , $form[ "inputs" ] , $form[ "textareas" ] , $form[ "files" ] , $form[ "gets" ] , $form[ "id" ] , $form[ "name" ] , $form[ "enctype" ] , $form[ "submit" ] , $form[ "reset" ] , $form[ "button" ] , $form[ "div_show_dyn_id" ] ) . self::bottom ( $bottom );
         return $_html;
     }
 
     public static function form_body ( $form )
     {
-        $form  = self ::init_form ( $form );
-        $_html = self ::form ( $form[ "action" ] , $form[ "hiddens" ] , $form[ "selects" ] , $form[ "inputs" ] , $form[ "textareas" ] , $form[ "files" ] , $form[ "gets" ] , $form[ "id" ] , $form[ "name" ] , $form[ "enctype" ] , $form[ "submit" ] , $form[ "reset" ] , $form[ "button" ] , $form[ "div_show_dyn_id" ] );
+        $form  = self::init_form ( $form );
+        $_html = self::form ( $form[ "action" ] , $form[ "hiddens" ] , $form[ "selects" ] , $form[ "inputs" ] , $form[ "textareas" ] , $form[ "files" ] , $form[ "gets" ] , $form[ "id" ] , $form[ "name" ] , $form[ "enctype" ] , $form[ "submit" ] , $form[ "reset" ] , $form[ "button" ] , $form[ "div_show_dyn_id" ] );
         return $_html;
     }
 
@@ -471,7 +471,7 @@ class Class_View extends Class_Root implements Interface_View
         }
         if ( ( ! empty( $gets ) ) && ( is_array ( $gets ) ) ) {
             foreach ( $gets as $k => $v ) {
-                if ( is_string ( $k ) && ( ! Class_Base_Format ::is_integer ( $k ) ) ) {
+                if ( is_string ( $k ) && ( ! Class_Base_Format::is_integer ( $k ) ) ) {
                     $action .= '&' . $k . '=' . urlencode ( $v );
                 }
             }
@@ -482,7 +482,7 @@ class Class_View extends Class_Root implements Interface_View
         $action .= '&csrf=' . ( empty( $_SESSION[ "PHPSPLOIT_PERMISSION_CSRF" ] ) ? ( $_SESSION[ "PHPSPLOIT_PERMISSION_CSRF" ] = ( time () . rand ( 10000000 , 99999999 ) ) ) : $_SESSION[ "PHPSPLOIT_PERMISSION_CSRF" ] );
         $_form  = '';
         $_form  .= '<div>';
-        $_form  .= '<form id="' . Class_Base_Format ::htmlentities ( $form_id ) . '" name="' . Class_Base_Format ::htmlentities ( $form_name ) . '" action="' . Class_Base_Format ::htmlentities ( $action ) . '" method="post" enctype="' . Class_Base_Format ::htmlentities ( $form_enctype ) . '" onsubmit="return to_submit(this);">';
+        $_form  .= '<form id="' . Class_Base_Format::htmlentities ( $form_id ) . '" name="' . Class_Base_Format::htmlentities ( $form_name ) . '" action="' . Class_Base_Format::htmlentities ( $action ) . '" method="post" enctype="' . Class_Base_Format::htmlentities ( $form_enctype ) . '" onsubmit="return to_submit(this);">';
         if ( ( ! isset( $submit ) ) || ( ! is_array ( $submit ) ) ) {
             $submit = array ();
         }
@@ -593,7 +593,7 @@ class Class_View extends Class_Root implements Interface_View
         }
         if ( ( ! isset( $button[ "event_processing" ] ) ) || ( ! is_string ( $button[ "event_processing" ] ) ) ) {
             $_event_processing               = '';
-            $button[ "events" ][ "onclick" ] = 'click_dyn_add_button("' . Class_Base_Format ::htmlentities ( $form_id ) . '","dyn_form_hidden_index_id");';
+            $button[ "events" ][ "onclick" ] = 'click_dyn_add_button("' . Class_Base_Format::htmlentities ( $form_id ) . '","dyn_form_hidden_index_id");';
             foreach ( $button[ "events" ] as $event => $processing ) {
                 if ( ( is_string ( $event ) ) & ( strlen ( $event ) > 0 ) && ( is_string ( $event ) ) && ( strlen ( $processing ) > 0 ) ) {
                     $_event_processing .= chr ( 32 ) . ( $event ) . chr ( 61 ) . chr ( 34 ) . ( $processing ) . chr ( 34 ) . chr ( 59 ) . chr ( 32 );
@@ -621,7 +621,7 @@ class Class_View extends Class_Root implements Interface_View
                     $_event_processing .= chr ( 32 ) . ( $event ) . chr ( 61 ) . chr ( 34 ) . ( $processing ) . chr ( 34 ) . chr ( 59 ) . chr ( 32 );
                 }
             }
-            $_form .= '<input id="' . Class_Base_Format ::htmlentities ( $item[ "id" ] ) . '" name="' . Class_Base_Format ::htmlentities ( $item[ "name" ] ) . '" type="hidden" value="' . Class_Base_Format ::htmlentities ( $item[ "value" ] ) . '" ' . $_event_processing . '>';
+            $_form .= '<input id="' . Class_Base_Format::htmlentities ( $item[ "id" ] ) . '" name="' . Class_Base_Format::htmlentities ( $item[ "name" ] ) . '" type="hidden" value="' . Class_Base_Format::htmlentities ( $item[ "value" ] ) . '" ' . $_event_processing . '>';
         }
         $_form .= '<div>';
         foreach ( $selects as $select_index => $item ) {
@@ -653,7 +653,7 @@ class Class_View extends Class_Root implements Interface_View
                 }
             }
             $_form .= '<div style="margin-top: 32px;">';
-            $_form .= '<table style="width:100%;font-size:18px;"><tr><td width="20%" style="text-align: left;">' . Class_Base_Format ::htmlentities ( $item[ "title" ] ) . '</td><td width="60%" style="text-align: center;"><select id="' . Class_Base_Format ::htmlentities ( $item[ "id" ] ) . '" name="' . Class_Base_Format ::htmlentities ( $item[ "name" ] ) . '" size="1" style="width:100%;height:32px;line-height:24px;font-size:18px;border-width:2px;text-align:center;' . Class_Base_Format ::htmlentities ( $item[ "style" ] ) . '"  ' . $item[ "disabled" ] . ' ' . $_event_processing . '><option value=""> ------ SELECT ------ </option>';
+            $_form .= '<table style="width:100%;font-size:18px;"><tr><td width="20%" style="text-align: left;">' . Class_Base_Format::htmlentities ( $item[ "title" ] ) . '</td><td width="60%" style="text-align: center;"><select id="' . Class_Base_Format::htmlentities ( $item[ "id" ] ) . '" name="' . Class_Base_Format::htmlentities ( $item[ "name" ] ) . '" size="1" style="width:100%;height:32px;line-height:24px;font-size:18px;border-width:2px;text-align:center;' . Class_Base_Format::htmlentities ( $item[ "style" ] ) . '"  ' . $item[ "disabled" ] . ' ' . $_event_processing . '><option value=""> ------ SELECT ------ </option>';
             foreach ( $item[ "options" ] as $option_index => $option ) {
                 if ( isset( $option[ "value" ] ) ) {
                     if ( ( ! isset( $option[ "title" ] ) ) || ( ( ! is_string ( $option[ "title" ] ) ) && ( is_numeric ( $option[ "title" ] ) ) ) ) {
@@ -665,10 +665,10 @@ class Class_View extends Class_Root implements Interface_View
                     if ( ( ! isset( $option[ "selected" ] ) ) || ( ( ! is_string ( $option[ "selected" ] ) ) ) ) {
                         $option[ "selected" ] = "";
                     }
-                    $_form .= '<option title="' . Class_Base_Format ::htmlentities ( $option[ "describe" ] ) . '" value="' . Class_Base_Format ::htmlentities ( $option[ "value" ] ) . '" ' . $option[ "selected" ] . '>' . Class_Base_Format ::htmlentities ( $option[ "title" ] ) . '</option>';
+                    $_form .= '<option title="' . Class_Base_Format::htmlentities ( $option[ "describe" ] ) . '" value="' . Class_Base_Format::htmlentities ( $option[ "value" ] ) . '" ' . $option[ "selected" ] . '>' . Class_Base_Format::htmlentities ( $option[ "title" ] ) . '</option>';
                 }
             }
-            $_form .= '</select></td><td width="20%" style="padding-left:10px;text-align:left;color:red;">' . Class_Base_Format ::htmlentities ( $item[ "explanatory_note" ] ) . '</td></tr></table>';
+            $_form .= '</select></td><td width="20%" style="padding-left:10px;text-align:left;color:red;">' . Class_Base_Format::htmlentities ( $item[ "explanatory_note" ] ) . '</td></tr></table>';
             $_form .= '</div>';
         }
         $_form .= '</div>';
@@ -709,9 +709,9 @@ class Class_View extends Class_Root implements Interface_View
             }
             $_form .= '<div style="height:32px;"></div>';
             $_form .= '<div>';
-            $_form .= '<table style="width:100%;line-height:24px;font-size:18px;"><tr><td width="20%" style="text-align: left;">' . Class_Base_Format ::htmlentities ( $item[ "title" ] ) . '</td><td width="60%">';
-            $_form .= '<input id="' . Class_Base_Format ::htmlentities ( $item[ "id" ] ) . '" name="' . Class_Base_Format ::htmlentities ( $item[ "name" ] ) . '" type="text" title="' . Class_Base_Format ::htmlentities ( $item[ "describe" ] ) . '" style="width:100%;line-height:24px;font-size:18px;border-width:2px;text-align:center;' . Class_Base_Format ::htmlentities ( $item[ "style" ] ) . '"  value="' . Class_Base_Format ::htmlentities ( $item[ "value" ] ) . '" ' . Class_Base_Format ::htmlentities ( $item[ "disabled" ] ) . ' ' . $_event_processing . '>';
-            $_form .= '</td><td width="20%" style="padding-left:10px;text-align:left;color:red;">' . Class_Base_Format ::htmlentities ( $item[ "explanatory_note" ] ) . '</td></tr></table>';
+            $_form .= '<table style="width:100%;line-height:24px;font-size:18px;"><tr><td width="20%" style="text-align: left;">' . Class_Base_Format::htmlentities ( $item[ "title" ] ) . '</td><td width="60%">';
+            $_form .= '<input id="' . Class_Base_Format::htmlentities ( $item[ "id" ] ) . '" name="' . Class_Base_Format::htmlentities ( $item[ "name" ] ) . '" type="text" title="' . Class_Base_Format::htmlentities ( $item[ "describe" ] ) . '" style="width:100%;line-height:24px;font-size:18px;border-width:2px;text-align:center;' . Class_Base_Format::htmlentities ( $item[ "style" ] ) . '"  value="' . Class_Base_Format::htmlentities ( $item[ "value" ] ) . '" ' . Class_Base_Format::htmlentities ( $item[ "disabled" ] ) . ' ' . $_event_processing . '>';
+            $_form .= '</td><td width="20%" style="padding-left:10px;text-align:left;color:red;">' . Class_Base_Format::htmlentities ( $item[ "explanatory_note" ] ) . '</td></tr></table>';
             $_form .= '</div>';
         }
         $_form .= '</div>';
@@ -755,13 +755,13 @@ class Class_View extends Class_Root implements Interface_View
             $_form .= '<table style="width:100%;line-height:24px;font-size:18px;">';
             $_form .= '<tr>';
             $_form .= '<td width="20%" style="text-align: left;">';
-            $_form .= Class_Base_Format ::htmlentities ( $item[ "title" ] );
+            $_form .= Class_Base_Format::htmlentities ( $item[ "title" ] );
             $_form .= '</td>';
             $_form .= '<td width="60%" style="text-align: left;">';
-            $_form .= '<textarea id="' . Class_Base_Format ::htmlentities ( $item[ "id" ] ) . '" name="' . Class_Base_Format ::htmlentities ( $item[ "name" ] ) . '" style="width:100%;height:200px;font-size:18px;' . Class_Base_Format ::htmlentities ( $item[ "style" ] ) . '" ' . Class_Base_Format ::htmlentities ( $item[ "disabled" ] ) . ' ' . $_event_processing . ' title="' . Class_Base_Format ::htmlentities ( $item[ "describe" ] ) . '">' . Class_Base_Format ::htmlentities ( $item[ "value" ] ) . '</textarea>';
+            $_form .= '<textarea id="' . Class_Base_Format::htmlentities ( $item[ "id" ] ) . '" name="' . Class_Base_Format::htmlentities ( $item[ "name" ] ) . '" style="width:100%;height:200px;font-size:18px;' . Class_Base_Format::htmlentities ( $item[ "style" ] ) . '" ' . Class_Base_Format::htmlentities ( $item[ "disabled" ] ) . ' ' . $_event_processing . ' title="' . Class_Base_Format::htmlentities ( $item[ "describe" ] ) . '">' . Class_Base_Format::htmlentities ( $item[ "value" ] ) . '</textarea>';
             $_form .= '</td>';
             $_form .= '<td width="20%" style="padding-left:10px;text-align: left;color:red;">';
-            $_form .= Class_Base_Format ::htmlentities ( $item[ "explanatory_note" ] );
+            $_form .= Class_Base_Format::htmlentities ( $item[ "explanatory_note" ] );
             $_form .= '</td>';
             $_form .= '</tr>';
             $_form .= '</table>';
@@ -805,21 +805,21 @@ class Class_View extends Class_Root implements Interface_View
             }
             $_form .= '<div style="height:32px;"></div>';
             $_form .= '<div>';
-            $_form .= '<table style="width:100%;line-height:24px;font-size:18px;"><tr><td width="20%" style="text-align: left;">' . Class_Base_Format ::htmlentities ( $item[ "title" ] ) . '</td><td width="60%" style="text-align: left;">';
-            $_form .= '<input id="' . Class_Base_Format ::htmlentities ( $item[ "id" ] ) . '" name="' . Class_Base_Format ::htmlentities ( $item[ "name" ] ) . '" type="file" title="' . Class_Base_Format ::htmlentities ( $item[ "describe" ] ) . '" style="width:100%;line-height:24px;font-size:18px;border-width:2px;text-align:left;' . Class_Base_Format ::htmlentities ( $item[ "style" ] ) . '"  value="' . Class_Base_Format ::htmlentities ( $item[ "value" ] ) . '" ' . Class_Base_Format ::htmlentities ( $item[ "disabled" ] ) . ' ' . $_event_processing . '>';
-            $_form .= '</td><td width="20%" style="padding-left:10px;text-align:left;color:red;">' . Class_Base_Format ::htmlentities ( $item[ "explanatory_note" ] ) . '</td></tr></table>';
+            $_form .= '<table style="width:100%;line-height:24px;font-size:18px;"><tr><td width="20%" style="text-align: left;">' . Class_Base_Format::htmlentities ( $item[ "title" ] ) . '</td><td width="60%" style="text-align: left;">';
+            $_form .= '<input id="' . Class_Base_Format::htmlentities ( $item[ "id" ] ) . '" name="' . Class_Base_Format::htmlentities ( $item[ "name" ] ) . '" type="file" title="' . Class_Base_Format::htmlentities ( $item[ "describe" ] ) . '" style="width:100%;line-height:24px;font-size:18px;border-width:2px;text-align:left;' . Class_Base_Format::htmlentities ( $item[ "style" ] ) . '"  value="' . Class_Base_Format::htmlentities ( $item[ "value" ] ) . '" ' . Class_Base_Format::htmlentities ( $item[ "disabled" ] ) . ' ' . $_event_processing . '>';
+            $_form .= '</td><td width="20%" style="padding-left:10px;text-align:left;color:red;">' . Class_Base_Format::htmlentities ( $item[ "explanatory_note" ] ) . '</td></tr></table>';
             $_form .= '</div>';
         }
         $_form .= "</div>";
-        $_form .= '<div id="div_id_dyn_form_show_' . Class_Base_Format ::htmlentities ( $form_id ) . '" style="display: block;">';
+        $_form .= '<div id="div_id_dyn_form_show_' . Class_Base_Format::htmlentities ( $form_id ) . '" style="display: block;">';
         $_form .= '</div>';
         $_form .= '<div style="height:32px;"></div>';
         $_form .= '  <div>';
         $_form .= '    <table style="width:100%;line-height:28px;font-size:20px;">';
         $_form .= '      <tr>';
-        $_form .= '        <td width="20%"></td><td width="20%">' . ( ( empty( $submit[ "display" ] ) ) ? "" : ( '<input id="' . Class_Base_Format ::htmlentities ( $submit[ "id" ] ) . '" name="' . Class_Base_Format ::htmlentities ( $submit[ "name" ] ) . '" type="' . Class_Base_Format ::htmlentities ( $submit[ "type" ] ) . '" value="&nbsp;' . Class_Base_Format ::htmlentities ( $submit[ "value" ] ) . '&nbsp;" ' . ( $submit[ "event_processing" ] ) . ' title="' . Class_Base_Format ::htmlentities ( $submit[ "value" ] ) . '" style="line-height:28px;font-size:20px;border-width:2px;' . Class_Base_Format ::htmlentities ( $submit[ "style" ] ) . '" >' ) ) . '</td>';
-        $_form .= '        <td width="20%"></td><td width="20%">' . ( ( empty( $reset[ "display" ] ) ) ? "" : ( '<input id="' . Class_Base_Format ::htmlentities ( $reset[ "id" ] ) . '" name="' . Class_Base_Format ::htmlentities ( $reset[ "name" ] ) . '" type="' . Class_Base_Format ::htmlentities ( $reset[ "type" ] ) . '" value="&nbsp;' . Class_Base_Format ::htmlentities ( $reset[ "value" ] ) . '&nbsp;" ' . ( $reset[ "event_processing" ] ) . ' title="' . Class_Base_Format ::htmlentities ( $reset[ "title" ] ) . '" style="line-height:28px;font-size:20px;border-width:2px;' . Class_Base_Format ::htmlentities ( $reset[ "style" ] ) . '" >' ) ) . '</td>';
-        $_form .= '        <td width="20%" style="text-align: center;">' . ( ( empty( $button[ "display" ] ) ) ? "" : ( '<input id="' . Class_Base_Format ::htmlentities ( $button[ "id" ] ) . '" name="' . Class_Base_Format ::htmlentities ( $button[ "name" ] ) . '" type="' . Class_Base_Format ::htmlentities ( $button[ "type" ] ) . '" value="&nbsp;' . Class_Base_Format ::htmlentities ( $button[ "value" ] ) . '&nbsp;" ' . ( $button[ "event_processing" ] ) . ' title="' . Class_Base_Format ::htmlentities ( $button[ "title" ] ) . '" style="line-height:28px;font-size:20px;border-width:2px;' . Class_Base_Format ::htmlentities ( $button[ "style" ] ) . '" >' ) ) . '</td>';
+        $_form .= '        <td width="20%"></td><td width="20%">' . ( ( empty( $submit[ "display" ] ) ) ? "" : ( '<input id="' . Class_Base_Format::htmlentities ( $submit[ "id" ] ) . '" name="' . Class_Base_Format::htmlentities ( $submit[ "name" ] ) . '" type="' . Class_Base_Format::htmlentities ( $submit[ "type" ] ) . '" value="&nbsp;' . Class_Base_Format::htmlentities ( $submit[ "value" ] ) . '&nbsp;" ' . ( $submit[ "event_processing" ] ) . ' title="' . Class_Base_Format::htmlentities ( $submit[ "value" ] ) . '" style="line-height:28px;font-size:20px;border-width:2px;' . Class_Base_Format::htmlentities ( $submit[ "style" ] ) . '" >' ) ) . '</td>';
+        $_form .= '        <td width="20%"></td><td width="20%">' . ( ( empty( $reset[ "display" ] ) ) ? "" : ( '<input id="' . Class_Base_Format::htmlentities ( $reset[ "id" ] ) . '" name="' . Class_Base_Format::htmlentities ( $reset[ "name" ] ) . '" type="' . Class_Base_Format::htmlentities ( $reset[ "type" ] ) . '" value="&nbsp;' . Class_Base_Format::htmlentities ( $reset[ "value" ] ) . '&nbsp;" ' . ( $reset[ "event_processing" ] ) . ' title="' . Class_Base_Format::htmlentities ( $reset[ "title" ] ) . '" style="line-height:28px;font-size:20px;border-width:2px;' . Class_Base_Format::htmlentities ( $reset[ "style" ] ) . '" >' ) ) . '</td>';
+        $_form .= '        <td width="20%" style="text-align: center;">' . ( ( empty( $button[ "display" ] ) ) ? "" : ( '<input id="' . Class_Base_Format::htmlentities ( $button[ "id" ] ) . '" name="' . Class_Base_Format::htmlentities ( $button[ "name" ] ) . '" type="' . Class_Base_Format::htmlentities ( $button[ "type" ] ) . '" value="&nbsp;' . Class_Base_Format::htmlentities ( $button[ "value" ] ) . '&nbsp;" ' . ( $button[ "event_processing" ] ) . ' title="' . Class_Base_Format::htmlentities ( $button[ "title" ] ) . '" style="line-height:28px;font-size:20px;border-width:2px;' . Class_Base_Format::htmlentities ( $button[ "style" ] ) . '" >' ) ) . '</td>';
         $_form .= '      </tr>';
         $_form .= '    </table>';
         $_form .= '  </div>';
@@ -830,8 +830,8 @@ class Class_View extends Class_Root implements Interface_View
 
     public static function dyn_form_body ( $form )
     {
-        $form  = self ::init_form ( $form );
-        $_html = self ::dyn_form ( $form[ "hiddens" ] , $form[ "selects" ] , $form[ "inputs" ] , $form[ "textareas" ] , $form[ "files" ] , $form[ "submit" ] , $form[ "reset" ] , $form[ "button" ] , $form[ "id" ] , $form[ "style" ] );
+        $form  = self::init_form ( $form );
+        $_html = self::dyn_form ( $form[ "hiddens" ] , $form[ "selects" ] , $form[ "inputs" ] , $form[ "textareas" ] , $form[ "files" ] , $form[ "submit" ] , $form[ "reset" ] , $form[ "button" ] , $form[ "id" ] , $form[ "style" ] );
         return $_html;
     }
 
@@ -876,7 +876,7 @@ class Class_View extends Class_Root implements Interface_View
                     $_event_processing .= chr ( 32 ) . ( $event ) . chr ( 61 ) . chr ( 34 ) . ( $processing ) . chr ( 34 ) . chr ( 59 ) . chr ( 32 );
                 }
             }
-            $_form .= '<input id="' . Class_Base_Format ::htmlentities ( $item[ "id" ] ) . '" name="' . Class_Base_Format ::htmlentities ( $item[ "name" ] ) . '" type="hidden" value="' . Class_Base_Format ::htmlentities ( $item[ "value" ] ) . '" ' . $_event_processing . '>';
+            $_form .= '<input id="' . Class_Base_Format::htmlentities ( $item[ "id" ] ) . '" name="' . Class_Base_Format::htmlentities ( $item[ "name" ] ) . '" type="hidden" value="' . Class_Base_Format::htmlentities ( $item[ "value" ] ) . '" ' . $_event_processing . '>';
         }
         $_form .= '<div>';
         foreach ( $selects as $select_index => $item ) {
@@ -905,7 +905,7 @@ class Class_View extends Class_Root implements Interface_View
                 }
             }
             $_form .= '<div style="margin-top: 32px;">';
-            $_form .= '<table style="width:100%;font-size:18px;"><tr><td width="20%" style="text-align: left;">' . Class_Base_Format ::htmlentities ( $item[ "title" ] ) . '</td><td width="60%" style="text-align: center;"><select name="' . Class_Base_Format ::htmlentities ( $item[ "name" ] ) . '" size="1" style="width:100%;height:32px;line-height:24px;font-size:18px;border-width:2px;text-align:center;' . Class_Base_Format ::htmlentities ( $item[ "style" ] ) . '"  ' . $item[ "disabled" ] . ' ' . $_event_processing . '><option value=""> ------ SELECT ------ </option>';
+            $_form .= '<table style="width:100%;font-size:18px;"><tr><td width="20%" style="text-align: left;">' . Class_Base_Format::htmlentities ( $item[ "title" ] ) . '</td><td width="60%" style="text-align: center;"><select name="' . Class_Base_Format::htmlentities ( $item[ "name" ] ) . '" size="1" style="width:100%;height:32px;line-height:24px;font-size:18px;border-width:2px;text-align:center;' . Class_Base_Format::htmlentities ( $item[ "style" ] ) . '"  ' . $item[ "disabled" ] . ' ' . $_event_processing . '><option value=""> ------ SELECT ------ </option>';
             foreach ( $item[ "options" ] as $option_index => $option ) {
                 if ( isset( $option[ "value" ] ) ) {
                     if ( ( ! isset( $option[ "title" ] ) ) || ( ( ! is_string ( $option[ "title" ] ) ) && ( is_numeric ( $option[ "title" ] ) ) ) ) {
@@ -917,10 +917,10 @@ class Class_View extends Class_Root implements Interface_View
                     if ( ( ! isset( $option[ "selected" ] ) ) || ( ( ! is_string ( $option[ "selected" ] ) ) ) ) {
                         $option[ "selected" ] = "";
                     }
-                    $_form .= '<option title="' . Class_Base_Format ::htmlentities ( $option[ "describe" ] ) . '" value="' . Class_Base_Format ::htmlentities ( $option[ "value" ] ) . '" ' . $option[ "selected" ] . '>' . Class_Base_Format ::htmlentities ( $option[ "title" ] ) . '</option>';
+                    $_form .= '<option title="' . Class_Base_Format::htmlentities ( $option[ "describe" ] ) . '" value="' . Class_Base_Format::htmlentities ( $option[ "value" ] ) . '" ' . $option[ "selected" ] . '>' . Class_Base_Format::htmlentities ( $option[ "title" ] ) . '</option>';
                 }
             }
-            $_form .= '</select></td><td width="20%" style="padding-left:10px;text-align:left;color:red;">' . Class_Base_Format ::htmlentities ( $item[ "explanatory_note" ] ) . '</td></tr></table>';
+            $_form .= '</select></td><td width="20%" style="padding-left:10px;text-align:left;color:red;">' . Class_Base_Format::htmlentities ( $item[ "explanatory_note" ] ) . '</td></tr></table>';
             $_form .= '</div>';
         }
         $_form .= '</div>';
@@ -958,9 +958,9 @@ class Class_View extends Class_Root implements Interface_View
             }
             $_form .= '<div style="height:32px;"></div>';
             $_form .= '<div>';
-            $_form .= '<table style="width:100%;line-height:24px;font-size:18px;"><tr><td width="20%" style="text-align: left;">' . Class_Base_Format ::htmlentities ( $item[ "title" ] ) . '</td><td width="60%">';
-            $_form .= '<input name="' . Class_Base_Format ::htmlentities ( $item[ "name" ] ) . '" type="text" title="' . Class_Base_Format ::htmlentities ( $item[ "describe" ] ) . '" style="width:100%;line-height:24px;font-size:18px;border-width:2px;text-align:center;' . Class_Base_Format ::htmlentities ( $item[ "style" ] ) . '"  value="' . Class_Base_Format ::htmlentities ( $item[ "value" ] ) . '" ' . Class_Base_Format ::htmlentities ( $item[ "disabled" ] ) . ' ' . $_event_processing . '>';
-            $_form .= '</td><td width="20%" style="padding-left:10px;text-align:left;color:red;">' . Class_Base_Format ::htmlentities ( $item[ "explanatory_note" ] ) . '</td></tr></table>';
+            $_form .= '<table style="width:100%;line-height:24px;font-size:18px;"><tr><td width="20%" style="text-align: left;">' . Class_Base_Format::htmlentities ( $item[ "title" ] ) . '</td><td width="60%">';
+            $_form .= '<input name="' . Class_Base_Format::htmlentities ( $item[ "name" ] ) . '" type="text" title="' . Class_Base_Format::htmlentities ( $item[ "describe" ] ) . '" style="width:100%;line-height:24px;font-size:18px;border-width:2px;text-align:center;' . Class_Base_Format::htmlentities ( $item[ "style" ] ) . '"  value="' . Class_Base_Format::htmlentities ( $item[ "value" ] ) . '" ' . Class_Base_Format::htmlentities ( $item[ "disabled" ] ) . ' ' . $_event_processing . '>';
+            $_form .= '</td><td width="20%" style="padding-left:10px;text-align:left;color:red;">' . Class_Base_Format::htmlentities ( $item[ "explanatory_note" ] ) . '</td></tr></table>';
             $_form .= '</div>';
         }
         $_form .= '</div>';
@@ -1001,13 +1001,13 @@ class Class_View extends Class_Root implements Interface_View
             $_form .= '<table style="width:100%;line-height:24px;font-size:18px;">';
             $_form .= '<tr>';
             $_form .= '<td width="20%" style="text-align: left;">';
-            $_form .= Class_Base_Format ::htmlentities ( $item[ "title" ] );
+            $_form .= Class_Base_Format::htmlentities ( $item[ "title" ] );
             $_form .= '</td>';
             $_form .= '<td width="60%" style="text-align: left;">';
-            $_form .= '<textarea name="' . Class_Base_Format ::htmlentities ( $item[ "name" ] ) . '" style="width:100%;height:200px;font-size:18px;' . Class_Base_Format ::htmlentities ( $item[ "style" ] ) . '" ' . Class_Base_Format ::htmlentities ( $item[ "disabled" ] ) . ' ' . $_event_processing . '>' . Class_Base_Format ::htmlentities ( $item[ "value" ] ) . '</textarea>';
+            $_form .= '<textarea name="' . Class_Base_Format::htmlentities ( $item[ "name" ] ) . '" style="width:100%;height:200px;font-size:18px;' . Class_Base_Format::htmlentities ( $item[ "style" ] ) . '" ' . Class_Base_Format::htmlentities ( $item[ "disabled" ] ) . ' ' . $_event_processing . '>' . Class_Base_Format::htmlentities ( $item[ "value" ] ) . '</textarea>';
             $_form .= '</td>';
             $_form .= '<td width="20%" style="padding-left:10px;text-align: left;color:red;">';
-            $_form .= Class_Base_Format ::htmlentities ( $item[ "explanatory_note" ] );
+            $_form .= Class_Base_Format::htmlentities ( $item[ "explanatory_note" ] );
             $_form .= '</td>';
             $_form .= '</tr>';
             $_form .= '</table>';
@@ -1048,9 +1048,9 @@ class Class_View extends Class_Root implements Interface_View
             }
             $_form .= '<div style="height:32px;"></div>';
             $_form .= '<div>';
-            $_form .= '<table style="width:100%;line-height:24px;font-size:18px;"><tr><td width="20%" style="text-align: left;">' . Class_Base_Format ::htmlentities ( $item[ "title" ] ) . '</td><td width="60%" style="text-align: left;">';
-            $_form .= '<input name="' . Class_Base_Format ::htmlentities ( $item[ "name" ] ) . '" type="file" title="' . Class_Base_Format ::htmlentities ( $item[ "describe" ] ) . '" style="width:100%;line-height:24px;font-size:18px;border-width:2px;text-align:left;' . Class_Base_Format ::htmlentities ( $item[ "style" ] ) . '"  value="' . Class_Base_Format ::htmlentities ( $item[ "value" ] ) . '" ' . Class_Base_Format ::htmlentities ( $item[ "disabled" ] ) . ' ' . $_event_processing . '>';
-            $_form .= '</td><td width="20%" style="padding-left:10px;text-align:left;color:red;">' . Class_Base_Format ::htmlentities ( $item[ "explanatory_note" ] ) . '</td></tr></table>';
+            $_form .= '<table style="width:100%;line-height:24px;font-size:18px;"><tr><td width="20%" style="text-align: left;">' . Class_Base_Format::htmlentities ( $item[ "title" ] ) . '</td><td width="60%" style="text-align: left;">';
+            $_form .= '<input name="' . Class_Base_Format::htmlentities ( $item[ "name" ] ) . '" type="file" title="' . Class_Base_Format::htmlentities ( $item[ "describe" ] ) . '" style="width:100%;line-height:24px;font-size:18px;border-width:2px;text-align:left;' . Class_Base_Format::htmlentities ( $item[ "style" ] ) . '"  value="' . Class_Base_Format::htmlentities ( $item[ "value" ] ) . '" ' . Class_Base_Format::htmlentities ( $item[ "disabled" ] ) . ' ' . $_event_processing . '>';
+            $_form .= '</td><td width="20%" style="padding-left:10px;text-align:left;color:red;">' . Class_Base_Format::htmlentities ( $item[ "explanatory_note" ] ) . '</td></tr></table>';
             $_form .= '</div>';
         }
         $_form .= "</div>";
@@ -1116,11 +1116,11 @@ class Class_View extends Class_Root implements Interface_View
         $_form .= '            console.log("name_last_item_is_not_a_integer : "+name_last_item_is_not_a_integer);';
         $_form .= '            var element_name_neq_dyn_form_hidden_index_name = (document.getElementById(form_id).elements[i].name!="dyn_form_hidden_index_name");';
         $_form .= '            console.log("element_name_neq_dyn_form_hidden_index_name : "+element_name_neq_dyn_form_hidden_index_name);';
-        $_form .= '            var element_name_neq_submit_name = (document.getElementById(form_id).elements[i].name!="' . Class_Base_Format ::htmlentities ( $submit[ "name" ] ) . '");';
+        $_form .= '            var element_name_neq_submit_name = (document.getElementById(form_id).elements[i].name!="' . Class_Base_Format::htmlentities ( $submit[ "name" ] ) . '");';
         $_form .= '            console.log("element_name_neq_submit_name : "+element_name_neq_submit_name);';
-        $_form .= '            var element_name_neq_reset_name = (document.getElementById(form_id).elements[i].name!="' . Class_Base_Format ::htmlentities ( $reset[ "name" ] ) . '");';
+        $_form .= '            var element_name_neq_reset_name = (document.getElementById(form_id).elements[i].name!="' . Class_Base_Format::htmlentities ( $reset[ "name" ] ) . '");';
         $_form .= '            console.log("element_name_neq_reset_name : "+element_name_neq_reset_name);';
-        $_form .= '            var element_name_neq_button_name = (document.getElementById(form_id).elements[i].name!="' . Class_Base_Format ::htmlentities ( $button[ "name" ] ) . '");';
+        $_form .= '            var element_name_neq_button_name = (document.getElementById(form_id).elements[i].name!="' . Class_Base_Format::htmlentities ( $button[ "name" ] ) . '");';
         $_form .= '            console.log("element_name_neq_button_name : "+element_name_neq_button_name);';
         $_form .= '            elment_name_in_source_form_element_index = get_form_source_element_names_index(source_form_element_names,document.getElementById(form_id).elements[i].name);';
         $_form .= '            console.log("elment_name_in_source_form_element_index : "+elment_name_in_source_form_element_index);';

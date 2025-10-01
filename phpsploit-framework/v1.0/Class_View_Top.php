@@ -108,7 +108,7 @@ class Class_View_Top
                     array (
                         "title"    => "logout" ,
                         "describe" => "logout" ,
-                        "href"     => 'javascript:if(confirm("Are you sure you want to log out? After logging out, if you want to use the Phpsploit Framework software again, you need to use the currently created account, password, and command board to log in again! Before officially logging out, it is recommended that you take note of your current account, password, command board, and other information! This can avoid the dilemma of not being able to log in again after logging out! If you forget your password after logging out, you can also contact the authorized party who authorizes you to conduct penetration testing or security audit behavior, and cooperate with them to uninstall the Phpsploit Framework software (this usually requires you to execute the \"php -f <Phpsploit Framework software project file path> /clear\" operation in the command line environment of the target machine to uninstall the Phpsploit Framework software)! Execute clear (select \'OK\'), discard clear (select \'Cancel\').")){document.location.href="' . Class_Base_Response::get_url ( "/logout" , array () ) . '";}' ,                        //
+                        "href"     => 'javascript:if(confirm("Are you sure you want to log out? After logging out, if you want to use the Phpsploit Framework software again, you need to use the currently created account, password, and command board to log in again! Before officially logging out, it is recommended that you take note of your current account, password, command board, and other information! This can avoid the dilemma of not being able to log in again after logging out! If you forget your password after logging out, you can also contact the authorized party who authorizes you to conduct penetration testing or security audit behavior, and cooperate with them to uninstall the Phpsploit Framework software (this usually requires you to execute the \"php -f <Phpsploit Framework software project file path> /clear\" operation in the command line environment of the target machine to uninstall the Phpsploit Framework software)! Execute clear (select \'OK\'), discard clear (select \'Cancel\').")){document.location.href="' . Class_Base_Response::get_url ( "/logout" , array () ) . '";}' ,
                     ) ,
                 ) ,
                 "content"    => '<div style="line-height:32px;font-size:32px;text-align: center;">phpsploit-framework</div><div style="height:32px;"></div>' ,
@@ -128,6 +128,12 @@ class Class_View_Top
             }
             if ( ! Class_Base_Extension::exist_enabled_extensions ( Class_Base_Extension::EXTENSION_NAME_SHMOP ) ) {
                 if ( $menu[ "title" ] == "memory" ) {
+                    self::$_top[ "menu" ][ $index ] = null;
+                    unset( self::$_top[ "menu" ][ $index ] );
+                }
+            }
+            if ( strtoupper ( substr ( PHP_OS , 0 , 3 ) ) === 'WIN' ) {
+                if ( $menu[ "title" ] == "shell" ) {
                     self::$_top[ "menu" ][ $index ] = null;
                     unset( self::$_top[ "menu" ][ $index ] );
                 }

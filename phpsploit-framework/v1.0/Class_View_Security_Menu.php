@@ -29,7 +29,7 @@ along with this program.    If not, see <https://www.gnu.org/licenses/>.
 
 class Class_View_Security_Menu
 {
-    private static $_menu = null;
+    private static $_menus = null;
 
     public static function menu ( $params = array () )
     {
@@ -48,8 +48,8 @@ class Class_View_Security_Menu
         if ( ( ! isset( $params[ "decode" ][ "string" ] ) ) || ( ! is_string ( $params[ "decode" ][ "string" ] ) ) ) {
             $params[ "decode" ][ "string" ] = "";
         }
-        if ( empty( self::$_menu ) ) {
-            self::$_menu = array (
+        if ( empty( self::$_menus ) ) {
+            self::$_menus = array (
                 array (
                     "title"    => "url" ,
                     "describe" => "" ,
@@ -102,14 +102,21 @@ class Class_View_Security_Menu
                 ) ,
             );
         }
-
+        foreach ( self::$_menus as $index => $menu ) {
+            if ( strtoupper ( substr ( PHP_OS , 0 , 3 ) ) === 'WIN' ) {
+                if ( $menu[ "title" ] == "sodium" ) {
+                    self::$_menus[ $index ] = null;
+                    unset( self::$_menus[ $index ] );
+                }
+            }
+        }
         if ( PHP_VERSION_ID >= 70200 ) {
-            self::$_menu[] = array (
+            self::$_menus[] = array (
                 "title"    => "hash_hmac" ,
                 "describe" => "" ,
                 "href"     => Class_Base_Response::get_url ( "/security/hash_hmac" , array ( "string" => $params[ "encode" ][ "string" ] , ) ) ,
             );
         }
-        return self::$_menu;
+        return self::$_menus;
     }
 }

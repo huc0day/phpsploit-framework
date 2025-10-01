@@ -31,37 +31,37 @@ class Class_Controller_Chat extends Class_Controller
 {
     public static function index ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( ! is_cli () ) {
-            $_top    = Class_View_Top ::top ();
+            $_top    = Class_View_Top::top ();
             $_body   = array (
-                "menu"    => Class_View_Chat_Menu ::menu () ,
+                "menu"    => Class_View_Chat_Menu::menu () ,
                 "content" => "" ,
             );
-            $_bottom = Class_View_Bottom ::bottom ();
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
     public static function server_chat ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_start              = Class_Base_Request ::form ( "start" , Class_Base_Request::TYPE_INTEGER , 0 );
-        $_listen_ip          = Class_Base_Request ::form ( "ip" , Class_Base_Request::TYPE_STRING , "" );
-        $_listen_port        = Class_Base_Request ::form ( "port" , Class_Base_Request::TYPE_INTEGER , 0 );
-        $_max_connect_number = Class_Base_Request ::form ( "max_connect_number" , Class_Base_Request::TYPE_INTEGER , 20 );
-        $_max_execute_time   = Class_Base_Request ::form ( "max_execute_time" , Class_Base_Request::TYPE_INTEGER , 3600 );
-        $_cli_url            = Class_Base_Response ::get_cli_url ( "/chat/server_chat" , array ( "start" => 1 , "ip" => $_listen_ip , "port" => $_listen_port , "max_connect_number" => $_max_connect_number , "max_execute_time" => $_max_connect_number ) );
-        $_cli_encode_url     = Class_Base_Response ::get_urlencode ( $_cli_url );
+        Class_Base_Auth::check_permission ();
+        $_start              = Class_Base_Request::form ( "start" , Class_Base_Request::TYPE_INTEGER , 0 );
+        $_listen_ip          = Class_Base_Request::form ( "ip" , Class_Base_Request::TYPE_STRING , "" );
+        $_listen_port        = Class_Base_Request::form ( "port" , Class_Base_Request::TYPE_INTEGER , 0 );
+        $_max_connect_number = Class_Base_Request::form ( "max_connect_number" , Class_Base_Request::TYPE_INTEGER , 20 );
+        $_max_execute_time   = Class_Base_Request::form ( "max_execute_time" , Class_Base_Request::TYPE_INTEGER , 3600 );
+        $_cli_url            = Class_Base_Response::get_cli_url ( "/chat/server_chat" , array ( "start" => 1 , "ip" => $_listen_ip , "port" => $_listen_port , "max_connect_number" => $_max_connect_number , "max_execute_time" => $_max_connect_number ) );
+        $_cli_encode_url     = Class_Base_Response::get_urlencode ( $_cli_url );
         $_result             = "";
         if ( empty( $_start ) ) {
             $_result .= ( 'cli url : ' . $_cli_url ) . "\n\n" . ( 'cli encode url : ' . ( $_cli_encode_url ) ) . "\n\n";
@@ -148,10 +148,10 @@ class Class_Controller_Chat extends Class_Controller
                     ) ,
                 ) ,
             );
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Chat_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Chat_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu = array (
                 array (
@@ -162,22 +162,22 @@ class Class_Controller_Chat extends Class_Controller
             );
             $_content     = '<div></div>';
             $_javascript  = '<script type="text/javascript">function init(){ } function to_submit(form_object){  console.log("form is submit"); return true;}function create_encode_url(){ document.getElementById("start").value=0;if(document.forms["' . htmlentities ( $_form_name ) . '"].onsubmit()!=false){document.forms["' . htmlentities ( $_form_name ) . '"].submit();} }</script>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content , $_javascript );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content , $_javascript );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
-        if ( ( ! empty( $_start ) ) && ( is_string ( $_listen_ip ) ) && ( strlen ( $_listen_ip ) > 0 ) && ( ( Class_Base_Format ::is_ipv4_address ( $_listen_ip ) ) || ( Class_Base_Format ::is_ipv6_address ( $_listen_ip ) ) ) && ( is_integer ( $_listen_port ) ) && ( ( ( $_listen_port ) > 0 ) && ( $_listen_port < 65536 ) ) && ( is_integer ( $_max_connect_number ) ) && ( ( $_max_connect_number <= 100 ) ) && ( is_integer ( $_max_execute_time ) ) && ( $_max_execute_time >= 0 ) && ( is_string ( $_connect_domain_List_id ) ) ) {
-            Class_Operate_ChatServer ::start ( $_listen_ip , $_listen_port , $_max_connect_number , $_max_execute_time , $_connect_domain_List_id );
+        if ( ( ! empty( $_start ) ) && ( is_string ( $_listen_ip ) ) && ( strlen ( $_listen_ip ) > 0 ) && ( ( Class_Base_Format::is_ipv4_address ( $_listen_ip ) ) || ( Class_Base_Format::is_ipv6_address ( $_listen_ip ) ) ) && ( is_integer ( $_listen_port ) ) && ( ( ( $_listen_port ) > 0 ) && ( $_listen_port < 65536 ) ) && ( is_integer ( $_max_connect_number ) ) && ( ( $_max_connect_number <= 100 ) ) && ( is_integer ( $_max_execute_time ) ) && ( $_max_execute_time >= 0 ) && ( is_string ( $_connect_domain_List_id ) ) ) {
+            Class_Operate_ChatServer::start ( $_listen_ip , $_listen_port , $_max_connect_number , $_max_execute_time , $_connect_domain_List_id );
         }
         return null;
     }
 
     public static function reverse_chat ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( ! is_cli () ) {
             $_form_top = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Combat Meeting Room (New Version)</div>';
             $_form_top .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This module still provides a typical chat environment between client and server based on the C/S architecture mode, with the main difference being that it will use rebound connections for connection communication management. This method is beneficial for the red team to engage in better activities in CTF matches, while using a traditional chat and communication environment for connection is more convenient for the blue team to communicate and communicate in CTF matches.</div>';
@@ -186,13 +186,13 @@ class Class_Controller_Chat extends Class_Controller
                 "submit" => array ( "display" => false ) ,
                 "reset"  => array ( "display" => false ) ,
             );
-            $_top      = Class_View_Top ::top ();
+            $_top      = Class_View_Top::top ();
             $_body     = array (
-                "menu"    => Class_View_Chat_Menu ::menu () ,
-                "content" => ( $_form_top . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Chat_Menu::menu () ,
+                "content" => ( $_form_top . Class_View::form_body ( $_form ) ) ,
             );
-            $_bottom   = Class_View_Bottom ::bottom ();
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom   = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }

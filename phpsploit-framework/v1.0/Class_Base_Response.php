@@ -195,9 +195,9 @@ class Class_Base_Response extends Class_Base implements Interface_Base_Response
                 }
             }
             if ( empty( $params ) ) {
-                $_url .= 'md5_token=' . ( ( empty( $_SESSION[ "PHPSPLOIT_FRAMEWORK_MD5_TOKEN" ] ) ) ? ( "" ) : ( $_SESSION[ "PHPSPLOIT_FRAMEWORK_MD5_TOKEN" ] ) );
+                $_url .= 'security_token=' . ( ( empty( $_SESSION[ "PHPSPLOIT_FRAMEWORK_SECURITY_TOKEN" ] ) ) ? ( "" ) : ( $_SESSION[ "PHPSPLOIT_FRAMEWORK_SECURITY_TOKEN" ] ) );
             } else {
-                $_url .= '&md5_token=' . ( ( empty( $_SESSION[ "PHPSPLOIT_FRAMEWORK_MD5_TOKEN" ] ) ) ? ( "" ) : ( $_SESSION[ "PHPSPLOIT_FRAMEWORK_MD5_TOKEN" ] ) );
+                $_url .= '&security_token=' . ( ( empty( $_SESSION[ "PHPSPLOIT_FRAMEWORK_SECURITY_TOKEN" ] ) ) ? ( "" ) : ( $_SESSION[ "PHPSPLOIT_FRAMEWORK_SECURITY_TOKEN" ] ) );
             }
             if ( ! in_array ( $action , self::$_cli_check_enable_license_agreement_filters ) ) {
                 $_url .= '&is_enable_license_agreement=' . ( empty( $_SESSION[ "PHPSPLOIT_FRAMEWORK_IS_ENABLE_LICENSE_AGREEMENT" ] ) ? ( "" ) : ( $_SESSION[ "PHPSPLOIT_FRAMEWORK_IS_ENABLE_LICENSE_AGREEMENT" ] ) );

@@ -29,7 +29,7 @@ along with this program.    If not, see <https://www.gnu.org/licenses/>.
 
 class Class_View_Scan_Menu
 {
-    private static $_menu = null;
+    private static $_menus = null;
 
     public static function menu ( $params = array () )
     {
@@ -60,8 +60,8 @@ class Class_View_Scan_Menu
         if ( ( ! isset( $params[ "tamperproof" ][ "detection_directory_path" ] ) ) || ( ! is_string ( $params[ "tamperproof" ][ "detection_directory_path" ] ) ) ) {
             $params[ "tamperproof" ][ "detection_directory_path" ] = "";
         }
-        if ( empty( self::$_menu ) ) {
-            self::$_menu = array (
+        if ( empty( self::$_menus ) ) {
+            self::$_menus = array (
                 array (
                     "title"    => "webs" ,
                     "describe" => "" ,
@@ -79,6 +79,14 @@ class Class_View_Scan_Menu
                 ) ,
             );
         }
-        return self::$_menu;
+        foreach ( self::$_menus as $index => $menu ) {
+            if ( strtoupper ( substr ( PHP_OS , 0 , 3 ) ) === 'WIN' ) {
+                if ( $menu[ "title" ] == "domain" ) {
+                    self::$_menus[ $index ] = null;
+                    unset( self::$_menus[ $index ] );
+                }
+            }
+        }
+        return self::$_menus;
     }
 }

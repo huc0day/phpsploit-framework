@@ -50,9 +50,6 @@ class Class_Controller_Clear extends Class_Controller
             }
             if ( Class_Operate_User::check_privilege_user_and_password_for_clear ( $_privilege_user , $_privilege_password ) ) {
                 Class_Base_Auth::clear ();
-                if ( Class_Base_Extension::exist_enabled_extensions ( Class_Base_Extension::EXTENSION_NAME_SHMOP ) ) {
-                    Class_Controller_Memory::clear ();
-                }
                 if ( ! is_cli () ) {
                     Class_Base_Response::redirect ( "/login" );
                 } else {

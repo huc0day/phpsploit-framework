@@ -31,33 +31,33 @@ class Class_Controller_Init
 {
     public static function index ( $params = array () )
     {
-        $_is_enable_license_agreement = Class_Base_Request ::form ( "is_enable_license_agreement" , Class_Base_Request::TYPE_INTEGER , 0 );
+        $_is_enable_license_agreement = Class_Base_Request::form ( "is_enable_license_agreement" , Class_Base_Request::TYPE_INTEGER , 0 );
         if ( ! empty( $_is_enable_license_agreement ) ) {
-            Class_Base_Auth ::enable_license_agreement ();
+            Class_Base_Auth::enable_license_agreement ();
         }
-        if ( ! ( Class_Base_Auth ::is_enable_license_agreement () ) ) {
-            Class_Base_Response ::redirect ( "/" );
+        if ( ! ( Class_Base_Auth::is_enable_license_agreement () ) ) {
+            Class_Base_Response::redirect ( "/" );
             return null;
         }
-        if ( ( Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/index" );
+        if ( ( Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/index" );
             return null;
         }
-        if ( Class_Operate_User ::exist_token () ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( Class_Operate_User::exist_token () ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        if ( ! Class_Base_Extension ::exist_enabled_extensions ( Class_Base_Extension::EXTENSION_NAME_SHMOP ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ! Class_Base_Extension::exist_enabled_extensions ( Class_Base_Extension::EXTENSION_NAME_SHMOP ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        $_privilege_user     = Class_Base_Request ::form ( "privilege_user" , Class_Base_Request::TYPE_STRING , "" );
-        $_privilege_password = Class_Base_Request ::form ( "privilege_password" , Class_Base_Request::TYPE_STRING , "" );
+        $_privilege_user     = Class_Base_Request::form ( "privilege_user" , Class_Base_Request::TYPE_STRING , "" );
+        $_privilege_password = Class_Base_Request::form ( "privilege_password" , Class_Base_Request::TYPE_STRING , "" );
         if ( ! is_cli () ) {
             $_view_data = array ( 'privilege_user' => $_privilege_user , 'privilege_password' => $_privilege_password );
-            Class_Base_Response ::output ( Class_View_Init ::init ( $_view_data ) , "text" , 0 );
+            Class_Base_Response::output ( Class_View_Init::init ( $_view_data ) , "text" , 0 );
         } else {
-            Class_Base_Response ::output ( "\n" . Class_Base_Response ::get_encode_cli_url ( "/init_user_info" , array ( "privilege_user" => $_privilege_user , "privilege_password" => $_privilege_password ) ) . "\n" , "text" , 0 );
+            Class_Base_Response::output ( "\n" . Class_Base_Response::get_encode_cli_url ( "/init_user_info" , array ( "privilege_user" => $_privilege_user , "privilege_password" => $_privilege_password ) ) . "\n" , "text" , 0 );
         }
         return null;
     }
@@ -70,40 +70,40 @@ class Class_Controller_Init
                 $_SESSION = array ();
             }
         }
-        if ( ! ( Class_Base_Auth ::is_enable_license_agreement () ) ) {
+        if ( ! ( Class_Base_Auth::is_enable_license_agreement () ) ) {
             if ( ! is_cli () ) {
-                Class_Base_Response ::redirect ( "/" );
+                Class_Base_Response::redirect ( "/" );
                 return null;
             } else {
-                Class_Base_Auth ::cli_show_license_agreement ();
+                Class_Base_Auth::cli_show_license_agreement ();
             }
         }
-        if ( ( Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/index" );
+        if ( ( Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/index" );
             return null;
         }
-        $_privilege_user     = Class_Base_Request ::form ( "privilege_user" , Class_Base_Request::TYPE_STRING , "" );
-        $_privilege_password = Class_Base_Request ::form ( "privilege_password" , Class_Base_Request::TYPE_STRING , "" );
-        $_user                      = "";
-        $_password                  = "";
-        $_md5_token                 = "";
-        if ( Class_Operate_User ::check_privilege_user_and_password ( $_privilege_user , $_privilege_password , $_user , $_password , $_md5_token ) ) {
+        $_privilege_user     = Class_Base_Request::form ( "privilege_user" , Class_Base_Request::TYPE_STRING , "" );
+        $_privilege_password = Class_Base_Request::form ( "privilege_password" , Class_Base_Request::TYPE_STRING , "" );
+        $_user               = "";
+        $_password           = "";
+        $_security_token     = "";
+        if ( Class_Operate_User::check_privilege_user_and_password ( $_privilege_user , $_privilege_password , $_user , $_password , $_security_token ) ) {
             if ( ! is_cli () ) {
                 if ( empty( $_user ) ) {
-                    $_user      = ( ( empty( $_SESSION[ "PHPSPLOIT_FRAMEWORK_USER" ] ) ) ? ( "" ) : ( $_SESSION[ "PHPSPLOIT_FRAMEWORK_USER" ] ) );
-                    $_password  = ( ( empty( $_SESSION[ "PHPSPLOIT_FRAMEWORK_PASSWORD" ] ) ) ? ( "" ) : ( $_SESSION[ "PHPSPLOIT_FRAMEWORK_PASSWORD" ] ) );
-                    $_md5_token = ( ( empty( $_SESSION[ "PHPSPLOIT_FRAMEWORK_MD5_TOKEN" ] ) ) ? ( "" ) : ( $_SESSION[ "PHPSPLOIT_FRAMEWORK_MD5_TOKEN" ] ) );
+                    $_user           = ( ( empty( $_SESSION[ "PHPSPLOIT_FRAMEWORK_USER" ] ) ) ? ( "" ) : ( $_SESSION[ "PHPSPLOIT_FRAMEWORK_USER" ] ) );
+                    $_password       = ( ( empty( $_SESSION[ "PHPSPLOIT_FRAMEWORK_PASSWORD" ] ) ) ? ( "" ) : ( $_SESSION[ "PHPSPLOIT_FRAMEWORK_PASSWORD" ] ) );
+                    $_security_token = ( ( empty( $_SESSION[ "PHPSPLOIT_FRAMEWORK_SECURITY_TOKEN" ] ) ) ? ( "" ) : ( $_SESSION[ "PHPSPLOIT_FRAMEWORK_SECURITY_TOKEN" ] ) );
                 }
-                $_view_data = array ( 'privilege_user' => $_privilege_user , 'privilege_password' => $_privilege_password , 'user' => $_user , 'password' => $_password , 'md5_token' => $_md5_token );
-                Class_Base_Response ::output ( Class_View_Init_User_Info ::init ( $_view_data ) , "text" , 0 );
+                $_view_data = array ( 'privilege_user' => $_privilege_user , 'privilege_password' => $_privilege_password , 'user' => $_user , 'password' => $_password , 'security_token' => $_security_token );
+                Class_Base_Response::output ( Class_View_Init_User_Info::init ( $_view_data ) , "text" , 0 );
             } else {
-                Class_Base_Response ::output ( array ( 'privilege_user' => $_privilege_user , 'privilege_password' => $_privilege_password , 'user' => $_user , 'password' => $_password , 'md5_token' => $_md5_token ) , "json" );
+                Class_Base_Response::output ( array ( 'privilege_user' => $_privilege_user , 'privilege_password' => $_privilege_password , 'user' => $_user , 'password' => $_password , 'security_token' => $_security_token ) , "json" );
             }
         } else {
             if ( ! is_cli () ) {
-                Class_Base_Response ::redirect ( "/init" , array ( "privilege_user" => $_privilege_user , "privilege_password" => $_privilege_password ) );
+                Class_Base_Response::redirect ( "/init" , array ( "privilege_user" => $_privilege_user , "privilege_password" => $_privilege_password ) );
             } else {
-                Class_Base_Response ::outputln ( "\nAccount initialization or password input error , please double check and try again ! " );
+                Class_Base_Response::outputln ( "\nAccount initialization or password input error , please double check and try again ! " );
             }
         }
         return null;

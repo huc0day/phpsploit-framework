@@ -48,16 +48,16 @@ class Class_Controller_Login extends Class_Controller
             Class_Base_Response::redirect ( "/index" );
             return null;
         }
-        $_user      = Class_Base_Request::form ( "user" , Class_Base_Request::TYPE_STRING , "" );
-        $_password  = Class_Base_Request::form ( "password" , Class_Base_Request::TYPE_STRING , "" );
-        $_md5_token = "";
+        $_user           = Class_Base_Request::form ( "user" , Class_Base_Request::TYPE_STRING , "" );
+        $_password       = Class_Base_Request::form ( "password" , Class_Base_Request::TYPE_STRING , "" );
+        $_security_token = "";
         if ( ( ! empty( $_user ) ) && ( ! empty( $_password ) ) ) {
-            if ( Class_Operate_User::check_user_and_password ( $_user , $_password , $_md5_token ) ) {
+            if ( Class_Operate_User::check_user_and_password ( $_user , $_password , $_security_token ) ) {
                 Class_Base_Auth::enable_login ();
                 if ( ! is_cli () ) {
                     Class_Base_Response::redirect ( "/index" );
                 } else {
-                    Class_Base_Response::output ( array ( 'user' => $_user , 'password' => $_password , 'md5_token' => $_md5_token ) );
+                    Class_Base_Response::output ( array ( 'user' => $_user , 'password' => $_password , 'security_token' => $_security_token ) );
                 }
                 return null;
             }

@@ -29,11 +29,18 @@ along with this program.    If not, see <https://www.gnu.org/licenses/>.
 
 interface Interface_Base_BlockKey extends Interface_Base
 {
-    const AUTH                   = 100000000000000000;
-    const KEYS                   = 100000000000000001;
-    const INDEXES                = 200000000000000001;
-    const UNIQUE_INDEX           = 300000000000000001;
-    const RESERVED               = 400000000000000001;
-    const SOCKETS                = 500000000000000001;
-    const COMMAND                = 600000000000000000;
+    const WEB_AUTH         = 100000000000000001;
+    const CLI_AUTH         = 100000000000000002;
+    const WEB_KEYS         = 200000000000000001;
+    const CLI_KEYS         = 200000000000000002;
+    const WEB_INDEXES      = 300000000000000001;
+    const CLI_INDEXES      = 300000000000000002;
+    const WEB_UNIQUE_INDEX = 400000000000000001;
+    const CLI_UNIQUE_INDEX = 400000000000000002;
+    const WEB_RESERVED     = 500000000000000001;
+    const CLI_RESERVED     = 500000000000000002;
+    const WEB_SOCKETS      = 600000000000000001;
+    const CLI_SOCKETS      = 600000000000000002;
+    const WEB_COMMAND      = 700000000000000001;
+    const CLI_COMMAND      = 700000000000000002;
 }

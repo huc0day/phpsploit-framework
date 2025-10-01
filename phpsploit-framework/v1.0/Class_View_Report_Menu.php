@@ -62,7 +62,7 @@ class Class_View_Report_Menu
                 array (
                     "title"    => "clear_vulnerability_report" ,
                     "describe" => "" ,
-                    "href"     => 'javascript:if(confirm("Are you sure you want to clear the vulnerability report? After clearing, the content of the vulnerability report you created and edited will completely disappear and cannot be restored! Execute clear (select \'OK\'), discard clear (select \'Cancel\').")){document.location.href="'.Class_Base_Response::get_url ( "/report/clear_vulnerability_report" , array ( "rand" => time () ) ) .'";}',
+                    "href"     => 'javascript:if(confirm("Are you sure you want to clear the vulnerability report? After clearing, the content of the vulnerability report you created and edited will completely disappear and cannot be restored! Execute clear (select \'OK\'), discard clear (select \'Cancel\').")){document.location.href="' . Class_Base_Response::get_url ( "/report/clear_vulnerability_report" , array ( "rand" => time () ) ) . '";}' ,
                 ) ,
             );
         }

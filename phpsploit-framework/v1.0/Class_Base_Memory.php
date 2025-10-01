@@ -199,7 +199,7 @@ class Class_Base_Memory extends Class_Base implements Interface_Base_Memory
     public static function reset_string_share_memory ( $shmid , $size )
     {
         $_success = 1;
-        for ( $index = 0 ; $index < $size ; $index++ ) {
+        for ( $index = 0 ; $index < $size ; $index ++ ) {
             $_length = self::write_share_memory ( $shmid , self::BLCOK_DATA_VALUE_ASCII_CODE_ZERO , $index , self::DATA_FORMAT_STRING_NULL_FILL_PACK );
             if ( empty( $_length ) ) {
                 $_success = 0;
@@ -261,7 +261,7 @@ class Class_Base_Memory extends Class_Base implements Interface_Base_Memory
     {
         $_shmid   = self::open_share_memory ( $key , self::MODE_SHARE_MEMORY_READ_AND_WRITE , $size );
         $_success = 1;
-        for ( $index = 0 ; $index < $size ; $index++ ) {
+        for ( $index = 0 ; $index < $size ; $index ++ ) {
             $_length = self::write_share_memory ( $_shmid , self::BLCOK_DATA_VALUE_ASCII_CODE_ZERO , $index , self::DATA_FORMAT_STRING_NULL_FILL_PACK );
             if ( empty( $_length ) ) {
                 $_success = 0;
@@ -285,10 +285,54 @@ class Class_Base_Memory extends Class_Base implements Interface_Base_Memory
     {
         $key  = intval ( $key );
         $size = intval ( $size );
-        if ( $key == Interface_Base_Block_Keys::KEY ) {
+        if ( ( $key == Interface_Base_Block_Keys::WEB_KEY ) || ( $key == Interface_Base_Block_Keys::CLI_KEY ) ) {
             return false;
         }
-        $_keys_key = Interface_Base_Block_Keys::KEY;
+        if ( ! is_cli () ) {
+            $_keys_key = Interface_Base_Block_Keys::WEB_KEY;
+        } else {
+            $_keys_key = Interface_Base_Block_Keys::CLI_KEY;
+        }
+        $_shmid = self::open_share_memory ( $_keys_key , self::MODE_SHARE_MEMORY_READ_AND_WRITE , Interface_Base_Block_Keys::SIZE_BLOCK , self::FLAGS_SHARE_MEMORY_READ_AND_WRITE );
+        if ( empty( $_shmid ) ) {
+            return false;
+        }
+        for ( $index = Class_Base_BlockHead::SIZE_BLOCK_HEAD ; $index < ( Class_Base_BlockHead::SIZE_BLOCK_HEAD + Interface_Base_Block_Keys::MAP_SIZE ) ; $index += Interface_Base_Block_Keys::MAP_ITEM_SIZE ) {
+            $_item = Class_Base_Memory::read_share_memory ( $_shmid , $index , Interface_Base_Block_Keys::MAP_ITEM_SIZE , self::DATA_FORMAT_TYPE_STRING_NULL_FILL_PACK );
+            if ( ! Class_Base_Format::is_empty ( $_item ) ) {
+                $_item_hex_key  = substr ( $_item , 0 , Interface_Base_Block_Keys::SIZE_BLOCK_KEY );
+                $_item_hex_size = substr ( $_item , Interface_Base_Block_Keys::SIZE_BLOCK_KEY , Interface_Base_Block_Keys::SIZE_BLOCK_SIZE );
+                $_item_dec_key  = Class_Base_Format::hex_to_dec ( $_item_hex_key );
+                $_item_dec_size = Class_Base_Format::hex_to_dec ( $_item_hex_size );
+                if ( ( ! empty( $_item_dec_key ) ) && ( ! empty( $_item_dec_size ) ) ) {
+                    if ( ( $key == $_item_dec_key ) && ( $size == $_item_dec_size ) ) {
+                        $_item_shmid = self::open_share_memory ( $_item_dec_key , self::MODE_SHARE_MEMORY_READ_AND_WRITE , $_item_dec_size , self::FLAGS_SHARE_MEMORY_READ_AND_WRITE );
+                        if ( ! empty( $_item_shmid ) ) {
+                            $_item_deleted = self::clear_share_memory ( $_item_shmid );
+                            if ( empty( $_item_deleted ) ) {
+                                return false;
+                            }
+                        }
+                        $_write_length = self::write_share_memory ( $_shmid , Class_Base_Format::string_to_data ( null , Interface_Base_Block_Keys::MAP_ITEM_SIZE ) , $index , self::DATA_FORMAT_TYPE_STRING_NULL_FILL_PACK );
+                        if ( empty( $_write_length ) ) {
+                            return false;
+                        }
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public static function delete_share_memory_by_cli_key ( $key , $size )
+    {
+        $key  = intval ( $key );
+        $size = intval ( $size );
+        if ( $key == Interface_Base_Block_Keys::CLI_KEY ) {
+            return false;
+        }
+        $_keys_key = Interface_Base_Block_Keys::CLI_KEY;
         $_shmid    = self::open_share_memory ( $_keys_key , self::MODE_SHARE_MEMORY_READ_AND_WRITE , Interface_Base_Block_Keys::SIZE_BLOCK , self::FLAGS_SHARE_MEMORY_READ_AND_WRITE );
         if ( empty( $_shmid ) ) {
             return false;
@@ -471,6 +515,7 @@ class Class_Base_Memory extends Class_Base implements Interface_Base_Memory
         return false;
     }
 
+
     private static function _write_keys_item ( $key , $item_key , $item_size )
     {
         $_exist = self::_exist_keys_item_key ( $key , $item_key );
@@ -529,9 +574,13 @@ class Class_Base_Memory extends Class_Base implements Interface_Base_Memory
         return true;
     }
 
-    public static function clear ( $key = Interface_Base_Block_Keys::KEY )
+    public static function clear ()
     {
-        $_key   = intval ( $key );
+        if ( ! is_cli () ) {
+            $_key = intval ( Interface_Base_Block_Keys::WEB_KEY );
+        } else {
+            $_key = intval ( Interface_Base_Block_Keys::CLI_KEY );
+        }
         $_size  = Interface_Base_Block_Keys::SIZE_BLOCK;
         $_shmid = self::open_share_memory ( $_key , self::MODE_SHARE_MEMORY_READ_AND_WRITE , $_size , self::FLAGS_SHARE_MEMORY_READ_AND_WRITE );
         if ( ! empty( $_shmid ) ) {

@@ -67,13 +67,13 @@ class Class_Controller_Session extends Class_Controller
             );
         }
         if ( ! is_cli () ) {
-            $_cli_url           = Class_Base_Response::get_cli_url ( "/session/session_info" , array () );
+            $_cli_url        = Class_Base_Response::get_cli_url ( "/session/session_info" , array () );
             $_cli_encode_url = Class_Base_Response::get_urlencode ( $_cli_url );
-            $_form_top          = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Display relevant information about PHP session environment variables</div>';
-            $_form_top          .= '<div style="width:100%;word-break:break-all;margin-top:16px;padding-left:0;padding-right:0;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This interface mainly displays the internal session variable content of the PHP language located on the server side.If you try to access this interface in a command-line environment, you may not be able to obtain valid information. Because in general, processes in the command line environment cannot obtain session environment information in the web environment (although we can achieve session environment information exchange between the web environment and the command line environment through special technical means. However, in order to reduce the software\'s inherent environmental dependencies and improve the software\'s compatibility and availability, the author of this software did not choose to do so).</div>';
-            $_form              = array (
-                "action" => "/session/session_info" ,
-                "inputs" => array () ,
+            $_form_top       = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Display relevant information about PHP session environment variables</div>';
+            $_form_top       .= '<div style="width:100%;word-break:break-all;margin-top:16px;padding-left:0;padding-right:0;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This interface mainly displays the internal session variable content of the PHP language located on the server side.If you try to access this interface in a command-line environment, you may not be able to obtain valid information. Because in general, processes in the command line environment cannot obtain session environment information in the web environment (although we can achieve session environment information exchange between the web environment and the command line environment through special technical means. However, in order to reduce the software\'s inherent environmental dependencies and improve the software\'s compatibility and availability, the author of this software did not choose to do so).</div>';
+            $_form           = array (
+                "action"    => "/session/session_info" ,
+                "inputs"    => array () ,
                 "textareas" => array (
                     array (
                         "id"       => "cli_encode_url" ,
@@ -84,10 +84,10 @@ class Class_Controller_Session extends Class_Controller
                         "style"    => 'height:400px;' ,
                     ) ,
                 ) ,
-                "submit" => array (
+                "submit"    => array (
                     "display" => false ,
                 ) ,
-                "reset"  => array (
+                "reset"     => array (
                     "display" => false ,
                 ) ,
             );

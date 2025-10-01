@@ -124,7 +124,7 @@ class Class_Base_Block extends Class_Base implements Interface_Base_Block
         if ( ! empty( $_block_id ) ) {
             $_block_type = Class_Base_Memory::read_share_memory ( $_block_id , Class_Base_BlockHead::get_head_block_type_offset () , Class_Base_BlockHead::get_head_block_type_size () );
             $_block_type = Class_Base_Format::format_type_read ( $_block_type );
-            if ( $_block_type == Interface_Base_BlockKey::INDEXES ) {
+            if ( $_block_type == Interface_Base_BlockKey::WEB_INDEXES ) {
                 $_indexes_item_count = Class_Base_Block_Indexes::get_map_count_for_clear ( $key );
                 if ( ! empty( $_indexes_item_count ) ) {
                     return false;

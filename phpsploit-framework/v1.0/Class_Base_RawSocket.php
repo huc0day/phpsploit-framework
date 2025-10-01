@@ -169,7 +169,7 @@ class Class_Base_RawSocket extends Class_Base implements Interface_Base_RawSocke
     public static function select_icmp_socket ( $key , $timeout = 6 )
     {
         $_socket = self::get_icmp_socket ( $key );
-        $_read   = array ( $_socket );//初始化socket
+        $_read   = array ( $_socket );
         $_write  = array ( $_socket );
         $_except = array ( $_socket );
         $_select = socket_select ( $_read , $_write , $_except , $timeout );
@@ -664,7 +664,7 @@ class Class_Base_RawSocket extends Class_Base implements Interface_Base_RawSocke
 
     public static function format_package_checksum_write ( $checksum )
     {
-        $_checksum = pack ( "n*" , $checksum );//打包成2字节
+        $_checksum = pack ( "n*" , $checksum );
         return $_checksum;
     }
 

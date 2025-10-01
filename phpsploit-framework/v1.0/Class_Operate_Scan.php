@@ -43,7 +43,7 @@ class Class_Operate_Scan extends Class_Operate
                         if ( $_tmp_string == "http://" ) {
                             $_communication_protocol_header  = "http://";
                             $_last_separator_symbol_position = strpos ( $web , chr ( 47 ) , 7 );
-                            if ( $_last_separator_symbol_position === 7 ) { // http:///
+                            if ( $_last_separator_symbol_position === 7 ) { /* http:// */
                                 continue;
                             }
                         }

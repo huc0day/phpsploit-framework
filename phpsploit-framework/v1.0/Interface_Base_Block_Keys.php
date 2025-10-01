@@ -29,7 +29,8 @@ along with this program.    If not, see <https://www.gnu.org/licenses/>.
 
 interface Interface_Base_Block_Keys extends Interface_Base
 {
-    const KEY             = 100000000000000001;
+    const WEB_KEY         = Interface_Base_BlockKey::WEB_KEYS;
+    const CLI_KEY         = Interface_Base_BlockKey::CLI_KEYS;
     const MAP_SIZE        = 1048576;
     const MAP_ITEM_SIZE   = 32;
     const MAP_ITEM_LIMIT  = 32768;

@@ -31,19 +31,19 @@ class Class_Controller_Cookie extends Class_Controller
 {
     public static function index ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( ! is_cli () ) {
-            $_top    = Class_View_Top ::top ();
+            $_top    = Class_View_Top::top ();
             $_body   = array (
-                "menu"    => Class_View_Cookie_Menu ::menu () ,
+                "menu"    => Class_View_Cookie_Menu::menu () ,
                 "content" => "" ,
             );
-            $_bottom = Class_View_Bottom ::bottom ();
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
@@ -56,19 +56,19 @@ class Class_Controller_Cookie extends Class_Controller
                 $_COOKIE = array ();
             }
         }
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( is_cli () ) {
-            Class_Base_Response ::outputln (
+            Class_Base_Response::outputln (
                 $_COOKIE
             );
         }
         if ( ! is_cli () ) {
-            $_cli_url        = Class_Base_Response ::get_cli_url ( "/cookie/cookie_info" , array () );
-            $_cli_encode_url = Class_Base_Response ::get_urlencode ( $_cli_url );
+            $_cli_url        = Class_Base_Response::get_cli_url ( "/cookie/cookie_info" , array () );
+            $_cli_encode_url = Class_Base_Response::get_urlencode ( $_cli_url );
             $_form_top       = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Display relevant information about PHP cookie environment variables</div>';
             $_form_top       .= '<div style="width:100%;word-break:break-all;margin-top:16px;padding-left:0;padding-right:0;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This interface mainly displays the external cookie variable content of the PHP language located on the server side.If you try to access this interface in a command-line environment, you may not be able to obtain valid information. Because in general, processes in the command line environment cannot obtain cookie environment information in the web environment (although we can achieve cookie environment information exchange between the web environment and the command line environment through special technical means. However, in order to reduce the software\'s inherent environmental dependencies and improve the software\'s compatibility and availability, the author of this software did not choose to do so).</div>';
             $_form           = array (
@@ -101,10 +101,10 @@ class Class_Controller_Cookie extends Class_Controller
                     "disabled" => "disabled" ,
                 );
             }
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Cookie_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Cookie_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu = array (
                 array (
@@ -115,8 +115,8 @@ class Class_Controller_Cookie extends Class_Controller
             );
             $_content     = '<div></div>';
             $_javascript  = '<script type="text/javascript">function init(){ } function to_submit(form_object){  console.log("form is submit"); return true;}</script>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content , $_javascript );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content , $_javascript );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }

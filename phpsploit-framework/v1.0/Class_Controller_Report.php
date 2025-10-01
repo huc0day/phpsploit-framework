@@ -31,19 +31,19 @@ class Class_Controller_Report extends Class_Controller
 {
     public static function index ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( ! is_cli () ) {
-            $_top    = Class_View_Top ::top ();
+            $_top    = Class_View_Top::top ();
             $_body   = array (
-                "menu"    => Class_View_Report_Menu ::menu () ,
+                "menu"    => Class_View_Report_Menu::menu () ,
                 "content" => "" ,
             );
-            $_bottom = Class_View_Bottom ::bottom ();
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
@@ -56,25 +56,25 @@ class Class_Controller_Report extends Class_Controller
                 $_SESSION = array ();
             }
         }
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         $_is_append                 = false;
         $_risk_level_limits         = array ( 1 , 2 , 3 , 4 , 5 , );
         $_discovery_method_limits   = array ( 1 , 2 , );
         $_vulnerability_type_limits = array ( 1 , 2 , 3 , 4 , 5 , );
         for ( $index = 0 ; $index < 10 ; $index ++ ) {
-            $_risk_level                                               = Class_Base_Request ::form ( "risk_level_" . $index , Class_Base_Request::TYPE_INTEGER , 0 );
-            $_discovery_method                                         = Class_Base_Request ::form ( "discovery_method_" . $index , Class_Base_Request::TYPE_INTEGER , 0 );
-            $_vulnerability_type                                       = Class_Base_Request ::form ( "vulnerability_type_" . $index , Class_Base_Request::TYPE_INTEGER , 0 );
-            $_vulnerability_name                                       = Class_Base_Request ::form ( "vulnerability_name_" . $index , Class_Base_Request::TYPE_STRING , "" );
-            $_vulnerability_discovery_personnel                        = Class_Base_Request ::form ( "vulnerability_discovery_personnel_" . $index , Class_Base_Request::TYPE_STRING , "" );
-            $_contact_information_of_vulnerability_discovery_personnel = Class_Base_Request ::form ( "contact_information_of_vulnerability_discovery_personnel_" . $index , Class_Base_Request::TYPE_STRING , "" );
-            $_vulnerability_impact                                     = Class_Base_Request ::form ( "vulnerability_impact_" . $index , Class_Base_Request::TYPE_STRING , "" );
-            $_vulnerability_discovery_process                          = Class_Base_Request ::form ( "vulnerability_discovery_process_" . $index , Class_Base_Request::TYPE_STRING , "" );
-            $_solution_proposal                                        = Class_Base_Request ::form ( "solution_proposal_" . $index , Class_Base_Request::TYPE_STRING , "" );
+            $_risk_level                                               = Class_Base_Request::form ( "risk_level_" . $index , Class_Base_Request::TYPE_INTEGER , 0 );
+            $_discovery_method                                         = Class_Base_Request::form ( "discovery_method_" . $index , Class_Base_Request::TYPE_INTEGER , 0 );
+            $_vulnerability_type                                       = Class_Base_Request::form ( "vulnerability_type_" . $index , Class_Base_Request::TYPE_INTEGER , 0 );
+            $_vulnerability_name                                       = Class_Base_Request::form ( "vulnerability_name_" . $index , Class_Base_Request::TYPE_STRING , "" );
+            $_vulnerability_discovery_personnel                        = Class_Base_Request::form ( "vulnerability_discovery_personnel_" . $index , Class_Base_Request::TYPE_STRING , "" );
+            $_contact_information_of_vulnerability_discovery_personnel = Class_Base_Request::form ( "contact_information_of_vulnerability_discovery_personnel_" . $index , Class_Base_Request::TYPE_STRING , "" );
+            $_vulnerability_impact                                     = Class_Base_Request::form ( "vulnerability_impact_" . $index , Class_Base_Request::TYPE_STRING , "" );
+            $_vulnerability_discovery_process                          = Class_Base_Request::form ( "vulnerability_discovery_process_" . $index , Class_Base_Request::TYPE_STRING , "" );
+            $_solution_proposal                                        = Class_Base_Request::form ( "solution_proposal_" . $index , Class_Base_Request::TYPE_STRING , "" );
             if ( ! isset( $_SESSION[ "VULNERABILITY_REPORT" ] ) ) {
                 $_SESSION[ "VULNERABILITY_REPORT" ] = array ();
             }
@@ -107,7 +107,7 @@ class Class_Controller_Report extends Class_Controller
             }
         }
         if ( ( $_is_append ) && ( ! empty( $_SESSION[ "VULNERABILITY_REPORT" ] ) ) ) {
-            Class_Base_Response ::redirect ( "/report/show_vulnerability_report" , array () );
+            Class_Base_Response::redirect ( "/report/show_vulnerability_report" , array () );
             return null;
         }
 
@@ -134,7 +134,7 @@ class Class_Controller_Report extends Class_Controller
                     "value"   => "Add a new vulnerability information form" ,
                     "display" => false ,
                     "events"  => array (
-                        "onclick" => 'click_dyn_add_button(\'' . Class_Base_Format ::htmlentities ( $_form_id ) . '\',\'dyn_form_hidden_index_id\');' ,
+                        "onclick" => 'click_dyn_add_button(\'' . Class_Base_Format::htmlentities ( $_form_id ) . '\',\'dyn_form_hidden_index_id\');' ,
                     ) ,
                 ) ,
             );
@@ -228,10 +228,10 @@ class Class_Controller_Report extends Class_Controller
                 "reset"     => array ( "name" => "reset" ) ,
                 "button"    => array ( "name" => "add_new_form" ) ,
             );
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Report_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) . Class_View ::dyn_form_body ( $_dyn_form ) ) ,
+                "menu"    => Class_View_Report_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) . Class_View::dyn_form_body ( $_dyn_form ) ) ,
             );
             $_bottom_menu = array (
                 array (
@@ -241,9 +241,9 @@ class Class_Controller_Report extends Class_Controller
                 ) ,
             );
             $_content     = '<div></div>';
-            $_javascript  = '<script type="text/javascript">function init(){ click_dyn_add_button(\'' . Class_Base_Format ::htmlentities ( $_form_id ) . '\',\'dyn_form_hidden_index_id\'); } function to_submit(form_object){  console.log("form is submit"); return true;}</script>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content , $_javascript );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_javascript  = '<script type="text/javascript">function init(){ click_dyn_add_button(\'' . Class_Base_Format::htmlentities ( $_form_id ) . '\',\'dyn_form_hidden_index_id\'); } function to_submit(form_object){  console.log("form is submit"); return true;}</script>';
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content , $_javascript );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
@@ -256,11 +256,11 @@ class Class_Controller_Report extends Class_Controller
                 $_SESSION = array ();
             }
         }
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( ! isset( $_SESSION[ "VULNERABILITY_REPORT" ] ) ) {
             $_SESSION[ "VULNERABILITY_REPORT" ] = array ();
         }
@@ -272,15 +272,15 @@ class Class_Controller_Report extends Class_Controller
         $_discovery_method_limits   = array ( 1 , 2 , );
         $_vulnerability_type_limits = array ( 1 , 2 , 3 , 4 , 5 , );
         for ( $report_index = 0 ; $report_index < 50 ; $report_index ++ ) {
-            $_risk_level                                               = Class_Base_Request ::form ( "risk_level_" . $report_index , Class_Base_Request::TYPE_INTEGER , 0 );
-            $_discovery_method                                         = Class_Base_Request ::form ( "discovery_method_" . $report_index , Class_Base_Request::TYPE_INTEGER , 0 );
-            $_vulnerability_type                                       = Class_Base_Request ::form ( "vulnerability_type_" . $report_index , Class_Base_Request::TYPE_INTEGER , 0 );
-            $_vulnerability_name                                       = Class_Base_Request ::form ( "vulnerability_name_" . $report_index , Class_Base_Request::TYPE_STRING , "" );
-            $_vulnerability_discovery_personnel                        = Class_Base_Request ::form ( "vulnerability_discovery_personnel_" . $report_index , Class_Base_Request::TYPE_STRING , "" );
-            $_contact_information_of_vulnerability_discovery_personnel = Class_Base_Request ::form ( "contact_information_of_vulnerability_discovery_personnel_" . $report_index , Class_Base_Request::TYPE_STRING , "" );
-            $_vulnerability_impact                                     = Class_Base_Request ::form ( "vulnerability_impact_" . $report_index , Class_Base_Request::TYPE_STRING , "" );
-            $_vulnerability_discovery_process                          = Class_Base_Request ::form ( "vulnerability_discovery_process_" . $report_index , Class_Base_Request::TYPE_STRING , "" );
-            $_solution_proposal                                        = Class_Base_Request ::form ( "solution_proposal_" . $report_index , Class_Base_Request::TYPE_STRING , "" );
+            $_risk_level                                               = Class_Base_Request::form ( "risk_level_" . $report_index , Class_Base_Request::TYPE_INTEGER , 0 );
+            $_discovery_method                                         = Class_Base_Request::form ( "discovery_method_" . $report_index , Class_Base_Request::TYPE_INTEGER , 0 );
+            $_vulnerability_type                                       = Class_Base_Request::form ( "vulnerability_type_" . $report_index , Class_Base_Request::TYPE_INTEGER , 0 );
+            $_vulnerability_name                                       = Class_Base_Request::form ( "vulnerability_name_" . $report_index , Class_Base_Request::TYPE_STRING , "" );
+            $_vulnerability_discovery_personnel                        = Class_Base_Request::form ( "vulnerability_discovery_personnel_" . $report_index , Class_Base_Request::TYPE_STRING , "" );
+            $_contact_information_of_vulnerability_discovery_personnel = Class_Base_Request::form ( "contact_information_of_vulnerability_discovery_personnel_" . $report_index , Class_Base_Request::TYPE_STRING , "" );
+            $_vulnerability_impact                                     = Class_Base_Request::form ( "vulnerability_impact_" . $report_index , Class_Base_Request::TYPE_STRING , "" );
+            $_vulnerability_discovery_process                          = Class_Base_Request::form ( "vulnerability_discovery_process_" . $report_index , Class_Base_Request::TYPE_STRING , "" );
+            $_solution_proposal                                        = Class_Base_Request::form ( "solution_proposal_" . $report_index , Class_Base_Request::TYPE_STRING , "" );
             if ( ! isset( $_SESSION[ "VULNERABILITY_REPORT" ] ) ) {
                 $_SESSION[ "VULNERABILITY_REPORT" ] = array ();
             }
@@ -313,7 +313,7 @@ class Class_Controller_Report extends Class_Controller
             }
         }
         if ( ( $_is_updated ) && ( ! empty( $_SESSION[ "VULNERABILITY_REPORT" ] ) ) ) {
-            Class_Base_Response ::redirect ( "/report/show_vulnerability_report" , array () );
+            Class_Base_Response::redirect ( "/report/show_vulnerability_report" , array () );
             return null;
         }
         if ( ! is_cli () ) {
@@ -429,15 +429,15 @@ class Class_Controller_Report extends Class_Controller
                         "value"   => "show report" ,
                         "display" => true ,
                         "events"  => array (
-                            "onclick" => ' document.location.href=\'' . Class_Base_Response ::get_url ( "/report/show_vulnerability_report" , array () ) . '\'; ' ,
+                            "onclick" => ' document.location.href=\'' . Class_Base_Response::get_url ( "/report/show_vulnerability_report" , array () ) . '\'; ' ,
                         ) ,
                     ) ,
                 );
-                $_form_html              .= Class_View ::form_body ( $_forms[ $report_index ] );
+                $_form_html              .= Class_View::form_body ( $_forms[ $report_index ] );
             }
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Report_Menu ::menu ( array () ) ,
+                "menu"    => Class_View_Report_Menu::menu ( array () ) ,
                 "content" => ( ( $_form_top ) . ( $_form_html ) ) ,
             );
             $_bottom_menu = array (
@@ -449,10 +449,10 @@ class Class_Controller_Report extends Class_Controller
             );
             $_content     = '<div></div>';
             $_javascript  = '<script type="text/javascript">function init(){ console.log("init"); } function to_submit(form_object){  console.log("form is submit"); return true;}</script>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content , $_javascript );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content , $_javascript );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( $_SESSION[ "VULNERABILITY_REPORT" ] );
+            Class_Base_Response::outputln ( $_SESSION[ "VULNERABILITY_REPORT" ] );
         }
         return null;
     }
@@ -465,11 +465,11 @@ class Class_Controller_Report extends Class_Controller
                 $_SESSION = array ();
             }
         }
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( ! isset( $_SESSION[ "VULNERABILITY_REPORT" ] ) ) {
             $_SESSION[ "VULNERABILITY_REPORT" ] = array ();
         }
@@ -592,15 +592,15 @@ class Class_Controller_Report extends Class_Controller
                         "value"   => " delete report entry " ,
                         "display" => true ,
                         "events"  => array (
-                            "onclick" => ' document.location.href=\'' . Class_Base_Response ::get_url ( "/report/delete_vulnerability_report" , array () ) . '\'; ' ,
+                            "onclick" => ' document.location.href=\'' . Class_Base_Response::get_url ( "/report/delete_vulnerability_report" , array () ) . '\'; ' ,
                         ) ,
                     ) ,
                 );
-                $_form_html              .= Class_View ::form_body ( $_forms[ $report_index ] );
+                $_form_html              .= Class_View::form_body ( $_forms[ $report_index ] );
             }
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Report_Menu ::menu ( array () ) ,
+                "menu"    => Class_View_Report_Menu::menu ( array () ) ,
                 "content" => ( ( $_form_top ) . ( $_form_html ) ) ,
             );
             $_bottom_menu = array (
@@ -612,10 +612,10 @@ class Class_Controller_Report extends Class_Controller
             );
             $_content     = '<div></div>';
             $_javascript  = '<script type="text/javascript">function init(){ console.log("init"); } function to_submit(form_object){  console.log("form is submit"); return true;}</script>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content , $_javascript );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content , $_javascript );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( $_SESSION[ "VULNERABILITY_REPORT" ] );
+            Class_Base_Response::outputln ( $_SESSION[ "VULNERABILITY_REPORT" ] );
         }
         return null;
     }
@@ -628,11 +628,11 @@ class Class_Controller_Report extends Class_Controller
                 $_SESSION = array ();
             }
         }
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( ! isset( $_SESSION[ "VULNERABILITY_REPORT" ] ) ) {
             $_SESSION[ "VULNERABILITY_REPORT" ] = array ();
         }
@@ -640,7 +640,7 @@ class Class_Controller_Report extends Class_Controller
             $_SESSION[ "VULNERABILITY_REPORT" ] = array ();
         }
         for ( $report_index = 0 ; $report_index < 100 ; $report_index ++ ) {
-            $_report_index = Class_Base_Request ::form ( "report_index_" . $report_index , Class_Base_Request::TYPE_INTEGER , - 1 );
+            $_report_index = Class_Base_Request::form ( "report_index_" . $report_index , Class_Base_Request::TYPE_INTEGER , - 1 );
             if ( $_report_index >= 0 ) {
                 $_SESSION[ "VULNERABILITY_REPORT" ][ $_report_index ] = null;
                 unset( $_SESSION[ "VULNERABILITY_REPORT" ][ $_report_index ] );
@@ -768,15 +768,15 @@ class Class_Controller_Report extends Class_Controller
                         "value"   => "edit report" ,
                         "display" => true ,
                         "events"  => array (
-                            "onclick" => ' document.location.href=\'' . Class_Base_Response ::get_url ( "/report/edit_vulnerability_report" , array () ) . '\'; ' ,
+                            "onclick" => ' document.location.href=\'' . Class_Base_Response::get_url ( "/report/edit_vulnerability_report" , array () ) . '\'; ' ,
                         ) ,
                     ) ,
                 );
-                $_form_html              .= Class_View ::form_body ( $_forms[ $report_index ] );
+                $_form_html              .= Class_View::form_body ( $_forms[ $report_index ] );
             }
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Report_Menu ::menu ( array () ) ,
+                "menu"    => Class_View_Report_Menu::menu ( array () ) ,
                 "content" => ( ( $_form_top ) . ( $_form_html ) ) ,
             );
             $_bottom_menu = array (
@@ -788,10 +788,10 @@ class Class_Controller_Report extends Class_Controller
             );
             $_content     = '<div></div>';
             $_javascript  = '<script type="text/javascript">function init(){ console.log("init"); } function to_submit(form_object){  console.log("form is submit"); return true;}</script>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content , $_javascript );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content , $_javascript );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( $_SESSION[ "VULNERABILITY_REPORT" ] );
+            Class_Base_Response::outputln ( $_SESSION[ "VULNERABILITY_REPORT" ] );
         }
         return null;
     }
@@ -804,13 +804,13 @@ class Class_Controller_Report extends Class_Controller
                 $_SESSION = array ();
             }
         }
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( ( ! empty( $_SESSION[ "VULNERABILITY_REPORT" ] ) ) && ( is_array ( $_SESSION[ "VULNERABILITY_REPORT" ] ) ) ) {
-            Class_Base_Report ::output_xls_file_content ( "vulnerability_report" , $_SESSION[ "VULNERABILITY_REPORT" ] );
+            Class_Base_Report::output_xls_file_content ( "vulnerability_report" , $_SESSION[ "VULNERABILITY_REPORT" ] );
         }
         return null;
     }
@@ -823,15 +823,15 @@ class Class_Controller_Report extends Class_Controller
                 $_SESSION = array ();
             }
         }
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( ( isset( $_SESSION ) ) && ( is_array ( $_SESSION ) ) && ( array_key_exists ( "VULNERABILITY_REPORT" , $_SESSION ) ) ) {
             $_SESSION[ "VULNERABILITY_REPORT" ] = null;
             unset( $_SESSION[ "VULNERABILITY_REPORT" ] );
-            Class_Base_Response ::redirect ( "/report/create_vulnerability_report" , array () );
+            Class_Base_Response::redirect ( "/report/create_vulnerability_report" , array () );
         }
         return null;
     }

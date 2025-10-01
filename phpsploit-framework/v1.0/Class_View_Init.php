@@ -38,10 +38,10 @@ class Class_View_Init extends Class_View
             if ( ( ! isset( $params[ "privilege_password" ] ) ) || ( ! is_string ( $params[ "privilege_password" ] ) ) || ( strlen ( $params[ "privilege_password" ] ) <= 0 ) ) {
                 $params[ "privilege_password" ] = "";
             }
-            $_cli_url        = Class_Base_Response ::get_cli_url ( "init_user_info" , array ( "privilege_user" => $params[ "privilege_user" ] , "privilege_password" => $params[ "privilege_password" ] ) );
-            $_cli_encode_url = Class_Base_Response ::get_urlencode ( $_cli_url );
+            $_cli_url        = Class_Base_Response::get_cli_url ( "init_user_info" , array ( "privilege_user" => $params[ "privilege_user" ] , "privilege_password" => $params[ "privilege_password" ] ) );
+            $_cli_encode_url = Class_Base_Response::get_urlencode ( $_cli_url );
             $_form_name      = "form_0";
-            return ( Class_View ::form_page (
+            return ( Class_View::form_page (
                 array (
                     "title"   => "phpsploit-framework" ,
                     "content" => '<div style="height:16px;"></div><div style="line-height:32px;font-size:32px;text-align: center;">Initialize installation to PhpSploit - Framework</div><div style="height:32px;"></div>' ,
@@ -52,13 +52,13 @@ class Class_View_Init extends Class_View
                     "name"      => $_form_name ,
                     "inputs"    => array (
                         array (
-                            "title"    => "Init User Name: " ,
+                            "title"    => "Privilege User Name: " ,
                             "describe" => "Init User" ,
                             "name"     => "privilege_user" ,
                             "value"    => $params[ "privilege_user" ] ,
                         ) ,
                         array (
-                            "title"    => "Init User Password : " ,
+                            "title"    => "Privilege User Password : " ,
                             "describe" => "Init Password" ,
                             "name"     => "privilege_password" ,
                             "value"    => $params[ "privilege_password" ] ,
@@ -103,7 +103,7 @@ class Class_View_Init extends Class_View
                         ) ,
                     ) ,
                     "content"    => '<div></div>' ,
-                    "javascript" => '<script type="text/javascript">function init(){ } function to_submit(form_object){  console.log("form is submit"); return true;}function create_encode_url(){ document.getElementById("' . htmlentities ( $_form_name ) . '").action="' . Class_Base_Response ::get_url ( "/init" , array () ) . '";if(document.forms["' . htmlentities ( $_form_name ) . '"].onsubmit()!=false){document.forms["' . htmlentities ( $_form_name ) . '"].submit();} }</script>' ,
+                    "javascript" => '<script type="text/javascript">function init(){ } function to_submit(form_object){  console.log("form is submit"); return true;}function create_encode_url(){ document.getElementById("' . htmlentities ( $_form_name ) . '").action="' . Class_Base_Response::get_url ( "/init" , array () ) . '";if(document.forms["' . htmlentities ( $_form_name ) . '"].onsubmit()!=false){document.forms["' . htmlentities ( $_form_name ) . '"].submit();} }</script>' ,
                 ) )
             );
 

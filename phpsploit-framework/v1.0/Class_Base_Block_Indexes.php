@@ -36,7 +36,7 @@ class Class_Base_Block_Indexes extends Class_Base_Block implements Interface_Bas
 
     public static function get_key ()
     {
-        return Interface_Base_BlockKey::INDEXES;
+        return Interface_Base_BlockKey::WEB_INDEXES;
     }
 
     public static function exist_indexes_key ( $key )
@@ -427,7 +427,7 @@ class Class_Base_Block_Indexes extends Class_Base_Block implements Interface_Bas
                 if ( ! Class_Base_Format::is_empty ( $_indexes_item_block_key ) ) {
                     $_indexes_item_block_key = Class_Base_Format::format_key_read ( $_indexes_item_block_key );
                     if ( $_indexes_item_block_key == $indexes_item_block_key ) {
-                        $_count++;
+                        $_count ++;
                     }
                 }
             }
@@ -445,7 +445,7 @@ class Class_Base_Block_Indexes extends Class_Base_Block implements Interface_Bas
                 if ( ! Class_Base_Format::is_empty ( $_indexes_item_block_name ) ) {
                     $_indexes_item_block_name = Class_Base_Format::format_name_read ( $_indexes_item_block_name );
                     if ( $_indexes_item_block_name == $indexes_item_block_name ) {
-                        $_count++;
+                        $_count ++;
                     }
                 }
             }
@@ -565,7 +565,7 @@ class Class_Base_Block_Indexes extends Class_Base_Block implements Interface_Bas
                 if ( ! Class_Base_Format::is_empty ( $_indexes_item_block_key ) ) {
                     $_indexes_item_block_key = Class_Base_Format::format_key_read ( $_indexes_item_block_key );
                     if ( $_indexes_item_block_key == $indexes_item_block_key ) {
-                        $_block_key_count++;
+                        $_block_key_count ++;
                         if ( Class_Base_Format::is_empty ( $_indexes_item_block_name ) ) {
                             return false;
                         }
@@ -574,7 +574,7 @@ class Class_Base_Block_Indexes extends Class_Base_Block implements Interface_Bas
                 if ( ! Class_Base_Format::is_empty ( $_indexes_item_block_name ) ) {
                     $_indexes_item_block_name = Class_Base_Format::format_name_read ( $_indexes_item_block_name );
                     if ( $_indexes_item_block_name == $indexes_item_block_name ) {
-                        $_block_name_count++;
+                        $_block_name_count ++;
                         if ( Class_Base_Format::is_empty ( $_indexes_item_block_key ) ) {
                             return false;
                         }
@@ -839,7 +839,7 @@ class Class_Base_Block_Indexes extends Class_Base_Block implements Interface_Bas
                     $_indexes_item_block_name = Class_Base_Format::format_name_read ( substr ( $_item , ( self::OFFSET_START ) , self::SIZE_BLOCK_HEAD_BLOCK_NAME ) );
                     $_indexes_item_block_key  = Class_Base_Format::format_key_read ( substr ( $_item , ( self::OFFSET_START + self::SIZE_BLOCK_HEAD_BLOCK_NAME ) , self::SIZE_BLOCK_HEAD_BLOCK_KEY ) );
                     if ( ( ! Class_Base_Format::is_empty ( $_indexes_item_block_key ) ) && ( ! Class_Base_Format::is_empty ( $_indexes_item_block_name ) ) ) {
-                        $_count++;
+                        $_count ++;
                     }
                 }
             }
@@ -857,7 +857,7 @@ class Class_Base_Block_Indexes extends Class_Base_Block implements Interface_Bas
                 if ( ! self::is_empty ( $_item ) ) {
                     $_indexes_item_block_key = Class_Base_Format::format_key_read ( substr ( $_item , ( self::OFFSET_START + self::SIZE_BLOCK_HEAD_BLOCK_NAME ) , self::SIZE_BLOCK_HEAD_BLOCK_KEY ) );
                     if ( ( ! Class_Base_Format::is_empty ( $_indexes_item_block_key ) ) ) {
-                        $_count++;
+                        $_count ++;
                     }
                 }
             }

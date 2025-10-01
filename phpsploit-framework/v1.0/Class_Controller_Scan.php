@@ -31,32 +31,32 @@ class Class_Controller_Scan
 {
     public static function index ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( ! is_cli () ) {
-            $_top    = Class_View_Top ::top ();
+            $_top    = Class_View_Top::top ();
             $_body   = array (
-                "menu"    => Class_View_Scan_Menu ::menu () ,
+                "menu"    => Class_View_Scan_Menu::menu () ,
                 "content" => "" ,
             );
-            $_bottom = Class_View_Bottom ::bottom ();
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
     public static function webs ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_start                   = Class_Base_Request ::form ( "start" , Class_Base_Request::TYPE_INTEGER , 0 );
-        $_webs                    = Class_Base_Request ::form ( "webs" , Class_Base_Request::TYPE_STRING , "" );
+        Class_Base_Auth::check_permission ();
+        $_start                   = Class_Base_Request::form ( "start" , Class_Base_Request::TYPE_INTEGER , 0 );
+        $_webs                    = Class_Base_Request::form ( "webs" , Class_Base_Request::TYPE_STRING , "" );
         $_webs                    = str_replace ( chr ( 13 ) , "" , str_replace ( chr ( 10 ) , "" , str_replace ( chr ( 32 ) , "" , $_webs ) ) );
         $_webs_length             = strlen ( $_webs );
         $_webs_fast_char_position = ( $_webs_length - 1 );
@@ -70,7 +70,7 @@ class Class_Controller_Scan
         $_result           = array ();
         $_web_domain_names = array ();
         if ( ( ! empty( $_start ) ) && ( $_webs_count > 0 ) ) {
-            $_result = Class_Operate_Scan ::request_webs ( $_web_array );
+            $_result = Class_Operate_Scan::request_webs ( $_web_array );
             if ( ( ! empty( $_result ) ) && ( is_array ( $_result ) ) ) {
                 $_web_domain_names = array_keys ( $_result );
             }
@@ -79,8 +79,8 @@ class Class_Controller_Scan
         }
 
         if ( ! is_cli () ) {
-            $_cli_url        = Class_Base_Response ::get_cli_url ( "/scan/webs" , array ( 'start' => 1 , 'webs' => $_webs , ) );
-            $_cli_encode_url = Class_Base_Response ::get_urlencode ( $_cli_url );
+            $_cli_url        = Class_Base_Response::get_cli_url ( "/scan/webs" , array ( 'start' => 1 , 'webs' => $_webs , ) );
+            $_cli_encode_url = Class_Base_Response::get_urlencode ( $_cli_url );
             $_form_top       = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Web Activity Status Detection</div>';
             $_form_top       .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This module function is used to scan the survival status of WEB sites in the specified list (list elements include IP addresses, host names, or domain names, etc., separated by commas between elements in the list, for example: http://localhost , http://127.0.0.1 , https://localhost , https://127.0.0.1 , http://localhost:8080 , http://127.0.0.1:8080 , https://localhost:4443 , https://127.0.0.1:4443 ）</div>';
             $_form_name      = "form_0";
@@ -146,10 +146,10 @@ class Class_Controller_Scan
                     ) ,
                 ) ,
             );
-            $_top            = Class_View_Top ::top ();
+            $_top            = Class_View_Top::top ();
             $_body           = array (
-                "menu"    => Class_View_Scan_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Scan_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu    = array (
                 array (
@@ -160,24 +160,24 @@ class Class_Controller_Scan
             );
             $_content        = '<div></div>';
             $_javascript     = '<script type="text/javascript">function init(){ } function to_submit(form_object){  console.log("form is submit"); return true;} function create_encode_url(){ document.getElementById("start").value=0;if(document.forms["' . htmlentities ( $_form_name ) . '"].onsubmit()!=false){document.forms["' . htmlentities ( $_form_name ) . '"].submit();} }</script>';
-            $_bottom         = Class_View_Bottom ::bottom ( $_bottom_menu , $_content , $_javascript );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom         = Class_View_Bottom::bottom ( $_bottom_menu , $_content , $_javascript );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( $_result );
+            Class_Base_Response::outputln ( $_result );
         }
         return null;
     }
 
     public static function domain ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_start                    = Class_Base_Request ::form ( "start" , Class_Base_Request::TYPE_INTEGER , 0 );
-        $_ip                       = Class_Base_Request ::form ( "ip" , Class_Base_Request::TYPE_STRING , "" );
-        $_ports                    = Class_Base_Request ::form ( "ports" , Class_Base_Request::TYPE_STRING , "" );
+        Class_Base_Auth::check_permission ();
+        $_start                    = Class_Base_Request::form ( "start" , Class_Base_Request::TYPE_INTEGER , 0 );
+        $_ip                       = Class_Base_Request::form ( "ip" , Class_Base_Request::TYPE_STRING , "" );
+        $_ports                    = Class_Base_Request::form ( "ports" , Class_Base_Request::TYPE_STRING , "" );
         $_ip                       = str_replace ( chr ( 13 ) , "" , str_replace ( chr ( 10 ) , "" , str_replace ( chr ( 32 ) , "" , $_ip ) ) );
         $_ports                    = str_replace ( chr ( 13 ) , "" , str_replace ( chr ( 10 ) , "" , str_replace ( chr ( 32 ) , "" , $_ports ) ) );
         $_ports_length             = strlen ( $_ports );
@@ -191,11 +191,11 @@ class Class_Controller_Scan
         }
         $_result = array ();
         if ( ( ! empty( $_start ) ) && ( ! empty( $_ip ) ) && ( $_ports_count > 0 ) ) {
-            $_result = Class_Operate_Scan ::request_domain_ports ( $_ip , $_port_array );
+            $_result = Class_Operate_Scan::request_domain_ports ( $_ip , $_port_array );
         }
         if ( ! is_cli () ) {
-            $_cli_url        = Class_Base_Response ::get_cli_url ( "/scan/domain" , array ( 'start' => 1 , 'ip' => $_ip , 'ports' => $_ports , ) );
-            $_cli_encode_url = Class_Base_Response ::get_urlencode ( $_cli_url );
+            $_cli_url        = Class_Base_Response::get_cli_url ( "/scan/domain" , array ( 'start' => 1 , 'ip' => $_ip , 'ports' => $_ports , ) );
+            $_cli_encode_url = Class_Base_Response::get_urlencode ( $_cli_url );
             $_form_top       = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Domain Port Activity Status Detection</div>';
             $_form_top       .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This module function is used to scan the response status of TCP protocol ports in a specified host (the list element is the port number, separated by commas between the elements in the list, examples: 22, 80, 443, 3306).</div>';
             $_form_name      = "form_0";
@@ -269,10 +269,10 @@ class Class_Controller_Scan
                     ) ,
                 ) ,
             );
-            $_top            = Class_View_Top ::top ();
+            $_top            = Class_View_Top::top ();
             $_body           = array (
-                "menu"    => Class_View_Scan_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Scan_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu    = array (
                 array (
@@ -283,27 +283,27 @@ class Class_Controller_Scan
             );
             $_content        = '<div></div>';
             $_javascript     = '<script type="text/javascript">function init(){ } function to_submit(form_object){  console.log("form is submit"); return true;} function create_encode_url(){ document.getElementById("start").value=0;if(document.forms["' . htmlentities ( $_form_name ) . '"].onsubmit()!=false){document.forms["' . htmlentities ( $_form_name ) . '"].submit();} }</script>';
-            $_bottom         = Class_View_Bottom ::bottom ( $_bottom_menu , $_content , $_javascript );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom         = Class_View_Bottom::bottom ( $_bottom_menu , $_content , $_javascript );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( $_result );
+            Class_Base_Response::outputln ( $_result );
         }
         return null;
     }
 
     public static function tamperproof ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_start                    = Class_Base_Request ::form ( "start" , Class_Base_Request::TYPE_INTEGER , 0 );
-        $_sampling_directory_path  = Class_Base_Request ::form ( "sampling_directory_path" , Class_Base_Request::TYPE_STRING , "" );
-        $_detection_directory_path = Class_Base_Request ::form ( "detection_directory_path" , Class_Base_Request::TYPE_STRING , "" );
+        Class_Base_Auth::check_permission ();
+        $_start                    = Class_Base_Request::form ( "start" , Class_Base_Request::TYPE_INTEGER , 0 );
+        $_sampling_directory_path  = Class_Base_Request::form ( "sampling_directory_path" , Class_Base_Request::TYPE_STRING , "" );
+        $_detection_directory_path = Class_Base_Request::form ( "detection_directory_path" , Class_Base_Request::TYPE_STRING , "" );
         if ( ! is_cli () ) {
-            $_cli_url                      = Class_Base_Response ::get_cli_url ( "/scan/tamperproof" , array ( 'start' => 1 , 'sampling_directory_path' => $_sampling_directory_path , 'detection_directory_path' => $_detection_directory_path , ) );
-            $_cli_encode_url               = Class_Base_Response ::get_urlencode ( $_cli_url );
+            $_cli_url                      = Class_Base_Response::get_cli_url ( "/scan/tamperproof" , array ( 'start' => 1 , 'sampling_directory_path' => $_sampling_directory_path , 'detection_directory_path' => $_detection_directory_path , ) );
+            $_cli_encode_url               = Class_Base_Response::get_urlencode ( $_cli_url );
             $_form_top                     = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Abnormal Directory And File Detection</div>';
             $_form_top                     .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This module uses file detection technology to perform security scans on specified directories (such as web directories), and provides relevant prompts and warnings for discovered risks. This feature helps operations engineers or blue team members in CTF competitions to conduct web file security checks.</div>';
             $_form_name                    = "form_0";
@@ -371,10 +371,10 @@ class Class_Controller_Scan
                     ) ,
                 ) ,
             );
-            $_top                          = Class_View_Top ::top ();
+            $_top                          = Class_View_Top::top ();
             $_body                         = array (
-                "menu"    => Class_View_Scan_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Scan_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu                  = array (
                 array (
@@ -389,22 +389,22 @@ class Class_Controller_Scan
             $_search_result_id             = "search_result";
             $_content                      = '<div style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;">Search Sampling Progress</div><div id="' . $_search_sampling_progress_id . '" style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;"></div><div style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;">Search Detection Progress</div><div id="' . $_search_detection_progress_id . '" style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;"></div><div style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;">Search Errors</div><div id="' . $_search_errors_id . '" style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;"></div><div style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;">Search Result</div><div id="' . $_search_result_id . '" style="padding-top:16px;padding-bottom:16px;text-align: left;font-size:18px;"></div>';
             $_javascript                   = '<script type="text/javascript">function init(){ } function to_submit(form_object){  console.log("form is submit"); return true;} function create_encode_url(){ document.getElementById("start").value=0;if(document.forms["' . htmlentities ( $_form_name ) . '"].onsubmit()!=false){document.forms["' . htmlentities ( $_form_name ) . '"].submit();} }</script>';
-            $_bottom                       = Class_View_Bottom ::bottom ( $_bottom_menu , $_content , $_javascript );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom                       = Class_View_Bottom::bottom ( $_bottom_menu , $_content , $_javascript );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
 
             if ( ( ! empty( $_start ) ) && ( is_string ( $_sampling_directory_path ) ) && ( strlen ( $_sampling_directory_path ) > 0 ) && ( is_string ( $_detection_directory_path ) ) && ( strlen ( $_detection_directory_path ) > 0 ) ) {
-                Class_Operate_Scan ::scan_directory_exception ( $_sampling_directory_path , $_detection_directory_path , $_search_sampling_progress_id , $_search_detection_progress_id , $_search_errors_id , $_search_result_id , 100 , 0 );
+                Class_Operate_Scan::scan_directory_exception ( $_sampling_directory_path , $_detection_directory_path , $_search_sampling_progress_id , $_search_detection_progress_id , $_search_errors_id , $_search_result_id , 100 , 0 );
             }
             if ( ! is_cli () ) {
-                Class_Base_Response ::output_div_inner_html ( $_search_sampling_progress_id , "" , Class_Base_Response::FLAG_JS_CONTENT_INNER_HTML_COVER );
+                Class_Base_Response::output_div_inner_html ( $_search_sampling_progress_id , "" , Class_Base_Response::FLAG_JS_CONTENT_INNER_HTML_COVER );
             }
             if ( ! is_cli () ) {
-                Class_Base_Response ::output_div_inner_html ( $_search_detection_progress_id , "" , Class_Base_Response::FLAG_JS_CONTENT_INNER_HTML_COVER );
+                Class_Base_Response::output_div_inner_html ( $_search_detection_progress_id , "" , Class_Base_Response::FLAG_JS_CONTENT_INNER_HTML_COVER );
             }
 
         } else {
             if ( ( ! empty( $_start ) ) && ( is_string ( $_sampling_directory_path ) ) && ( strlen ( $_sampling_directory_path ) > 0 ) && ( is_string ( $_detection_directory_path ) ) && ( strlen ( $_detection_directory_path ) > 0 ) ) {
-                Class_Operate_Scan ::scan_directory_exception ( $_sampling_directory_path , $_detection_directory_path , $_search_sampling_progress_id , $_search_detection_progress_id , $_search_errors_id , $_search_result_id , 100 , 0 );
+                Class_Operate_Scan::scan_directory_exception ( $_sampling_directory_path , $_detection_directory_path , $_search_sampling_progress_id , $_search_detection_progress_id , $_search_errors_id , $_search_result_id , 100 , 0 );
             }
         }
         return null;

@@ -52,18 +52,30 @@ class Class_View_Init_User_Info extends Class_View
                 ) ,
                 array (
                     "action"    => "/login" ,
+                    "hiddens"   => array (
+                        array (
+                            "name"   => "user" ,
+                            "value"  => $params[ "user" ] ,
+                            "events" => array () ,
+                        ) ,
+                        array (
+                            "name"   => "password" ,
+                            "value"  => $params[ "password" ] ,
+                            "events" => array () ,
+                        ) ,
+                    ) ,
                     "inputs"    => array (
                         array (
                             "title"    => "User : " ,
                             "describe" => "user" ,
-                            "name"     => "user" ,
+                            "name"     => "show_user" ,
                             "value"    => $params[ "user" ] ,
                             "disabled" => "disabled" ,
                         ) ,
                         array (
                             "title"    => "Password : " ,
                             "describe" => "password" ,
-                            "name"     => "password" ,
+                            "name"     => "show_password" ,
                             "value"    => $params[ "password" ] ,
                             "disabled" => "disabled" ,
                         ) ,
@@ -71,7 +83,7 @@ class Class_View_Init_User_Info extends Class_View
                             "title"    => "Cli Token : " ,
                             "describe" => "Cli Token" ,
                             "name"     => "cli_token" ,
-                            "value"    => $params[ "md5_token" ] ,
+                            "value"    => $params[ "security_token" ] ,
                             "disabled" => "disabled" ,
                         ) ,
                         array (

@@ -50,7 +50,7 @@ class Class_Main extends Class_Root implements Interface_Main
         if ( ( $_SERVER[ "REQUEST_URI" ] == "/test" ) && ( empty( DEVLOP ) ) ) {
             throw new \Exception( "In a production environment, the test controller (/test) cannot be used, and/test should only be used for development and testing environments as appropriate." , 0 );
         }
-        if ( ( $_SERVER[ "REQUEST_URI" ] != "/" ) && ( $_SERVER[ "REQUEST_URI" ] != "/test" ) && ( $_SERVER[ "REQUEST_URI" ] != "/clear" ) && ( $_SERVER[ "REQUEST_URI" ] != "/login" ) && ( $_SERVER[ "REQUEST_URI" ] != "/init_user_info" ) && ( is_cli () ) ) {
+        if ( ( $_SERVER[ "REQUEST_URI" ] != "/" ) && ( $_SERVER[ "REQUEST_URI" ] != "/test" ) && ( $_SERVER[ "REQUEST_URI" ] != "/clear" ) && ( $_SERVER[ "REQUEST_URI" ] != "/login" ) && ( $_SERVER[ "REQUEST_URI" ] != "/init_user_info" ) && ( $_SERVER[ "REQUEST_URI" ] != "/cli/create_token" ) && ( $_SERVER[ "REQUEST_URI" ] != "/cli/clear_token" ) && ( is_cli () ) ) {
             self::cli_authorization_check ();
         }
         foreach ( $GLOBALS[ "ROUTE_MAPS" ] as $key => $value ) {
@@ -101,24 +101,27 @@ class Class_Main extends Class_Root implements Interface_Main
     public static function cli_authorization_check ()
     {
         if ( is_cli () ) {
+
             global $_SERVER;
             global $_REQUEST;
+
             if ( ! Class_Operate_User::exist_token () ) {
-                Class_Base_Response::outputln ( "The command line authentication token has not been initialized, and the program has been disabled from running! Please log in to the management backend through web and access /cli/create_token The  module completes the initialization operation of the command line authentication token." );
+                Class_Base_Response::outputln ( "\nThe command line authentication token has not been initialized, and the program has been disabled from running! Please log in to the management backend through web and access /cli/create_token The  module completes the initialization operation of the command line authentication token." );
                 exit( 0 );
             }
-            if ( ( ! is_array ( $_REQUEST ) ) || ( empty( $_REQUEST[ "md5_token" ] ) ) ) {
-                Class_Base_Response::outputln ( "please enter the correct cli authentication token value!" );
+            if ( ( ( ! is_array ( $_REQUEST ) ) || ( empty( $_SERVER[ "REQUEST_URI" ] ) ) || ( $_SERVER[ "REQUEST_URI" ] != "/" ) ) && ( empty( $_REQUEST[ "is_enable_license_agreement" ] ) ) ) {
+                Class_Base_Response::outputln ( "Sorry, due to your refusal to accept the relevant terms and conditions in the user agreement and disclaimer of this software, you are no longer able to use this software! \n\nIf you agree to accept all terms and constraints in the user agreement and disclaimer of this software, please pass the \"is_deable_icense_Agreement\" parameter and set its value to \"1\" when using this software through the command line. This will indicate that you have accepted and confirmed all the terms and constraints in the user agreement and disclaimer of this software, and can use all the functions provided by this software in a legal and compliant manner. \n\nExample of parameter passing : is_deable_icense_agreement=1 " );
                 exit( 0 );
             }
-            if ( ! Class_Operate_User::check_md5_token ( $_REQUEST[ "md5_token" ] ) ) {
+            if ( ( ! is_array ( $_REQUEST ) ) || ( empty( $_REQUEST[ "security_token" ] ) ) ) {
+                Class_Base_Response::outputln ( "\nplease enter the correct cli authentication token value! example : " . ( empty( $_SERVER[ "REQUEST_URI" ] ) ? '/' : $_SERVER[ "REQUEST_URI" ] ) . "?is_enable_license_agreement=1%26security_token=" );
+                exit( 0 );
+            }
+            if ( ! Class_Operate_User::check_security_token ( $_REQUEST[ "security_token" ] ) ) {
                 Class_Base_Response::outputln ( "cli authentication token input error!" );
                 exit( 0 );
             }
-            if ( ( ( empty( $_SERVER[ "REQUEST_URI" ] ) ) || ( $_SERVER[ "REQUEST_URI" ] != "/" ) ) && ( empty( $_REQUEST[ "is_enable_license_agreement" ] ) ) ) {
-                Class_Base_Response::outputln ( "Sorry, due to your refusal to accept the relevant terms and conditions in the user agreement and disclaimer of this software, you are no longer able to use this software! If you forcibly continue to use this software, it will be considered as an infringement on the author of this software. The author of this software reserves the right to pursue legal responsibility from you!" );
-                exit( 0 );
-            }
+
             Class_Base_Auth::enable_login ();
         }
     }

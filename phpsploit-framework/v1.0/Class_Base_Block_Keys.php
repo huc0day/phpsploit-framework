@@ -29,23 +29,16 @@ along with this program.    If not, see <https://www.gnu.org/licenses/>.
 
 class Class_Base_Block_Keys extends Class_Base_Block implements Interface_Base_Block_Keys
 {
-    private static $_key      = Interface_Base_BlockKey::KEYS;
+    private static $_key      = null;
     private        $_head     = null;
     private        $_content  = null;
     private        $_end_flag = null;
 
-    public static function get_key ()
-    {
-        return Interface_Base_BlockKey::KEYS;
-    }
-
-    public static function set_block_key ( $key )
-    {
-        self::$_key = $key;
-    }
-
     public static function get_block_key ()
     {
+        if ( empty( self::$_key ) || ( ( self::$_key != Interface_Base_BlockKey::WEB_KEYS ) && ( self::$_key != Interface_Base_BlockKey::CLI_KEYS ) ) ) {
+            self::$_key = ( ( ! is_cli () ) ? Interface_Base_BlockKey::WEB_KEYS : Interface_Base_BlockKey::CLI_KEYS );
+        }
         return self::$_key;
     }
 
@@ -73,7 +66,7 @@ class Class_Base_Block_Keys extends Class_Base_Block implements Interface_Base_B
             for ( $index = 0 ; $index < self::MAP_SIZE ; $index += self::MAP_ITEM_SIZE ) {
                 $_item = Class_Base_Memory::read_share_memory ( $_block_id , ( Class_Base_BlockHead::SIZE_BLOCK_HEAD + $index ) , self::MAP_ITEM_SIZE , Class_Base_Memory::DATA_FORMAT_TYPE_STRING_NULL_FILL_PACK );
                 if ( ! self::is_empty ( $_item ) ) {
-                    $_count++;
+                    $_count ++;
                 }
             }
         }

@@ -407,17 +407,25 @@ class Class_Base_File extends Class_Base implements Interface_Base_File
             if ( $_file_perms !== false ) {
                 $_oct_perms = decoct ( $_file_perms );
                 if ( $_oct_perms !== false ) {
-                    $_file_info[ "perms" ] = substr ( $_oct_perms , -4 , 4 );
+                    $_file_info[ "perms" ] = substr ( $_oct_perms , - 4 , 4 );
                 }
             }
             $_file_group = filegroup ( $file_path );
             if ( $_file_group !== false ) {
-                $_file_group_info      = posix_getgrgid ( $_file_group );
+                if ( strtoupper ( substr ( PHP_OS , 0 , 3 ) ) === 'WIN' ) {
+                    $_file_group_info      = array();
+                }else{
+                    $_file_group_info      = posix_getgrgid ( $_file_group );
+                }
                 $_file_info[ "group" ] = $_file_group_info;
             }
             $_file_owner = fileowner ( $file_path );
             if ( $_file_owner !== false ) {
-                $_file_owner_info      = posix_getpwuid ( $_file_owner );
+                if ( strtoupper ( substr ( PHP_OS , 0 , 3 ) ) === 'WIN' ) {
+                    $_file_owner_info = array();
+                }else{
+                    $_file_owner_info      = posix_getpwuid ( $_file_owner );
+                }
                 $_file_info[ "owner" ] = $_file_owner_info;
             }
             $_file_atime = fileatime ( $file_path );
@@ -701,7 +709,7 @@ class Class_Base_File extends Class_Base implements Interface_Base_File
                     if ( $data_type !== false ) {
                         $_return_content = "";
                         if ( $data_type == Class_Base_Format::TYPE_DATA_BIN ) {
-                            for ( $index = 0 ; $index < $_file_content_length ; $index++ ) {
+                            for ( $index = 0 ; $index < $_file_content_length ; $index ++ ) {
                                 $_return_content .= ( '\x' . ( str_pad ( dechex ( ord ( substr ( $_file_content , $index , 1 ) ) ) , 2 , '0' , STR_PAD_LEFT ) ) );
                             }
                         } else {
@@ -831,6 +839,6 @@ class Class_Base_File extends Class_Base implements Interface_Base_File
 
     public function __destruct ()
     {
-        // TODO: Implement __destruct() method.
+        /* TODO: Implement __destruct() method. */
     }
 }

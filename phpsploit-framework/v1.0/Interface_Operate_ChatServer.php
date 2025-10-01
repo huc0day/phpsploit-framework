@@ -29,6 +29,6 @@ along with this program.    If not, see <https://www.gnu.org/licenses/>.
 
 interface Interface_Operate_ChatServer extends Interface_Operate
 {
-    const KEY_MESSAGE_QUEUE      = Interface_Base_BlockKey::SOCKETS;
+    const KEY_MESSAGE_QUEUE      = Interface_Base_BlockKey::WEB_SOCKETS;
     const LIMIT_INVITATION_CODES = 20;
 }

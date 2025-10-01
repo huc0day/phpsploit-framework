@@ -31,19 +31,19 @@ class Class_Controller_Database extends Class_Controller
 {
     public static function index ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( ! is_cli () ) {
-            $_top    = Class_View_Top ::top ();
+            $_top    = Class_View_Top::top ();
             $_body   = array (
-                "menu"    => Class_View_Database_Menu ::menu () ,
+                "menu"    => Class_View_Database_Menu::menu () ,
                 "content" => "" ,
             );
-            $_bottom = Class_View_Bottom ::bottom ();
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
@@ -56,32 +56,32 @@ class Class_Controller_Database extends Class_Controller
                 $_SESSION = array ();
             }
         }
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_drive_type = Class_Base_Request ::form ( "drive_type" , Class_Base_Request::TYPE_STRING , Class_Base_Database::TYPE_DRIVE_MYSQL );
-        $_domain     = Class_Base_Request ::form ( "domain" , Class_Base_Request::TYPE_STRING , Class_Base_Database::DOMAIN_LOCALHOST );
-        $_port       = Class_Base_Request ::form ( "port" , Class_Base_Request::TYPE_INTEGER , Class_Base_Database::PORT_LOCALHOST );
-        $_user       = Class_Base_Request ::form ( "user_name" , Class_Base_Request::TYPE_STRING , "" );
-        $_password   = Class_Base_Request ::form ( "user_password" , Class_Base_Request::TYPE_STRING , "" );
-        $_string     = Class_Base_Request ::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
-        $_type       = Class_Base_Request ::form ( "type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Security::TYPE_ENCODE_CRYPTO_JS );
+        Class_Base_Auth::check_permission ();
+        $_drive_type = Class_Base_Request::form ( "drive_type" , Class_Base_Request::TYPE_STRING , Class_Base_Database::TYPE_DRIVE_MYSQL );
+        $_domain     = Class_Base_Request::form ( "domain" , Class_Base_Request::TYPE_STRING , Class_Base_Database::DOMAIN_LOCALHOST );
+        $_port       = Class_Base_Request::form ( "port" , Class_Base_Request::TYPE_INTEGER , Class_Base_Database::PORT_LOCALHOST );
+        $_user       = Class_Base_Request::form ( "user_name" , Class_Base_Request::TYPE_STRING , "" );
+        $_password   = Class_Base_Request::form ( "user_password" , Class_Base_Request::TYPE_STRING , "" );
+        $_string     = Class_Base_Request::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
+        $_type       = Class_Base_Request::form ( "type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Security::TYPE_ENCODE_CRYPTO_JS );
         $_key        = ( empty( $_SESSION[ "PHPSPLOIT_FRAMEWORK_JS_ENCODE_SOURCE_CODE_RAND_KEY" ] ) ? "" : $_SESSION[ "PHPSPLOIT_FRAMEWORK_JS_ENCODE_SOURCE_CODE_RAND_KEY" ] );
         $_iv         = ( empty( $_SESSION[ "PHPSPLOIT_FRAMEWORK_JS_ENCODE_SOURCE_CODE_RAND_IV" ] ) ? "" : $_SESSION[ "PHPSPLOIT_FRAMEWORK_JS_ENCODE_SOURCE_CODE_RAND_IV" ] );
         $_result     = "";
-        if ( ( is_string ( $_user ) ) && ( strlen ( $_user ) > 0 ) && ( is_string ( $_password ) ) && ( is_string ( $_string ) ) && ( strlen ( $_string ) > 0 ) && ( is_integer ( $_type ) ) && ( Class_Base_Security ::is_phpsploit_encode_type ( $_type ) ) && ( is_string ( $_key ) ) && ( strlen ( $_key ) > 0 ) && ( is_string ( $_iv ) ) && ( strlen ( $_iv ) > 0 ) ) {
+        if ( ( is_string ( $_user ) ) && ( strlen ( $_user ) > 0 ) && ( is_string ( $_password ) ) && ( is_string ( $_string ) ) && ( strlen ( $_string ) > 0 ) && ( is_integer ( $_type ) ) && ( Class_Base_Security::is_phpsploit_encode_type ( $_type ) ) && ( is_string ( $_key ) ) && ( strlen ( $_key ) > 0 ) && ( is_string ( $_iv ) ) && ( strlen ( $_iv ) > 0 ) ) {
             if ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) {
-                $_user     = Class_Base_Security ::phpsploit_decode_128 ( $_user , $_key , $_iv );
-                $_password = Class_Base_Security ::phpsploit_decode_128 ( $_password , $_key , $_iv );
-                $_string   = Class_Base_Security ::phpsploit_decode_128 ( $_string , $_key , $_iv );
+                $_user     = Class_Base_Security::phpsploit_decode_128 ( $_user , $_key , $_iv );
+                $_password = Class_Base_Security::phpsploit_decode_128 ( $_password , $_key , $_iv );
+                $_string   = Class_Base_Security::phpsploit_decode_128 ( $_string , $_key , $_iv );
                 if ( ( is_string ( $_user ) ) && ( strlen ( $_user ) > 0 ) && ( is_string ( $_password ) ) && ( is_string ( $_string ) ) && ( strlen ( $_string ) > 0 ) ) {
-                    Class_Base_Database ::connect ( $_drive_type , $_domain , $_port , $_user , $_password , array ( \PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING ) );
-                    $_result = Class_Base_Database ::query_sqls_string ( $_string );
+                    Class_Base_Database::connect ( $_drive_type , $_domain , $_port , $_user , $_password , array ( \PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING ) );
+                    $_result = Class_Base_Database::query_sqls_string ( $_string );
                     if ( $_result === false ) {
                         $_result = array ();
-                        $_error  = Class_Base_Database ::get_error_infos ();
+                        $_error  = Class_Base_Database::get_error_infos ();
                     }
                     $_SESSION[ "PHPSPLOIT_FRAMEWORK_JS_ENCODE_SOURCE_CODE_RAND_KEY" ] = "";
                     $_SESSION[ "PHPSPLOIT_FRAMEWORK_JS_ENCODE_SOURCE_CODE_RAND_IV" ]  = "";
@@ -154,14 +154,14 @@ class Class_Controller_Database extends Class_Controller
                         "title"    => "( Database User ) : " ,
                         "describe" => "user" ,
                         "name"     => "show_user" ,
-                        "value"    => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_user ) ? ( "" ) : Class_Base_Security ::phpsploit_encode_128 ( $_user , $_key , $_iv ) ) : ( $_user ) ) ,
+                        "value"    => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_user ) ? ( "" ) : Class_Base_Security::phpsploit_encode_128 ( $_user , $_key , $_iv ) ) : ( $_user ) ) ,
                     ) ,
                     array (
                         "id"       => "algo_password" ,
                         "title"    => "( Database Password ) : " ,
                         "describe" => "password" ,
                         "name"     => "show_password" ,
-                        "value"    => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_password ) ? ( "" ) : Class_Base_Security ::phpsploit_encode_128 ( $_password , $_key , $_iv ) ) : ( $_password ) ) ,
+                        "value"    => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_password ) ? ( "" ) : Class_Base_Security::phpsploit_encode_128 ( $_password , $_key , $_iv ) ) : ( $_password ) ) ,
                     ) ,
                 ) ,
                 "textareas" => array (
@@ -169,13 +169,13 @@ class Class_Controller_Database extends Class_Controller
                         "id"    => "sql_statement" ,
                         "title" => "( SQL Statement   )   : " ,
                         "name"  => "show_string" ,
-                        "value" => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_string ) ? ( "" ) : Class_Base_Security ::phpsploit_encode_128 ( $_string , $_key , $_iv ) ) : ( $_string ) ) ,
+                        "value" => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_string ) ? ( "" ) : Class_Base_Security::phpsploit_encode_128 ( $_string , $_key , $_iv ) ) : ( $_string ) ) ,
                     ) ,
                     array (
                         "id"       => "result_data" ,
                         "title"    => "( Result Data )   : " ,
                         "name"     => "result" ,
-                        "value"    => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_result ) ? ( "" ) : Class_Base_Security ::phpsploit_encode_128 ( print_r ( $_result , true ) , $_key , $_iv ) ) : ( $_result ) ) ,
+                        "value"    => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_result ) ? ( "" ) : Class_Base_Security::phpsploit_encode_128 ( print_r ( $_result , true ) , $_key , $_iv ) ) : ( $_result ) ) ,
                         "disabled" => "disabled" ,
                     ) ,
                     array (
@@ -187,10 +187,10 @@ class Class_Controller_Database extends Class_Controller
                     ) ,
                 ) ,
             );
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Database_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Database_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu = array (
                 array (
@@ -231,8 +231,8 @@ function to_submit(form_object){
     return true;
 }
 </script>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content , $_javascript );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content , $_javascript );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
@@ -245,32 +245,32 @@ function to_submit(form_object){
                 $_SESSION = array ();
             }
         }
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_drive_type = Class_Base_Request ::form ( "drive_type" , Class_Base_Request::TYPE_STRING , Class_Base_Database::TYPE_DRIVE_MYSQL );
-        $_domain     = Class_Base_Request ::form ( "domain" , Class_Base_Request::TYPE_STRING , Class_Base_Database::DOMAIN_LOCALHOST );
-        $_port       = Class_Base_Request ::form ( "port" , Class_Base_Request::TYPE_INTEGER , Class_Base_Database::PORT_LOCALHOST );
-        $_user       = Class_Base_Request ::form ( "user_name" , Class_Base_Request::TYPE_STRING , "" );
-        $_password   = Class_Base_Request ::form ( "user_password" , Class_Base_Request::TYPE_STRING , "" );
-        $_string     = Class_Base_Request ::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
-        $_type       = Class_Base_Request ::form ( "type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Security::TYPE_ENCODE_CRYPTO_JS );
+        Class_Base_Auth::check_permission ();
+        $_drive_type = Class_Base_Request::form ( "drive_type" , Class_Base_Request::TYPE_STRING , Class_Base_Database::TYPE_DRIVE_MYSQL );
+        $_domain     = Class_Base_Request::form ( "domain" , Class_Base_Request::TYPE_STRING , Class_Base_Database::DOMAIN_LOCALHOST );
+        $_port       = Class_Base_Request::form ( "port" , Class_Base_Request::TYPE_INTEGER , Class_Base_Database::PORT_LOCALHOST );
+        $_user       = Class_Base_Request::form ( "user_name" , Class_Base_Request::TYPE_STRING , "" );
+        $_password   = Class_Base_Request::form ( "user_password" , Class_Base_Request::TYPE_STRING , "" );
+        $_string     = Class_Base_Request::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
+        $_type       = Class_Base_Request::form ( "type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Security::TYPE_ENCODE_CRYPTO_JS );
         $_key        = ( $_SESSION[ "PHPSPLOIT_FRAMEWORK_JS_ENCODE_SOURCE_CODE_RAND_KEY" ] );
         $_iv         = ( $_SESSION[ "PHPSPLOIT_FRAMEWORK_JS_ENCODE_SOURCE_CODE_RAND_IV" ] );
         $_result     = "";
-        if ( ( is_string ( $_user ) ) && ( strlen ( $_user ) > 0 ) && ( is_string ( $_password ) ) && ( is_string ( $_string ) ) && ( strlen ( $_string ) > 0 ) && ( is_integer ( $_type ) ) && ( Class_Base_Security ::is_phpsploit_encode_type ( $_type ) ) && ( is_string ( $_key ) ) && ( strlen ( $_key ) > 0 ) && ( is_string ( $_iv ) ) && ( strlen ( $_iv ) > 0 ) ) {
+        if ( ( is_string ( $_user ) ) && ( strlen ( $_user ) > 0 ) && ( is_string ( $_password ) ) && ( is_string ( $_string ) ) && ( strlen ( $_string ) > 0 ) && ( is_integer ( $_type ) ) && ( Class_Base_Security::is_phpsploit_encode_type ( $_type ) ) && ( is_string ( $_key ) ) && ( strlen ( $_key ) > 0 ) && ( is_string ( $_iv ) ) && ( strlen ( $_iv ) > 0 ) ) {
             if ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) {
-                $_user     = Class_Base_Security ::phpsploit_decode_128 ( $_user , $_key , $_iv );
-                $_password = Class_Base_Security ::phpsploit_decode_128 ( $_password , $_key , $_iv );
-                $_string   = Class_Base_Security ::phpsploit_decode_128 ( $_string , $_key , $_iv );
+                $_user     = Class_Base_Security::phpsploit_decode_128 ( $_user , $_key , $_iv );
+                $_password = Class_Base_Security::phpsploit_decode_128 ( $_password , $_key , $_iv );
+                $_string   = Class_Base_Security::phpsploit_decode_128 ( $_string , $_key , $_iv );
                 if ( ( is_string ( $_user ) ) && ( strlen ( $_user ) > 0 ) && ( is_string ( $_password ) ) && ( is_string ( $_string ) ) && ( strlen ( $_string ) > 0 ) ) {
-                    Class_Base_Database ::connect ( $_drive_type , $_domain , $_port , $_user , $_password , array ( \PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING ) );
-                    $_result = Class_Base_Database ::exec_sqls_string ( $_string );
+                    Class_Base_Database::connect ( $_drive_type , $_domain , $_port , $_user , $_password , array ( \PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING ) );
+                    $_result = Class_Base_Database::exec_sqls_string ( $_string );
                     if ( $_result === false ) {
                         $_result = array ();
-                        $_error  = Class_Base_Database ::get_error_infos ();
+                        $_error  = Class_Base_Database::get_error_infos ();
                     }
                     $_SESSION[ "PHPSPLOIT_FRAMEWORK_JS_ENCODE_SOURCE_CODE_RAND_KEY" ] = "";
                     $_SESSION[ "PHPSPLOIT_FRAMEWORK_JS_ENCODE_SOURCE_CODE_RAND_IV" ]  = "";
@@ -343,14 +343,14 @@ function to_submit(form_object){
                         "title"    => "( Database User ) : " ,
                         "describe" => "user" ,
                         "name"     => "show_user" ,
-                        "value"    => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_user ) ? ( "" ) : Class_Base_Security ::phpsploit_encode_128 ( $_user , $_key , $_iv ) ) : ( $_user ) ) ,
+                        "value"    => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_user ) ? ( "" ) : Class_Base_Security::phpsploit_encode_128 ( $_user , $_key , $_iv ) ) : ( $_user ) ) ,
                     ) ,
                     array (
                         "id"       => "algo_password" ,
                         "title"    => "( Database Password ) : " ,
                         "describe" => "password" ,
                         "name"     => "show_password" ,
-                        "value"    => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_password ) ? ( "" ) : Class_Base_Security ::phpsploit_encode_128 ( $_password , $_key , $_iv ) ) : ( $_password ) ) ,
+                        "value"    => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_password ) ? ( "" ) : Class_Base_Security::phpsploit_encode_128 ( $_password , $_key , $_iv ) ) : ( $_password ) ) ,
                     ) ,
                 ) ,
                 "textareas" => array (
@@ -358,13 +358,13 @@ function to_submit(form_object){
                         "id"    => "sql_statement" ,
                         "title" => "( SQL Statement   )   : " ,
                         "name"  => "show_string" ,
-                        "value" => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_string ) ? ( "" ) : Class_Base_Security ::phpsploit_encode_128 ( $_string , $_key , $_iv ) ) : ( $_string ) ) ,
+                        "value" => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_string ) ? ( "" ) : Class_Base_Security::phpsploit_encode_128 ( $_string , $_key , $_iv ) ) : ( $_string ) ) ,
                     ) ,
                     array (
                         "id"       => "result_data" ,
                         "title"    => "( Result Data )   : " ,
                         "name"     => "result" ,
-                        "value"    => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_result ) ? ( "" ) : Class_Base_Security ::phpsploit_encode_128 ( print_r ( $_result , true ) , $_key , $_iv ) ) : ( $_result ) ) ,
+                        "value"    => ( ( $_type == Class_Base_Security::TYPE_ENCODE_CRYPTO_JS ) ? ( empty( $_result ) ? ( "" ) : Class_Base_Security::phpsploit_encode_128 ( print_r ( $_result , true ) , $_key , $_iv ) ) : ( $_result ) ) ,
                         "disabled" => "disabled" ,
                     ) ,
                     array (
@@ -376,10 +376,10 @@ function to_submit(form_object){
                     ) ,
                 ) ,
             );
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Database_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Database_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu = array (
                 array (
@@ -420,8 +420,8 @@ function to_submit(form_object){
     return true;
 }
 </script>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content , $_javascript );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content , $_javascript );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }

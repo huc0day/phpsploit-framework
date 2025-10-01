@@ -31,32 +31,32 @@ class Class_Controller_Security
 {
     public static function index ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( ! is_cli () ) {
-            $_top    = Class_View_Top ::top ();
+            $_top    = Class_View_Top::top ();
             $_body   = array (
-                "menu"    => Class_View_Security_Menu ::menu () ,
+                "menu"    => Class_View_Security_Menu::menu () ,
                 "content" => "" ,
             );
-            $_bottom = Class_View_Bottom ::bottom ();
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
     public static function url ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_string = Class_Base_Request ::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
-        $_type   = Class_Base_Request ::form ( "type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Security::TYPE_URL_ENCODE );
+        Class_Base_Auth::check_permission ();
+        $_string = Class_Base_Request::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
+        $_type   = Class_Base_Request::form ( "type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Security::TYPE_URL_ENCODE );
         if ( ! is_cli () ) {
             $_form_top    = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Url Data Encode / Decode</div>';
             $_form_top    .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This functional module is mainly used for URL encoding or decoding behavior of corresponding data.</div>';
@@ -86,10 +86,10 @@ class Class_Controller_Security
                     ) ,
                 ) ,
             );
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Security_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Security_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu = array (
                 array (
@@ -99,23 +99,23 @@ class Class_Controller_Security
                 ) ,
             );
             $_content     = '<div></div>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
+            Class_Base_Response::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
         }
         return null;
     }
 
     public static function base64 ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_string = Class_Base_Request ::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
-        $_type   = Class_Base_Request ::form ( "type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Security::TYPE_BASE64_ENCODE );
+        Class_Base_Auth::check_permission ();
+        $_string = Class_Base_Request::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
+        $_type   = Class_Base_Request::form ( "type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Security::TYPE_BASE64_ENCODE );
         if ( ! is_cli () ) {
             $_form_top    = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Base64 Data Encode / Decode</div>';
             $_form_top    .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This functional module is mainly used for BASE64 mode encoding or decoding behavior of corresponding data.</div>';
@@ -145,10 +145,10 @@ class Class_Controller_Security
                     ) ,
                 ) ,
             );
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Security_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Security_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu = array (
                 array (
@@ -158,22 +158,22 @@ class Class_Controller_Security
                 ) ,
             );
             $_content     = '<div></div>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
+            Class_Base_Response::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
         }
         return null;
     }
 
     public static function sha1 ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_string = Class_Base_Request ::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
+        Class_Base_Auth::check_permission ();
+        $_string = Class_Base_Request::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
         if ( ! is_cli () ) {
             $_form_top    = '<div style="margin-top:16px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Sha1 Data Encode</div>';
             $_form_top    .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This functional module is mainly used for SHA1 mode encoding or decoding behavior of corresponding data.</div>';
@@ -193,10 +193,10 @@ class Class_Controller_Security
                     ) ,
                 ) ,
             );
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Security_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Security_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu = array (
                 array (
@@ -206,22 +206,22 @@ class Class_Controller_Security
                 ) ,
             );
             $_content     = '<div></div>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
+            Class_Base_Response::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
         }
         return null;
     }
 
     public static function md5 ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_string = Class_Base_Request ::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
+        Class_Base_Auth::check_permission ();
+        $_string = Class_Base_Request::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
         if ( ! is_cli () ) {
             $_form_top    = '<div style="margin-top:32px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Md5 Data Encode</div>';
             $_form_top    .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This functional module is mainly used for MD5 mode encoding or decoding behavior of corresponding data.</div>';
@@ -241,10 +241,10 @@ class Class_Controller_Security
                     ) ,
                 ) ,
             );
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Security_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Security_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu = array (
                 array (
@@ -254,22 +254,22 @@ class Class_Controller_Security
                 ) ,
             );
             $_content     = '<div></div>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
+            Class_Base_Response::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
         }
         return null;
     }
 
     public static function crc32 ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_string = Class_Base_Request ::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
+        Class_Base_Auth::check_permission ();
+        $_string = Class_Base_Request::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
         if ( ! is_cli () ) {
             $_form_top    = '<div style="margin-top:32px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Crc32 Data Encode</div>';
             $_form_top    .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This functional module is mainly used for CRC32 mode encoding or decoding behavior of corresponding data.</div>';
@@ -289,10 +289,10 @@ class Class_Controller_Security
                     ) ,
                 ) ,
             );
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Security_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Security_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu = array (
                 array (
@@ -302,23 +302,23 @@ class Class_Controller_Security
                 ) ,
             );
             $_content     = '<div></div>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
+            Class_Base_Response::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
         }
         return null;
     }
 
     public static function crypt ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_string = Class_Base_Request ::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
-        $_salt   = Class_Base_Request ::form ( "salt" , Class_Base_Request::TYPE_STRING , "" );
+        Class_Base_Auth::check_permission ();
+        $_string = Class_Base_Request::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
+        $_salt   = Class_Base_Request::form ( "salt" , Class_Base_Request::TYPE_STRING , "" );
         if ( ! is_cli () ) {
             $_form_top    = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Crypt Data Encode</div>';
             $_form_top    .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This functional module is mainly used for CRYPT mode encoding or decoding behavior of corresponding data.</div>';
@@ -346,10 +346,10 @@ class Class_Controller_Security
                     ) ,
                 ) ,
             );
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Security_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Security_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu = array (
                 array (
@@ -359,34 +359,34 @@ class Class_Controller_Security
                 ) ,
             );
             $_content     = '<div></div>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
+            Class_Base_Response::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
         }
         return null;
     }
 
     public static function openssl ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_type        = Class_Base_Request ::form ( "type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Security::TYPE_OPENSSL_ENCODE );
-        $_data        = Class_Base_Request ::form ( "data" , Class_Base_Request::TYPE_STRING , "" );
-        $_cipher_algo = Class_Base_Request ::form ( "cipher_algo" , Class_Base_Request::TYPE_STRING , "" );
-        $_passphrase  = Class_Base_Request ::form ( "passphrase" , Class_Base_Request::TYPE_STRING , "" );
-        $_options     = Class_Base_Request ::form ( "options" , Class_Base_Request::TYPE_INTEGER , 0 );
-        $_iv          = Class_Base_Request ::form ( "iv" , Class_Base_Request::TYPE_STRING , "" );
-        $_tag         = Class_Base_Request ::form ( "tag" , Class_Base_Request::TYPE_STRING , "" );
-        $_aad         = Class_Base_Request ::form ( "aad" , Class_Base_Request::TYPE_STRING , "" );
-        $_tag_length  = Class_Base_Request ::form ( "tag_length" , Class_Base_Request::TYPE_INTEGER , 16 );
+        Class_Base_Auth::check_permission ();
+        $_type        = Class_Base_Request::form ( "type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Security::TYPE_OPENSSL_ENCODE );
+        $_data        = Class_Base_Request::form ( "data" , Class_Base_Request::TYPE_STRING , "" );
+        $_cipher_algo = Class_Base_Request::form ( "cipher_algo" , Class_Base_Request::TYPE_STRING , "" );
+        $_passphrase  = Class_Base_Request::form ( "passphrase" , Class_Base_Request::TYPE_STRING , "" );
+        $_options     = Class_Base_Request::form ( "options" , Class_Base_Request::TYPE_INTEGER , 0 );
+        $_iv          = Class_Base_Request::form ( "iv" , Class_Base_Request::TYPE_STRING , "" );
+        $_tag         = Class_Base_Request::form ( "tag" , Class_Base_Request::TYPE_STRING , "" );
+        $_aad         = Class_Base_Request::form ( "aad" , Class_Base_Request::TYPE_STRING , "" );
+        $_tag_length  = Class_Base_Request::form ( "tag_length" , Class_Base_Request::TYPE_INTEGER , 16 );
         $_result      = "";
-        if ( ( is_integer ( $_type ) ) && ( Class_Base_Security ::is_openssl_type ( $_type ) ) && ( is_string ( $_data ) ) && ( strlen ( $_data ) > 0 ) && ( is_string ( $_cipher_algo ) ) && ( strlen ( $_cipher_algo ) > 0 ) && ( is_string ( $_passphrase ) ) && ( strlen ( $_passphrase ) > 0 ) && ( is_integer ( $_options ) ) && ( Class_Base_Security ::is_openssl_options ( $_options ) ) && ( is_string ( $_iv ) ) && ( is_string ( $_tag ) ) && ( is_string ( $_aad ) ) && is_integer ( $_tag_length ) ) {
+        if ( ( is_integer ( $_type ) ) && ( Class_Base_Security::is_openssl_type ( $_type ) ) && ( is_string ( $_data ) ) && ( strlen ( $_data ) > 0 ) && ( is_string ( $_cipher_algo ) ) && ( strlen ( $_cipher_algo ) > 0 ) && ( is_string ( $_passphrase ) ) && ( strlen ( $_passphrase ) > 0 ) && ( is_integer ( $_options ) ) && ( Class_Base_Security::is_openssl_options ( $_options ) ) && ( is_string ( $_iv ) ) && ( is_string ( $_tag ) ) && ( is_string ( $_aad ) ) && is_integer ( $_tag_length ) ) {
             if ( empty( $_iv ) ) {
-                $_iv = Class_Base_Security ::get_openssl_iv ( $_cipher_algo );
+                $_iv = Class_Base_Security::get_openssl_iv ( $_cipher_algo );
                 if ( $_iv === false ) {
                     throw new \Exception( "Failed to obtain initialization vector! Current encryption and decryption algorithm : " . print_r ( $_cipher_algo , true ) , 0 );
                 }
@@ -395,13 +395,13 @@ class Class_Controller_Security
             }
             if ( $_type == Class_Base_Security::TYPE_OPENSSL_DECODE ) {
                 $_tag = base64_decode ( $_tag );
-                $_tag = Class_Base_Security ::get_openssl_tag ( $_tag , $_cipher_algo );
+                $_tag = Class_Base_Security::get_openssl_tag ( $_tag , $_cipher_algo );
                 if ( $_tag !== false ) {
-                    $_result = Class_Base_Security ::get_openssl_decode ( $_data , $_cipher_algo , $_passphrase , $_options , $_iv , $_tag , $_aad , $_tag_length );
+                    $_result = Class_Base_Security::get_openssl_decode ( $_data , $_cipher_algo , $_passphrase , $_options , $_iv , $_tag , $_aad , $_tag_length );
                 }
             } else {
-                if ( Class_Base_Security ::is_openssl_tag_length ( $_tag_length , $_cipher_algo ) ) {
-                    $_result = Class_Base_Security ::get_openssl_encode ( $_data , $_cipher_algo , $_passphrase , $_options , $_iv , $_tag , $_aad , $_tag_length );
+                if ( Class_Base_Security::is_openssl_tag_length ( $_tag_length , $_cipher_algo ) ) {
+                    $_result = Class_Base_Security::get_openssl_encode ( $_data , $_cipher_algo , $_passphrase , $_options , $_iv , $_tag , $_aad , $_tag_length );
                 }
             }
             $_iv = ( ( $_iv == "" ) ? ( $_iv ) : ( base64_encode ( $_iv ) ) );
@@ -483,18 +483,18 @@ class Class_Controller_Security
                     ) ,
                 ) ,
             );
-            $_cipher_algos = Class_Base_Security ::get_openssl_cipher_algos ();
+            $_cipher_algos = Class_Base_Security::get_openssl_cipher_algos ();
             foreach ( $_cipher_algos as $k => $v ) {
                 $_form[ "selects" ][ 0 ][ "options" ][] = array ( "describe" => ( $v ) , "title" => ( $v ) , "value" => $v , "selected" => ( ( $_cipher_algo == $v ) ? "selected" : "" ) );
             }
-            $_tag_lengths = Class_Base_Security ::get_openssl_tag_lengths ();
+            $_tag_lengths = Class_Base_Security::get_openssl_tag_lengths ();
             foreach ( $_tag_lengths as $k => $v ) {
                 $_form[ "selects" ][ 1 ][ "options" ][] = array ( "describe" => ( $v ) , "title" => ( $v ) , "value" => $v , "selected" => ( ( $_tag_length == $v ) ? "selected" : "" ) );
             }
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Security_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Security_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu = array (
                 array (
@@ -504,24 +504,24 @@ class Class_Controller_Security
                 ) ,
             );
             $_content     = '<div></div>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
+            Class_Base_Response::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
         }
         return null;
     }
 
     public static function hash ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_data    = Class_Base_Request ::form ( "data" , Class_Base_Request::TYPE_STRING , "" );
-        $_algo    = Class_Base_Request ::form ( "algo" , Class_Base_Request::TYPE_STRING , "" );
-        $_options = Class_Base_Request ::form ( "options" , Class_Base_Request::TYPE_STRING , "" );
+        Class_Base_Auth::check_permission ();
+        $_data    = Class_Base_Request::form ( "data" , Class_Base_Request::TYPE_STRING , "" );
+        $_algo    = Class_Base_Request::form ( "algo" , Class_Base_Request::TYPE_STRING , "" );
+        $_options = Class_Base_Request::form ( "options" , Class_Base_Request::TYPE_STRING , "" );
         $_result  = "";
         $_options = @json_decode ( $_options );
         if ( ! is_array ( $_options ) ) {
@@ -530,11 +530,11 @@ class Class_Controller_Security
         if ( empty( $_algo ) ) {
             $_data = "";
         } else {
-            if ( ! Class_Base_Security ::is_hash_algo ( $_algo ) ) {
+            if ( ! Class_Base_Security::is_hash_algo ( $_algo ) ) {
                 $_data = "";
             } else {
                 $_options = ( empty( $_options ) ? ( array () ) : ( ( empty( @json_decode ( $_options ) ) ) ? ( array () ) : ( json_decode ( $_options ) ) ) );
-                $_result  = Class_Base_Security ::get_hash ( $_algo , $_data , false , $_options );
+                $_result  = Class_Base_Security::get_hash ( $_algo , $_data , false , $_options );
             }
         }
         if ( ! is_cli () ) {
@@ -568,14 +568,14 @@ class Class_Controller_Security
                     ) ,
                 ) ,
             );
-            $_algos    = Class_Base_Security ::get_hash_algos ();
+            $_algos    = Class_Base_Security::get_hash_algos ();
             foreach ( $_algos as $k => $v ) {
                 $_form[ "selects" ][ 0 ][ "options" ][] = array ( "describe" => ( $v ) , "title" => ( $v ) , "value" => $v , "selected" => ( ( $_algo == $v ) ? "selected" : "" ) );
             }
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Security_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Security_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu = array (
                 array (
@@ -585,25 +585,25 @@ class Class_Controller_Security
                 ) ,
             );
             $_content     = '<div></div>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
+            Class_Base_Response::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
         }
         return null;
     }
 
     public static function password_hash ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( defined ( "PASSWORD_BCRYPT" ) ) {
-            $_data    = Class_Base_Request ::form ( "password" , Class_Base_Request::TYPE_STRING , "" );
-            $_algo    = Class_Base_Request ::form ( "algo" , Class_Base_Request::TYPE_STRING , PASSWORD_BCRYPT );
-            $_options = Class_Base_Request ::form ( "options" , Class_Base_Request::TYPE_STRING , "" );
+            $_data    = Class_Base_Request::form ( "password" , Class_Base_Request::TYPE_STRING , "" );
+            $_algo    = Class_Base_Request::form ( "algo" , Class_Base_Request::TYPE_STRING , PASSWORD_BCRYPT );
+            $_options = Class_Base_Request::form ( "options" , Class_Base_Request::TYPE_STRING , "" );
             $_result  = "";
             $_options = @json_decode ( $_options );
             if ( ! is_array ( $_options ) ) {
@@ -612,11 +612,11 @@ class Class_Controller_Security
             if ( empty( $_algo ) ) {
                 $_data = "";
             } else {
-                if ( ! Class_Base_Security ::is_password_hash_algo ( $_algo ) ) {
+                if ( ! Class_Base_Security::is_password_hash_algo ( $_algo ) ) {
                     $_data = "";
                 } else {
-                    if ( ( is_string ( $_data ) ) && ( strlen ( $_data ) > 0 ) && ( is_string ( $_algo ) ) && ( Class_Base_Security ::is_password_hash_algo ( $_algo ) ) && ( is_array ( $_options ) ) ) {
-                        $_result = Class_Base_Security ::get_password_hash ( $_data , $_algo , $_options );
+                    if ( ( is_string ( $_data ) ) && ( strlen ( $_data ) > 0 ) && ( is_string ( $_algo ) ) && ( Class_Base_Security::is_password_hash_algo ( $_algo ) ) && ( is_array ( $_options ) ) ) {
+                        $_result = Class_Base_Security::get_password_hash ( $_data , $_algo , $_options );
                     }
                 }
             }
@@ -677,10 +677,10 @@ class Class_Controller_Security
                         "selected" => ( ( $_algo == PASSWORD_ARGON2ID ) ? "selected" : "" ) ,
                     );
                 }
-                $_top         = Class_View_Top ::top ();
+                $_top         = Class_View_Top::top ();
                 $_body        = array (
-                    "menu"    => Class_View_Security_Menu ::menu ( array () ) ,
-                    "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                    "menu"    => Class_View_Security_Menu::menu ( array () ) ,
+                    "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
                 );
                 $_bottom_menu = array (
                     array (
@@ -690,10 +690,10 @@ class Class_Controller_Security
                     ) ,
                 );
                 $_content     = '<div></div>';
-                $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-                Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+                $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+                Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
             } else {
-                Class_Base_Response ::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
+                Class_Base_Response::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
             }
         }
         return null;
@@ -701,27 +701,27 @@ class Class_Controller_Security
 
     public static function sodium ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
 
         if ( defined ( "SODIUM_BASE64_VARIANT_ORIGINAL" ) && defined ( "SODIUM_BASE64_VARIANT_ORIGINAL_NO_PADDING" ) && defined ( "SODIUM_BASE64_VARIANT_URLSAFE" ) && defined ( "SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING" ) ) {
-            $_type   = Class_Base_Request ::form ( "type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Security::TYPE_SODIUM_BASE64_TO_BIN2 );
-            $_data   = Class_Base_Request ::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
-            $_id     = Class_Base_Request ::form ( "id" , Class_Base_Request::TYPE_INTEGER , SODIUM_BASE64_VARIANT_ORIGINAL );
-            $_ignore = Class_Base_Request ::form ( "ignore" , Class_Base_Request::TYPE_STRING , "" );
+            $_type   = Class_Base_Request::form ( "type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Security::TYPE_SODIUM_BASE64_TO_BIN2 );
+            $_data   = Class_Base_Request::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
+            $_id     = Class_Base_Request::form ( "id" , Class_Base_Request::TYPE_INTEGER , SODIUM_BASE64_VARIANT_ORIGINAL );
+            $_ignore = Class_Base_Request::form ( "ignore" , Class_Base_Request::TYPE_STRING , "" );
             $_result = "";
-            $_ignore = Class_Base_Security ::format_bin2_string_to_bin2_string ( $_ignore );
+            $_ignore = Class_Base_Security::format_bin2_string_to_bin2_string ( $_ignore );
             if ( $_ignore === false ) {
                 throw new \Exception( "format bin2 string to bin2 string is parse error" , 0 );
             }
-            if ( ( is_integer ( $_type ) ) && ( Class_Base_Security ::is_sodium_type ( $_type ) ) && ( is_string ( $_data ) ) && ( strlen ( $_data ) > 0 ) && ( is_integer ( $_id ) ) && ( Class_Base_Security ::is_sodium_id ( $_id ) ) && ( is_string ( $_ignore ) ) ) {
+            if ( ( is_integer ( $_type ) ) && ( Class_Base_Security::is_sodium_type ( $_type ) ) && ( is_string ( $_data ) ) && ( strlen ( $_data ) > 0 ) && ( is_integer ( $_id ) ) && ( Class_Base_Security::is_sodium_id ( $_id ) ) && ( is_string ( $_ignore ) ) ) {
                 if ( $_type == Class_Base_Security::TYPE_SODIUM_BIN2_TO_BASE64 ) {
-                    $_result = Class_Base_Security ::sodium_bin2_format_string_to_base64 ( $_data , $_id );
+                    $_result = Class_Base_Security::sodium_bin2_format_string_to_base64 ( $_data , $_id );
                 } else {
-                    $_result = Class_Base_Security ::sodium_base64_to_bin2_format_string ( $_data , $_id , $_ignore );
+                    $_result = Class_Base_Security::sodium_base64_to_bin2_format_string ( $_data , $_id , $_ignore );
                 }
             }
             if ( ! is_cli () ) {
@@ -784,7 +784,7 @@ class Class_Controller_Security
                             "title"    => "( Ignore Char ) : " ,
                             "describe" => "ignore" ,
                             "name"     => "ignore" ,
-                            "value"    => Class_Base_Security ::bin2_string_to_format_bin2_string ( $_ignore ) ,
+                            "value"    => Class_Base_Security::bin2_string_to_format_bin2_string ( $_ignore ) ,
                         ) ,
                     ) ,
                     "textareas" => array (
@@ -801,10 +801,10 @@ class Class_Controller_Security
                         ) ,
                     ) ,
                 );
-                $_top         = Class_View_Top ::top ();
+                $_top         = Class_View_Top::top ();
                 $_body        = array (
-                    "menu"    => Class_View_Security_Menu ::menu ( array () ) ,
-                    "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                    "menu"    => Class_View_Security_Menu::menu ( array () ) ,
+                    "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
                 );
                 $_bottom_menu = array (
                     array (
@@ -814,10 +814,10 @@ class Class_Controller_Security
                     ) ,
                 );
                 $_content     = '<div></div>';
-                $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-                Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+                $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+                Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
             } else {
-                Class_Base_Response ::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
+                Class_Base_Response::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
             }
         } else {
             throw new \Exception( "The current environment does not support SODIUM_BASE64 series functions and constant definitions!" );
@@ -827,17 +827,17 @@ class Class_Controller_Security
 
     public static function hash_hmac ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_string = Class_Base_Request ::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
-        $_algo   = Class_Base_Request ::form ( "algo" , Class_Base_Request::TYPE_STRING , "" );
-        $_key    = Class_Base_Request ::form ( "key" , Class_Base_Request::TYPE_STRING , "" );
+        Class_Base_Auth::check_permission ();
+        $_string = Class_Base_Request::form ( "string" , Class_Base_Request::TYPE_STRING , "" );
+        $_algo   = Class_Base_Request::form ( "algo" , Class_Base_Request::TYPE_STRING , "" );
+        $_key    = Class_Base_Request::form ( "key" , Class_Base_Request::TYPE_STRING , "" );
         $_data   = "";
         if ( ( strlen ( $_algo ) > 0 ) && ( strlen ( $_key ) > 0 ) ) {
-            $_data = Class_Base_Security ::get_hash_hmac ( $_algo , $_string , $_key );
+            $_data = Class_Base_Security::get_hash_hmac ( $_algo , $_string , $_key );
         }
         if ( ! is_cli () ) {
             $_form_top = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Hash Hmac Data Encode</div>';
@@ -873,14 +873,14 @@ class Class_Controller_Security
                     ) ,
                 ) ,
             );
-            $_algos    = Class_Base_Security ::get_hash_hmac_algos ();
+            $_algos    = Class_Base_Security::get_hash_hmac_algos ();
             foreach ( $_algos as $k => $v ) {
                 $_form[ "selects" ][ 0 ][ "options" ][] = array ( "describe" => ( $v ) , "title" => ( $v ) , "value" => $v , "selected" => ( ( $_algo == $v ) ? "selected" : "" ) );
             }
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_Security_Menu ::menu ( array () ) ,
-                "content" => ( ( $_form_top ) . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_Security_Menu::menu ( array () ) ,
+                "content" => ( ( $_form_top ) . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu = array (
                 array (
@@ -890,10 +890,10 @@ class Class_Controller_Security
                 ) ,
             );
             $_content     = '<div></div>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
+            Class_Base_Response::outputln ( "\n" . 'This functional module is currently not suitable for command line environments, and this issue may be improved in future versions!' );
         }
         return null;
     }

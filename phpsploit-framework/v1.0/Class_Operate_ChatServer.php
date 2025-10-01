@@ -51,7 +51,7 @@ class Class_Operate_ChatServer extends Class_Operate implements Interface_Operat
         } else {
             Class_Base_Response::outputln ( "\n" . ( "Successfully created a temporary administrator account for the combat conference room, account nickname: " . self::$_invitation_codes[ "admin" ][ 1 ] . ", account password: " . self::$_invitation_codes[ "admin" ][ 0 ] ) . "\n" );
         }
-        for ( $user_invitation_codes_index = 0 ; $user_invitation_codes_index < ( self::$_invitation_codes_limit - 1 ) ; $user_invitation_codes_index++ ) {
+        for ( $user_invitation_codes_index = 0 ; $user_invitation_codes_index < ( self::$_invitation_codes_limit - 1 ) ; $user_invitation_codes_index ++ ) {
             self::$_invitation_codes[ "users" ][ $user_invitation_codes_index ] = array ( ( time () . rand ( 10000001 , 99999999 ) ) , ( "user_" . $user_invitation_codes_index ) );
             if ( ! is_cli () ) {
                 Class_Base_Response::output_textarea_inner_html ( $connect_domain_List_id , ( "\nSuccessfully created " . ( $user_invitation_codes_index + 1 ) . " combat conference room temporary account, account nickname: " . ( self::$_invitation_codes[ "users" ][ $user_invitation_codes_index ][ 1 ] ) . ", account password: " . ( self::$_invitation_codes[ "users" ][ $user_invitation_codes_index ][ 0 ] ) ) , Class_Base_Response::FLAG_JS_CONTENT_INNER_HTML_APPEND );
@@ -570,7 +570,7 @@ class Class_Operate_ChatServer extends Class_Operate implements Interface_Operat
         }
         if ( ( ! empty( $socket ) ) && ( is_resource ( $socket ) || ( is_object ( $socket ) ) ) ) {
             $_pid = pcntl_fork ();
-            if ( $_pid == -1 ) {
+            if ( $_pid == - 1 ) {
                 if ( ! is_cli () ) {
                     Class_Base_Response::output_textarea_inner_html ( $connect_domain_List_id , ( "Failed to create child process" ) , Class_Base_Response::FLAG_JS_CONTENT_INNER_HTML_APPEND );
                 } else {

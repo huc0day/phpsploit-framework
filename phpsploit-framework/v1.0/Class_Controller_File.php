@@ -31,19 +31,19 @@ class Class_Controller_File extends Class_Controller
 {
     public static function index ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( ! is_cli () ) {
-            $_top    = Class_View_Top ::top ();
+            $_top    = Class_View_Top::top ();
             $_body   = array (
-                "menu"    => Class_View_File_Menu ::menu () ,
+                "menu"    => Class_View_File_Menu::menu () ,
                 "content" => "" ,
             );
-            $_bottom = Class_View_Bottom ::bottom ();
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
@@ -56,13 +56,13 @@ class Class_Controller_File extends Class_Controller
                 $_SERVER = array ();
             }
         }
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_file_name              = Class_Base_Request ::form ( "file_name" , Class_Base_Request::TYPE_STRING , "" );
-        $_current_directory_path = Class_Base_Request ::form ( "current_directory_path" , Class_Base_Request::TYPE_STRING , ( empty( $_SERVER[ "DOCUMENT_ROOT" ] ) ? "" : $_SERVER[ "DOCUMENT_ROOT" ] ) );
+        Class_Base_Auth::check_permission ();
+        $_file_name              = Class_Base_Request::form ( "file_name" , Class_Base_Request::TYPE_STRING , "" );
+        $_current_directory_path = Class_Base_Request::form ( "current_directory_path" , Class_Base_Request::TYPE_STRING , ( empty( $_SERVER[ "DOCUMENT_ROOT" ] ) ? "" : $_SERVER[ "DOCUMENT_ROOT" ] ) );
         if ( ! is_cli () ) {
             $_menu_params        = array (
                 "search"   => array (
@@ -103,10 +103,10 @@ class Class_Controller_File extends Class_Controller
             );
             $_form_top           = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Search File By File Name</div>';
             $_form_top           .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This interface is used to search for a specified directory or file under a specified path based on a specified keyword.</div>';
-            $_top                = Class_View_Top ::top ();
+            $_top                = Class_View_Top::top ();
             $_body               = array (
-                "menu"    => Class_View_File_Menu ::menu ( $_menu_params ) ,
-                "content" => ( $_form_top . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_File_Menu::menu ( $_menu_params ) ,
+                "content" => ( $_form_top . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu        = array (
                 array (
@@ -119,14 +119,14 @@ class Class_Controller_File extends Class_Controller
             $_search_errors_id   = "search_errors";
             $_search_result_id   = "search_result";
             $_content            = '<div style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;">Search Progress</div><div id="' . $_search_progress_id . '" style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;"></div><div style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;">Search Errors</div><div id="' . $_search_errors_id . '" style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;"></div><div style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;">Search Result</div><div id="' . $_search_result_id . '" style="padding-top:16px;padding-bottom:16px;text-align: left;font-size:18px;"></div>';
-            $_bottom             = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom             = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         if ( ( $_current_directory_path != "" ) && ( $_file_name != "" ) ) {
-            Class_Operate_File ::search_file ( $_current_directory_path , $_file_name , $_search_progress_id , $_search_errors_id , $_search_result_id , 500 );
+            Class_Operate_File::search_file ( $_current_directory_path , $_file_name , $_search_progress_id , $_search_errors_id , $_search_result_id , 500 );
         }
         if ( ! is_cli () ) {
-            Class_Base_Response ::output_div_inner_html ( $_search_progress_id , "" , Class_Base_Response::FLAG_JS_CONTENT_INNER_HTML_COVER );
+            Class_Base_Response::output_div_inner_html ( $_search_progress_id , "" , Class_Base_Response::FLAG_JS_CONTENT_INNER_HTML_COVER );
         }
         return null;
     }
@@ -139,12 +139,12 @@ class Class_Controller_File extends Class_Controller
                 $_SERVER = array ();
             }
         }
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_current_directory_path = Class_Base_Request ::form ( "current_directory_path" , Class_Base_Request::TYPE_STRING , ( empty( $_SERVER[ "DOCUMENT_ROOT" ] ) ? "" : $_SERVER[ "DOCUMENT_ROOT" ] ) );
+        Class_Base_Auth::check_permission ();
+        $_current_directory_path = Class_Base_Request::form ( "current_directory_path" , Class_Base_Request::TYPE_STRING , ( empty( $_SERVER[ "DOCUMENT_ROOT" ] ) ? "" : $_SERVER[ "DOCUMENT_ROOT" ] ) );
         $_search_progress_id     = "search_progress";
         $_search_errors_id       = "search_errors";
         $_search_result_id       = "search_result";
@@ -182,10 +182,10 @@ class Class_Controller_File extends Class_Controller
             );
             $_form_top           = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Show Directory And File Path</div>';
             $_form_top           .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This interface is used to display directories or files under a specified path.</div>';
-            $_top                = Class_View_Top ::top ();
+            $_top                = Class_View_Top::top ();
             $_body               = array (
-                "menu"    => Class_View_File_Menu ::menu ( $_menu_params ) ,
-                "content" => ( $_form_top . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_File_Menu::menu ( $_menu_params ) ,
+                "content" => ( $_form_top . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu        = array (
                 array (
@@ -198,28 +198,28 @@ class Class_Controller_File extends Class_Controller
             $_search_errors_id   = "search_errors";
             $_search_result_id   = "search_result";
             $_content            = '<div id="' . $_search_progress_id . '" style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;"></div><div id="' . $_search_errors_id . '" style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;"></div><div id="' . $_search_result_id . '" style="padding-top:16px;padding-bottom:16px;text-align: left;font-size:18px;"></div>';
-            $_bottom             = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom             = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
-        Class_Operate_File ::explorer ( $_current_directory_path , $_search_progress_id , $_search_errors_id , $_search_result_id , "/file/explorer" , "/file/detail" , array ( "directory_field_name" => "current_directory_path" , "file_field_name" => "file_path" ) );
+        Class_Operate_File::explorer ( $_current_directory_path , $_search_progress_id , $_search_errors_id , $_search_result_id , "/file/explorer" , "/file/detail" , array ( "directory_field_name" => "current_directory_path" , "file_field_name" => "file_path" ) );
         return null;
     }
 
     public static function show_detail ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_data_type                = Class_Base_Request ::form ( "data_type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Request::TYPE_DATA_BIN );
-        $_file_path                = Class_Base_Request ::form ( "file_path" , Class_Base_Request::TYPE_STRING , "" );
-        $_file_content_read_offset = Class_Base_Request ::form ( "file_content_read_offset" , Class_Base_Request::TYPE_INTEGER , 0 );
-        $_file_info                = Class_Operate_File ::get_file_info ( $_file_path , $_file_content_read_offset , $_data_type );
-        $_current_directory_path   = Class_Base_File ::parent_directory ( $_file_path );
-        $_file_name                = Class_Base_File ::get_file_name ( $_file_path );
+        Class_Base_Auth::check_permission ();
+        $_data_type                = Class_Base_Request::form ( "data_type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Request::TYPE_DATA_BIN );
+        $_file_path                = Class_Base_Request::form ( "file_path" , Class_Base_Request::TYPE_STRING , "" );
+        $_file_content_read_offset = Class_Base_Request::form ( "file_content_read_offset" , Class_Base_Request::TYPE_INTEGER , 0 );
+        $_file_info                = Class_Operate_File::get_file_info ( $_file_path , $_file_content_read_offset , $_data_type );
+        $_current_directory_path   = Class_Base_File::parent_directory ( $_file_path );
+        $_file_name                = Class_Base_File::get_file_name ( $_file_path );
         if ( ( ! file_exists ( $_file_path ) ) || ( ! is_file ( $_file_path ) ) ) {
-            Class_Base_Response ::redirect ( "/file/explorer" , array ( "current_directory_path" => dirname ( $_file_path ) ) );
+            Class_Base_Response::redirect ( "/file/explorer" , array ( "current_directory_path" => dirname ( $_file_path ) ) );
             return null;
         }
         if ( ! is_cli () ) {
@@ -241,13 +241,13 @@ class Class_Controller_File extends Class_Controller
             $_form_result .= '<div style="height: 32px;text-align: left;font-size:18px;">read offset : ' . $_file_info[ "content_read_offset" ] . '  </div>';
             $_form_result .= '<div style="height: 32px;text-align: left;font-size:18px;">next offset : ' . $_file_info[ "content_read_next_offset" ] . '  </div>';
             $_form_result .= '<div style="height: 32px;text-align: left;font-size:18px;">read remain : ' . ( ( $_file_info[ "content_read_remain" ] < 0 ) ? 0 : $_file_info[ "content_read_remain" ] ) . ' byte </div>';
-            $_form_result .= '<div style="height: 32px;text-align: left;font-size:18px;">data type : ' . ( ( $_file_info[ "data_type" ] == Class_Base_File::TYPE_DATA_TEXT ) ? "Text Data Format" : "Binary Data Format" ) . ' &nbsp;&nbsp;<a href="' . ( Class_Base_Response ::get_url ( "/file/detail" , array ( 'file_path' => $_file_path , "file_content_read_offset" => $_file_info[ "content_read_offset" ] , "data_type" => ( ( $_file_info[ "data_type" ] == Class_Base_File::TYPE_DATA_TEXT ) ? Class_Base_File::TYPE_DATA_BIN : Class_Base_File::TYPE_DATA_TEXT ) ) ) ) . '">Switch the data display format to ' . ( ( $_file_info[ "data_type" ] == Class_Base_File::TYPE_DATA_TEXT ) ? "Binary Data Format" : "Text Data Format" ) . '</a>  </div>';
+            $_form_result .= '<div style="height: 32px;text-align: left;font-size:18px;">data type : ' . ( ( $_file_info[ "data_type" ] == Class_Base_File::TYPE_DATA_TEXT ) ? "Text Data Format" : "Binary Data Format" ) . ' &nbsp;&nbsp;<a href="' . ( Class_Base_Response::get_url ( "/file/detail" , array ( 'file_path' => $_file_path , "file_content_read_offset" => $_file_info[ "content_read_offset" ] , "data_type" => ( ( $_file_info[ "data_type" ] == Class_Base_File::TYPE_DATA_TEXT ) ? Class_Base_File::TYPE_DATA_BIN : Class_Base_File::TYPE_DATA_TEXT ) ) ) ) . '">Switch the data display format to ' . ( ( $_file_info[ "data_type" ] == Class_Base_File::TYPE_DATA_TEXT ) ? "Binary Data Format" : "Text Data Format" ) . '</a>  </div>';
             $_form_result .= '<div style="height: 32px;text-align: left;font-size:18px;">data size : ' . $_file_info[ "content_size" ] . ' byte </div>';
             $_form_result .= '<div style="padding-top:12px;text-align: left;font-size:18px;">file data : ';
             if ( $_data_type == Class_Base_Format::TYPE_DATA_TEXT ) {
                 $_form_result .= '<pre>';
             }
-            $_form_result .= ( ( isset( $_file_path ) ) && ( file_exists ( $_file_path ) ) && ( is_file ( $_file_path ) ) ) ? ( Class_Base_Format ::htmlentities ( $_file_info[ "content" ] ) ) : "";
+            $_form_result .= ( ( isset( $_file_path ) ) && ( file_exists ( $_file_path ) ) && ( is_file ( $_file_path ) ) ) ? ( Class_Base_Format::htmlentities ( $_file_info[ "content" ] ) ) : "";
             if ( $_data_type == Class_Base_Format::TYPE_DATA_TEXT ) {
                 $_form_result .= '</pre>';
             }
@@ -255,16 +255,16 @@ class Class_Controller_File extends Class_Controller
             $_form_result .= '<div style="width:100%;padding-top: 64px;">';
             $_form_result .= '<table style="width:100%;">';
             $_form_result .= '<tr>';
-            $_form_result .= '<td colspan="4" style="text-align: left;padding-top:32px;padding-bottom: 32px;"><a style="font-size:18px;" href="' . ( ( empty( $_file_info[ "content_read_remain" ] ) ) ? Class_Base_Response ::get_url ( "/file/detail" , array ( 'file_path' => $_file_path , "file_content_read_offset" => 0 , "data_type" => $_data_type ) ) : Class_Base_Response ::get_url ( "/file/detail" , array ( 'file_path' => $_file_path , "file_content_read_offset" => $_file_info[ "content_read_next_offset" ] , "data_type" => $_data_type ) ) ) . '">Read File Reamin Content</a></td>';
+            $_form_result .= '<td colspan="4" style="text-align: left;padding-top:32px;padding-bottom: 32px;"><a style="font-size:18px;" href="' . ( ( empty( $_file_info[ "content_read_remain" ] ) ) ? Class_Base_Response::get_url ( "/file/detail" , array ( 'file_path' => $_file_path , "file_content_read_offset" => 0 , "data_type" => $_data_type ) ) : Class_Base_Response::get_url ( "/file/detail" , array ( 'file_path' => $_file_path , "file_content_read_offset" => $_file_info[ "content_read_next_offset" ] , "data_type" => $_data_type ) ) ) . '">Read File Reamin Content</a></td>';
             $_form_result .= '</tr>';
             $_form_result .= '<tr>';
-            $_form_result .= '<td colspan="4" style="text-align: left;padding-bottom: 32px;"><a style="font-size:18px;" href="' . ( ( is_null ( $_current_directory_path ) ) ? "" : Class_Base_Response ::get_url ( "/file/explorer" , array ( 'current_directory_path' => $_current_directory_path ) ) ) . '">Return To Current Directory : ' . ( ( ! is_null ( $_current_directory_path ) ) ? $_current_directory_path : "" ) . '</a></td>';
+            $_form_result .= '<td colspan="4" style="text-align: left;padding-bottom: 32px;"><a style="font-size:18px;" href="' . ( ( is_null ( $_current_directory_path ) ) ? "" : Class_Base_Response::get_url ( "/file/explorer" , array ( 'current_directory_path' => $_current_directory_path ) ) ) . '">Return To Current Directory : ' . ( ( ! is_null ( $_current_directory_path ) ) ? $_current_directory_path : "" ) . '</a></td>';
             $_form_result .= '</tr>';
             $_form_result .= '<tr>';
-            $_form_result .= '<td style="25%;text-align: left;"><a style="font-size:18px;" href="' . ( ( is_null ( $_current_directory_path ) ) ? "" : Class_Base_Response ::get_url ( "/file/upload" , array ( 'current_directory_path' => $_current_directory_path ) ) ) . '">Upload files to the current directory</a></td>';
-            $_form_result .= '<td style="25%;text-align: left;"><a style="font-size:18px;" href="' . ( ( is_null ( $_current_directory_path ) ) ? "" : Class_Base_Response ::get_url ( "/file/create" , array ( 'current_directory_path' => $_current_directory_path ) ) ) . '">Create a file in the current directory</a></td>';
-            $_form_result .= '<td style="25%;text-align: left;">' . ( ( ! Class_Base_File ::is_permission ( $_file_path ) ) ? "" : '<a style="font-size:18px;" href="' . Class_Base_Response ::get_url ( "/file/edit" , array ( 'file_path' => $_file_path , ) ) . '">Edit current file</a>' ) . '</td>';
-            $_form_result .= '<td style="25%;text-align: left;">' . ( ( ! Class_Base_File ::is_permission ( $_file_path ) ) ? "" : '<a style="font-size:18px;" href="' . Class_Base_Response ::get_url ( "/file/delete" , array ( 'file_path' => $_file_path , ) ) . '">Delete current file</a>' ) . '</td>';
+            $_form_result .= '<td style="25%;text-align: left;"><a style="font-size:18px;" href="' . ( ( is_null ( $_current_directory_path ) ) ? "" : Class_Base_Response::get_url ( "/file/upload" , array ( 'current_directory_path' => $_current_directory_path ) ) ) . '">Upload files to the current directory</a></td>';
+            $_form_result .= '<td style="25%;text-align: left;"><a style="font-size:18px;" href="' . ( ( is_null ( $_current_directory_path ) ) ? "" : Class_Base_Response::get_url ( "/file/create" , array ( 'current_directory_path' => $_current_directory_path ) ) ) . '">Create a file in the current directory</a></td>';
+            $_form_result .= '<td style="25%;text-align: left;">' . ( ( ! Class_Base_File::is_permission ( $_file_path ) ) ? "" : '<a style="font-size:18px;" href="' . Class_Base_Response::get_url ( "/file/edit" , array ( 'file_path' => $_file_path , ) ) . '">Edit current file</a>' ) . '</td>';
+            $_form_result .= '<td style="25%;text-align: left;">' . ( ( ! Class_Base_File::is_permission ( $_file_path ) ) ? "" : '<a style="font-size:18px;" href="' . Class_Base_Response::get_url ( "/file/delete" , array ( 'file_path' => $_file_path , ) ) . '">Delete current file</a>' ) . '</td>';
             $_form_result .= '</tr>';
             $_form_result .= '</table>';
             $_form_result .= '</div>';
@@ -288,15 +288,15 @@ class Class_Controller_File extends Class_Controller
                     "current_directory_path" => $_current_directory_path ,
                 ) ,
             );
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_File_Menu ::menu ( $_menu_params ) ,
+                "menu"    => Class_View_File_Menu::menu ( $_menu_params ) ,
                 "content" => ( $_form_top . $_form_result ) ,
             );
-            $_bottom      = Class_View_Bottom ::bottom ();
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( $_file_info , "file_info : " );
+            Class_Base_Response::outputln ( $_file_info , "file_info : " );
         }
 
         return null;
@@ -304,20 +304,20 @@ class Class_Controller_File extends Class_Controller
 
     public static function show_create ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_current_directory_path = Class_Base_Request ::form ( "current_directory_path" , Class_Base_Request::TYPE_STRING , "" );
-        $_file_name              = Class_Base_Request ::form ( "file_name" , Class_Base_Request::TYPE_STRING , "" );
-        $_data_type              = Class_Base_Request ::form ( "data_type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Request::TYPE_DATA_BIN );
-        $_file_content           = Class_Base_Request ::form ( "file_content" , Class_Base_Request::TYPE_STRING , "" );
-        $_file_content_size      = Class_Base_Format ::get_bin_content_size ( $_file_content , $_data_type );
+        Class_Base_Auth::check_permission ();
+        $_current_directory_path = Class_Base_Request::form ( "current_directory_path" , Class_Base_Request::TYPE_STRING , "" );
+        $_file_name              = Class_Base_Request::form ( "file_name" , Class_Base_Request::TYPE_STRING , "" );
+        $_data_type              = Class_Base_Request::form ( "data_type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Request::TYPE_DATA_BIN );
+        $_file_content           = Class_Base_Request::form ( "file_content" , Class_Base_Request::TYPE_STRING , "" );
+        $_file_content_size      = Class_Base_Format::get_bin_content_size ( $_file_content , $_data_type );
         if ( ( is_string ( $_current_directory_path ) ) && ( strlen ( $_current_directory_path ) > 0 ) && ( is_string ( $_file_name ) ) && ( strlen ( $_file_name ) > 0 ) && ( is_integer ( $_data_type ) ) && ( in_array ( $_data_type , array ( Class_Base_Request::TYPE_DATA_TEXT , Class_Base_Request::TYPE_DATA_BIN ) ) ) && ( is_string ( $_file_content ) ) && ( $_file_content_size > 0 ) && ( $_file_content_size <= Class_Base_File::SIZE_FILE_CONTENT_LIMIT ) ) {
-            $_file_info = Class_Operate_File ::create_file ( $_current_directory_path , $_file_name , $_data_type , $_file_content );
+            $_file_info = Class_Operate_File::create_file ( $_current_directory_path , $_file_name , $_data_type , $_file_content );
             if ( ! empty( $_file_info ) ) {
-                Class_Base_Response ::redirect ( "/file/detail" , array ( "file_path" => $_file_info[ "file_path" ] ) );
+                Class_Base_Response::redirect ( "/file/detail" , array ( "file_path" => $_file_info[ "file_path" ] ) );
             }
         }
         if ( ! is_cli () ) {
@@ -377,10 +377,10 @@ class Class_Controller_File extends Class_Controller
             );
             $_form_top    = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Create File</div>';
             $_form_top    .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This interface is used to create files of the specified type using the specified content format. Currently, the supported content formats are divided into text format and binary format (binary format is encoded using the "\x<0~f><0- f>" format, with a value range of 0x00~ 0xff).</div>';
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_File_Menu ::menu ( $_menu_params ) ,
-                "content" => ( $_form_top . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_File_Menu::menu ( $_menu_params ) ,
+                "content" => ( $_form_top . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu = array (
                 array (
@@ -390,28 +390,28 @@ class Class_Controller_File extends Class_Controller
                 ) ,
             );
             $_content     = '<div></div>';
-            $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , ( $_content ) );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , ( $_content ) );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         return null;
     }
 
     public static function show_upload ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
+        Class_Base_Auth::check_permission ();
         if ( is_cli () ) {
             throw new \Exception( "The current method of the controller cannot be run in a command line environment!" , 0 );
         }
-        $_current_directory_path  = Class_Base_Request ::form ( "current_directory_path" , Class_Base_Request::TYPE_STRING , "" );
+        $_current_directory_path  = Class_Base_Request::form ( "current_directory_path" , Class_Base_Request::TYPE_STRING , "" );
         $_file_upload_count_index = 0;
         $_file_upload_count_limit = 10;
         $_file_objects            = array ();
         foreach ( $_FILES as $key => $item ) {
-            $_file_object = Class_Base_File ::upload ( $key , $_current_directory_path , Class_Base_File::SIZE_FILE_CONTENT_LIMIT , Class_Base_File ::get_file_type_all () );
+            $_file_object = Class_Base_File::upload ( $key , $_current_directory_path , Class_Base_File::SIZE_FILE_CONTENT_LIMIT , Class_Base_File::get_file_type_all () );
             if ( ! empty( $_file_object ) ) {
                 $_file_objects[ $key ] = $_file_object;
                 $_file_upload_count_index ++;
@@ -424,15 +424,15 @@ class Class_Controller_File extends Class_Controller
             $_file_objects_size = count ( $_file_objects );
             if ( $_file_objects_size == 1 ) {
                 foreach ( $_file_objects as $key => $file_object ) {
-                    if ( ( is_object ( $file_object ) ) && ( $file_object instanceof Class_Base_File ) && ( property_exists ( $file_object , "exist" ) ) && ( ! empty( $file_object -> exist ) ) ) {
-                        Class_Base_Response ::redirect ( "/file/detail" , array ( "file_path" => $file_object -> path ) );
+                    if ( ( is_object ( $file_object ) ) && ( $file_object instanceof Class_Base_File ) && ( property_exists ( $file_object , "exist" ) ) && ( ! empty( $file_object->exist ) ) ) {
+                        Class_Base_Response::redirect ( "/file/detail" , array ( "file_path" => $file_object->path ) );
                         return null;
                     }
                 }
             }
             foreach ( $_file_objects as $key => $file_object ) {
-                if ( ( is_object ( $file_object ) ) && ( $file_object instanceof Class_Base_File ) && ( property_exists ( $file_object , "exist" ) ) && ( ! empty( $file_object -> exist ) ) ) {
-                    Class_Base_Response ::outputln ( '<div style="padding: 32px;width:100%;text-align: center;"><a href="' . Class_Base_Response ::get_url ( "/file?detail" , array ( "file_path" => $file_object -> path ) ) . '">' . $file_object -> path . '</a></div>' );
+                if ( ( is_object ( $file_object ) ) && ( $file_object instanceof Class_Base_File ) && ( property_exists ( $file_object , "exist" ) ) && ( ! empty( $file_object->exist ) ) ) {
+                    Class_Base_Response::outputln ( '<div style="padding: 32px;width:100%;text-align: center;"><a href="' . Class_Base_Response::get_url ( "/file?detail" , array ( "file_path" => $file_object->path ) ) . '">' . $file_object->path . '</a></div>' );
                 }
             }
             return null;
@@ -479,10 +479,10 @@ class Class_Controller_File extends Class_Controller
         );
         $_form_top    = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Upload File</div>';
         $_form_top    .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This interface is used to upload specified files to the specified directory. Warning: Uploading inappropriate files to the server may pose a security risk. Inappropriate files include executable files in binary format, script command files in text format, etc.You should be fully aware that uploading inappropriate files to the server space can cause various terrifying risk consequences!This includes but is not limited to server space, operating system, functional abnormalities in applications, software crashes, data corruption, loss or leakage, and other situations!Before uploading files, you should be fully aware that your improper behavior may bring legal risks and consequences to yourself! This module function must be used with caution.It can only be used for legally authorized penetration testing and security audit activities.The written contract you sign with the authorized party should clearly indicate that the authorized party allows you to upload files and other related operations, and specify the types of files that can be uploaded.You must strictly abide by the contract content signed between you and the authorized party, and conduct safe, reasonable, and moderate file upload behavior according to the contract content.</div>';
-        $_top         = Class_View_Top ::top ();
+        $_top         = Class_View_Top::top ();
         $_body        = array (
-            "menu"    => Class_View_File_Menu ::menu ( $_menu_params ) ,
-            "content" => ( $_form_top . Class_View ::form_body ( $_form ) ) ,
+            "menu"    => Class_View_File_Menu::menu ( $_menu_params ) ,
+            "content" => ( $_form_top . Class_View::form_body ( $_form ) ) ,
         );
         $_bottom_menu = array (
             array (
@@ -492,38 +492,38 @@ class Class_Controller_File extends Class_Controller
             ) ,
         );
         $_content     = '<div></div>';
-        $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-        Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+        $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+        Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         return null;
     }
 
     public static function show_edit ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_debug        = Class_Base_Request ::form ( "debug" , Class_Base_Request::TYPE_INTEGER , 0 );
-        $_data_type    = Class_Base_Request ::form ( "data_type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Request::TYPE_DATA_BIN );
-        $_file_content = Class_Base_Request ::form ( "file_content" , Class_Base_Request::TYPE_STRING , "" );
-        $_file_path    = Class_Base_Request ::form ( "file_path" , Class_Base_Request::TYPE_STRING , "" );
-        if ( file_exists ( $_file_path ) && is_file ( $_file_path ) && ( Class_Base_File ::is_permission ( $_file_path ) ) ) {
+        Class_Base_Auth::check_permission ();
+        $_debug        = Class_Base_Request::form ( "debug" , Class_Base_Request::TYPE_INTEGER , 0 );
+        $_data_type    = Class_Base_Request::form ( "data_type" , Class_Base_Request::TYPE_INTEGER , Class_Base_Request::TYPE_DATA_BIN );
+        $_file_content = Class_Base_Request::form ( "file_content" , Class_Base_Request::TYPE_STRING , "" );
+        $_file_path    = Class_Base_Request::form ( "file_path" , Class_Base_Request::TYPE_STRING , "" );
+        if ( file_exists ( $_file_path ) && is_file ( $_file_path ) && ( Class_Base_File::is_permission ( $_file_path ) ) ) {
             if ( strlen ( $_file_content ) > 0 ) {
                 $_file_content_update_size_limit = Class_Base_File::SIZE_FILE_CONTENT_LIMIT;
-                $_file_info                      = Class_Operate_File ::update_file ( $_file_path , $_file_content , $_data_type , $_file_content_update_size_limit , $_debug );
+                $_file_info                      = Class_Operate_File::update_file ( $_file_path , $_file_content , $_data_type , $_file_content_update_size_limit , $_debug );
                 if ( ! empty( $_file_info ) ) {
-                    Class_Base_Response ::redirect ( "/file/detail" , array ( "file_path" => $_file_info[ "file_path" ] ) );
+                    Class_Base_Response::redirect ( "/file/detail" , array ( "file_path" => $_file_info[ "file_path" ] ) );
                 }
                 return null;
             }
             $_limit_read_size               = Class_Base_File::SIZE_FILE_CONTENT_LIMIT;
             $_current_directory_path        = dirname ( $_file_path );
             $_file_name                     = basename ( $_file_path );
-            $_file_size                     = Class_Base_File ::get_file_size ( $_file_path );
+            $_file_size                     = Class_Base_File::get_file_size ( $_file_path );
             $_file_content_remain_read_size = 0;
-            $_file_content                  = Class_Base_File ::get_file_content ( $_file_path , $_data_type , $_file_content_remain_read_size , $_limit_read_size );
-            $_file_content_read_size        = Class_Base_File ::get_file_content_size ( $_file_content , $_data_type );
+            $_file_content                  = Class_Base_File::get_file_content ( $_file_path , $_data_type , $_file_content_remain_read_size , $_limit_read_size );
+            $_file_content_read_size        = Class_Base_File::get_file_content_size ( $_file_content , $_data_type );
             if ( ! is_cli () ) {
                 $_menu_params = array (
                     "search"   => array (
@@ -623,21 +623,21 @@ class Class_Controller_File extends Class_Controller
                 );
                 $_form_top    = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Edit File</div>';
                 $_form_top    .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">Attention!When editing files, pay attention to the differences in display content formats!There is a clear difference between pure text format and binary content format in terms of saving and processing after editing!Inappropriate content format changes may result in the loss or damage of the target content!When you choose to save the file content in plain text format, the Phpsploit Framework software will save it in text content format.When you choose to save the file content in binary content format, the Phpsploit Framework software will save it in binary format.Warning: When editing the content of a binary file, you should choose to save it in binary mode instead of in plain text mode.</div>';
-                $_top         = Class_View_Top ::top ();
+                $_top         = Class_View_Top::top ();
                 $_body        = array (
-                    "menu"    => Class_View_File_Menu ::menu ( $_menu_params ) ,
-                    "content" => ( $_form_top . Class_View ::form_body ( $_form ) ) ,
+                    "menu"    => Class_View_File_Menu::menu ( $_menu_params ) ,
+                    "content" => ( $_form_top . Class_View::form_body ( $_form ) ) ,
                 );
                 $_bottom_menu = array (
                     array (
                         "title"    => 'Switch data editing format to ' . ( ( $_data_type == Class_Base_File::TYPE_DATA_TEXT ) ? "Binary Data Format" : "Text Data Format" ) ,
                         "describe" => 'Switch data editing format to ' . ( ( $_data_type == Class_Base_File::TYPE_DATA_TEXT ) ? "Binary Data Format" : "Text Data Format" ) ,
-                        "href"     => ( Class_Base_Response ::get_url ( "/file/edit" , array ( 'file_path' => $_file_path , "data_type" => ( $_data_type == Class_Base_File::TYPE_DATA_TEXT ) ? Class_Base_File::TYPE_DATA_BIN : Class_Base_File::TYPE_DATA_TEXT ) ) ) ,
+                        "href"     => ( Class_Base_Response::get_url ( "/file/edit" , array ( 'file_path' => $_file_path , "data_type" => ( $_data_type == Class_Base_File::TYPE_DATA_TEXT ) ? Class_Base_File::TYPE_DATA_BIN : Class_Base_File::TYPE_DATA_TEXT ) ) ) ,
                     ) ,
                 );
                 $_content     = '<div style="margin-top:64px;"></div>';
-                $_bottom      = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-                Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+                $_bottom      = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+                Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
             }
         }
 
@@ -646,32 +646,32 @@ class Class_Controller_File extends Class_Controller
 
     public static function show_delete ( $params = array () )
     {
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_debug                    = Class_Base_Request ::form ( "debug" , Class_Base_Request::TYPE_INTEGER , 0 );
-        $_file_path                = Class_Base_Request ::form ( "file_path" , Class_Base_Request::TYPE_STRING , "" );
-        $_file_content_read_offset = Class_Base_Request ::form ( "file_content_read_offset" , Class_Base_Request::TYPE_INTEGER , 0 );
-        $_file_info                = Class_Operate_File ::get_file_info ( $_file_path , $_file_content_read_offset );
-        $_deleted                  = Class_Base_Request ::form ( "deleted" , Class_Base_Request::TYPE_INTEGER , 0 );
-        $_current_directory_path   = Class_Base_File ::parent_directory ( $_file_path );
-        $_file_name                = Class_Base_File ::get_file_name ( $_file_path );
-        if ( ( strlen ( $_file_path ) > 0 ) && ( ! empty( $_deleted ) ) && Class_Base_File ::is_permission ( $_file_path ) ) {
-            $_file_info = Class_Operate_File ::delete_file ( $_file_path , ( Class_Base_File::SIZE_FILE_CONTENT_LIMIT * 10 ) , $_debug );
+        Class_Base_Auth::check_permission ();
+        $_debug                    = Class_Base_Request::form ( "debug" , Class_Base_Request::TYPE_INTEGER , 0 );
+        $_file_path                = Class_Base_Request::form ( "file_path" , Class_Base_Request::TYPE_STRING , "" );
+        $_file_content_read_offset = Class_Base_Request::form ( "file_content_read_offset" , Class_Base_Request::TYPE_INTEGER , 0 );
+        $_file_info                = Class_Operate_File::get_file_info ( $_file_path , $_file_content_read_offset );
+        $_deleted                  = Class_Base_Request::form ( "deleted" , Class_Base_Request::TYPE_INTEGER , 0 );
+        $_current_directory_path   = Class_Base_File::parent_directory ( $_file_path );
+        $_file_name                = Class_Base_File::get_file_name ( $_file_path );
+        if ( ( strlen ( $_file_path ) > 0 ) && ( ! empty( $_deleted ) ) && Class_Base_File::is_permission ( $_file_path ) ) {
+            $_file_info = Class_Operate_File::delete_file ( $_file_path , ( Class_Base_File::SIZE_FILE_CONTENT_LIMIT * 10 ) , $_debug );
             if ( ! empty( $_file_info ) ) {
                 if ( ! is_cli () ) {
-                    Class_Base_Response ::outputln ( '<div style="height:64px;"></div>' );
-                    Class_Base_Response ::output_link_label ( Class_Base_Response ::get_url ( "/file/explorer" , array ( "current_directory_path" => $_current_directory_path ) ) , "jmp_to_explorer_parent_directory" , ( 'Successfully deleted file ( ' . $_file_path . ' ) ! Return To Current Directory : ' . $_current_directory_path ) , ( 'Return To Current Directory : ' . $_current_directory_path ) );
+                    Class_Base_Response::outputln ( '<div style="height:64px;"></div>' );
+                    Class_Base_Response::output_link_label ( Class_Base_Response::get_url ( "/file/explorer" , array ( "current_directory_path" => $_current_directory_path ) ) , "jmp_to_explorer_parent_directory" , ( 'Successfully deleted file ( ' . $_file_path . ' ) ! Return To Current Directory : ' . $_current_directory_path ) , ( 'Return To Current Directory : ' . $_current_directory_path ) );
                 } else {
-                    Class_Base_Response ::outputln ( $_file_info );
+                    Class_Base_Response::outputln ( $_file_info );
                 }
                 return null;
             }
         }
         if ( ( ! file_exists ( $_file_path ) ) || ( ! is_file ( $_file_path ) ) ) {
-            Class_Base_Response ::redirect ( "/file/explorer" , array ( "current_directory_path" => dirname ( $_file_path ) ) );
+            Class_Base_Response::redirect ( "/file/explorer" , array ( "current_directory_path" => dirname ( $_file_path ) ) );
             return null;
         }
         if ( ! is_cli () ) {
@@ -696,23 +696,23 @@ class Class_Controller_File extends Class_Controller
             $_form_result .= '<div style="height: 32px;text-align: left;font-size:18px;">next offset : ' . $_file_info[ "content_read_next_offset" ] . '  </div>';
             $_form_result .= '<div style="height: 32px;text-align: left;font-size:18px;">read remain : ' . ( ( $_file_info[ "content_read_remain" ] < 0 ) ? 0 : $_file_info[ "content_read_remain" ] ) . ' byte </div>';
             $_form_result .= '<div style="height: 32px;text-align: left;font-size:18px;">data size : ' . $_file_info[ "content_size" ] . ' byte </div>';
-            $_form_result .= '<div style="height: 32px;text-align: left;font-size:18px;">data type : ' . ( ( $_file_info[ "data_type" ] == Class_Base_File::TYPE_DATA_TEXT ) ? "Text Data Format" : "Binary Data Format" ) . ' &nbsp;&nbsp;<a href="' . ( Class_Base_Response ::get_url ( "/file/delete" , array ( 'file_path' => $_file_path , "file_content_read_offset" => $_file_info[ "content_read_next_offset" ] , "data_type" => ( ( $_file_info[ "data_type" ] == Class_Base_File::TYPE_DATA_TEXT ) ? Class_Base_File::TYPE_DATA_BIN : Class_Base_File::TYPE_DATA_TEXT ) ) ) ) . '">Switch the data display format to ' . ( ( $_file_info[ "data_type" ] == Class_Base_File::TYPE_DATA_TEXT ) ? "Binary Data Format" : "Text Data Format" ) . '</a>  </div>';
+            $_form_result .= '<div style="height: 32px;text-align: left;font-size:18px;">data type : ' . ( ( $_file_info[ "data_type" ] == Class_Base_File::TYPE_DATA_TEXT ) ? "Text Data Format" : "Binary Data Format" ) . ' &nbsp;&nbsp;<a href="' . ( Class_Base_Response::get_url ( "/file/delete" , array ( 'file_path' => $_file_path , "file_content_read_offset" => $_file_info[ "content_read_next_offset" ] , "data_type" => ( ( $_file_info[ "data_type" ] == Class_Base_File::TYPE_DATA_TEXT ) ? Class_Base_File::TYPE_DATA_BIN : Class_Base_File::TYPE_DATA_TEXT ) ) ) ) . '">Switch the data display format to ' . ( ( $_file_info[ "data_type" ] == Class_Base_File::TYPE_DATA_TEXT ) ? "Binary Data Format" : "Text Data Format" ) . '</a>  </div>';
             $_form_result .= '<div style="padding-top:12px;text-align: left;font-size:18px;">file data : ';
-            $_form_result .= ( ( isset( $_file_path ) ) && ( file_exists ( $_file_path ) ) && ( is_file ( $_file_path ) ) ) ? ( Class_Base_Format ::htmlentities ( $_file_info[ "content" ] ) ) : "";
+            $_form_result .= ( ( isset( $_file_path ) ) && ( file_exists ( $_file_path ) ) && ( is_file ( $_file_path ) ) ) ? ( Class_Base_Format::htmlentities ( $_file_info[ "content" ] ) ) : "";
             $_form_result .= '</div></div>';
             $_form_result .= '<div style="margin-top:32px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Are you sure you want to delete the current file?</div>';
             $_form_result .= '<div style="margin-top:32px;margin-bottom:16px;text-align: left;font-size: 18px;color:red;">After deleting the file, it will be difficult to recover, please operate with caution! If you are unsure whether to delete the current file, please abandon the deletion of the current file!</div>';
             $_form_result .= '<div style="width:100%;padding-top: 64px;">';
             $_form_result .= '<table style="width:100%;">';
             $_form_result .= '<tr>';
-            $_form_result .= '<td colspan="4" style="text-align: left;padding-top:32px;padding-bottom: 32px;"><a style="font-size:18px;" href="' . ( ( empty( $_file_info[ "content_read_remain" ] ) ) ? "" : Class_Base_Response ::get_url ( "/file/delete" , array ( 'file_path' => $_file_path , "file_content_read_offset" => $_file_info[ "content_read_next_offset" ] ) ) ) . '">Read File Reamin Content</a></td>';
+            $_form_result .= '<td colspan="4" style="text-align: left;padding-top:32px;padding-bottom: 32px;"><a style="font-size:18px;" href="' . ( ( empty( $_file_info[ "content_read_remain" ] ) ) ? "" : Class_Base_Response::get_url ( "/file/delete" , array ( 'file_path' => $_file_path , "file_content_read_offset" => $_file_info[ "content_read_next_offset" ] ) ) ) . '">Read File Reamin Content</a></td>';
             $_form_result .= '</tr>';
             $_form_result .= '<tr>';
-            $_form_result .= '<td colspan="4" style="text-align: left;padding-bottom: 32px;"><a style="font-size:18px;" href="' . ( ( is_null ( $_current_directory_path ) ) ? "" : Class_Base_Response ::get_url ( "/file/explorer" , array ( 'current_directory_path' => $_current_directory_path ) ) ) . '">Return To Current Directory : ' . ( ( ! is_null ( $_current_directory_path ) ) ? $_current_directory_path : "" ) . '</a></td>';
+            $_form_result .= '<td colspan="4" style="text-align: left;padding-bottom: 32px;"><a style="font-size:18px;" href="' . ( ( is_null ( $_current_directory_path ) ) ? "" : Class_Base_Response::get_url ( "/file/explorer" , array ( 'current_directory_path' => $_current_directory_path ) ) ) . '">Return To Current Directory : ' . ( ( ! is_null ( $_current_directory_path ) ) ? $_current_directory_path : "" ) . '</a></td>';
             $_form_result .= '</tr>';
             $_form_result .= '<tr>';
-            $_form_result .= '<td style="50%;text-align: left;">' . ( ( ! Class_Base_File ::is_permission ( $_file_path ) ) ? "" : '<a style="font-size:18px;" href="' . ( Class_Base_Response ::get_url ( "/file/delete" , array ( 'file_path' => $_file_path , 'deleted' => 1 ) ) ) . '">Delete current file</a>' ) . '</td>';
-            $_form_result .= '<td style="50%;text-align: left;"><a style="font-size:18px;" href="' . ( Class_Base_Response ::get_url ( "/file/detail" , array ( 'file_path' => $_file_path , ) ) ) . '">Return to View Current File</a></td>';
+            $_form_result .= '<td style="50%;text-align: left;">' . ( ( ! Class_Base_File::is_permission ( $_file_path ) ) ? "" : '<a style="font-size:18px;" href="' . ( Class_Base_Response::get_url ( "/file/delete" , array ( 'file_path' => $_file_path , 'deleted' => 1 ) ) ) . '">Delete current file</a>' ) . '</td>';
+            $_form_result .= '<td style="50%;text-align: left;"><a style="font-size:18px;" href="' . ( Class_Base_Response::get_url ( "/file/detail" , array ( 'file_path' => $_file_path , ) ) ) . '">Return to View Current File</a></td>';
             $_form_result .= '</tr>';
             $_form_result .= '</table>';
             $_form_result .= '</div>';
@@ -736,15 +736,15 @@ class Class_Controller_File extends Class_Controller
                     "current_directory_path" => $_current_directory_path ,
                 ) ,
             );
-            $_top         = Class_View_Top ::top ();
+            $_top         = Class_View_Top::top ();
             $_body        = array (
-                "menu"    => Class_View_File_Menu ::menu ( $_menu_params ) ,
+                "menu"    => Class_View_File_Menu::menu ( $_menu_params ) ,
                 "content" => ( $_form_top . $_form_result ) ,
             );
-            $_bottom      = Class_View_Bottom ::bottom ();
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom      = Class_View_Bottom::bottom ();
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         } else {
-            Class_Base_Response ::outputln ( $_file_path , "file : " );
+            Class_Base_Response::outputln ( $_file_path , "file : " );
         }
         return null;
     }
@@ -757,13 +757,13 @@ class Class_Controller_File extends Class_Controller
                 $_SERVER = array ();
             }
         }
-        if ( ( ! is_cli () ) && ( ! Class_Base_Auth ::is_login () ) ) {
-            Class_Base_Response ::redirect ( "/login" );
+        if ( ( ! is_cli () ) && ( ! Class_Base_Auth::is_login () ) ) {
+            Class_Base_Response::redirect ( "/login" );
             return null;
         }
-        Class_Base_Auth ::check_permission ();
-        $_file_name              = Class_Base_Request ::form ( "file_name" , Class_Base_Request::TYPE_STRING , "" );
-        $_current_directory_path = Class_Base_Request ::form ( "current_directory_path" , Class_Base_Request::TYPE_STRING , ( empty( $_SERVER[ "DOCUMENT_ROOT" ] ) ? "" : $_SERVER[ "DOCUMENT_ROOT" ] ) );
+        Class_Base_Auth::check_permission ();
+        $_file_name              = Class_Base_Request::form ( "file_name" , Class_Base_Request::TYPE_STRING , "" );
+        $_current_directory_path = Class_Base_Request::form ( "current_directory_path" , Class_Base_Request::TYPE_STRING , ( empty( $_SERVER[ "DOCUMENT_ROOT" ] ) ? "" : $_SERVER[ "DOCUMENT_ROOT" ] ) );
         if ( ! is_cli () ) {
             $_menu_params        = array (
                 "search"   => array (
@@ -804,10 +804,10 @@ class Class_Controller_File extends Class_Controller
             );
             $_form_top           = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Clear File By File Name</div>';
             $_form_top           .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">Note: For security reasons (the purpose of this software design and release is to enable ethical hackers to better conduct penetration testing and security audit activities, rather than being used by malicious saboteurs for various illegal activities), this module function can only clear relevant files directly created, uploaded, and downloaded using the Phpsploit framework software.</div>';
-            $_top                = Class_View_Top ::top ();
+            $_top                = Class_View_Top::top ();
             $_body               = array (
-                "menu"    => Class_View_File_Menu ::menu ( $_menu_params ) ,
-                "content" => ( $_form_top . Class_View ::form_body ( $_form ) ) ,
+                "menu"    => Class_View_File_Menu::menu ( $_menu_params ) ,
+                "content" => ( $_form_top . Class_View::form_body ( $_form ) ) ,
             );
             $_bottom_menu        = array (
                 array (
@@ -820,14 +820,14 @@ class Class_Controller_File extends Class_Controller
             $_search_errors_id   = "search_errors";
             $_search_result_id   = "search_result";
             $_content            = '<div style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;">Search Progress</div><div id="' . $_search_progress_id . '" style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;"></div><div style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;">Search Errors</div><div id="' . $_search_errors_id . '" style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;"></div><div style="padding-top:16px;padding-bottom:16px;text-align: center;font-size:18px;">Search Result</div><div id="' . $_search_result_id . '" style="padding-top:16px;padding-bottom:16px;text-align: left;font-size:18px;"></div><div style="height:64px;"></div>';
-            $_bottom             = Class_View_Bottom ::bottom ( $_bottom_menu , $_content );
-            Class_Base_Response ::output ( Class_View ::index ( $_top , $_body , $_bottom ) , "text" , 0 );
+            $_bottom             = Class_View_Bottom::bottom ( $_bottom_menu , $_content );
+            Class_Base_Response::output ( Class_View::index ( $_top , $_body , $_bottom ) , "text" , 0 );
         }
         if ( ( $_current_directory_path != "" ) && ( $_file_name != "" ) ) {
-            Class_Operate_File ::clear_file ( $_current_directory_path , $_file_name , $_search_progress_id , $_search_errors_id , $_search_result_id , 500 );
+            Class_Operate_File::clear_file ( $_current_directory_path , $_file_name , $_search_progress_id , $_search_errors_id , $_search_result_id , 500 );
         }
         if ( ! is_cli () ) {
-            Class_Base_Response ::output_div_inner_html ( $_search_progress_id , "" , Class_Base_Response::FLAG_JS_CONTENT_INNER_HTML_COVER );
+            Class_Base_Response::output_div_inner_html ( $_search_progress_id , "" , Class_Base_Response::FLAG_JS_CONTENT_INNER_HTML_COVER );
         }
         return null;
     }

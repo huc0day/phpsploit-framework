@@ -29,13 +29,15 @@ along with this program.    If not, see <https://www.gnu.org/licenses/>.
 
 class Class_Base_Auth extends Class_Base
 {
-    const SHM_KEY       = 100000000000000000;
+    const SHM_WEB_KEY = Interface_Base_BlockKey::WEB_AUTH;
+    const SHM_CLI_KEY = Interface_Base_BlockKey::CLI_AUTH;
+
     const SECURITY_CODE = '^1A69DvAk88$!;Radfs^#q0123456789';
 
     public static function create_password ()
     {
         $_password = "";
-        for ( $i = 0 ; $i < 18 ; $i++ ) {
+        for ( $i = 0 ; $i < 18 ; $i ++ ) {
             $_password .= chr ( rand ( 33 , 126 ) );
         }
         return $_password;
@@ -44,7 +46,7 @@ class Class_Base_Auth extends Class_Base
     public static function create_security_code ()
     {
         $_password = "";
-        for ( $i = 0 ; $i < 18 ; $i++ ) {
+        for ( $i = 0 ; $i < 18 ; $i ++ ) {
             $_password .= chr ( rand ( 33 , 126 ) );
         }
         return $_password;
@@ -165,10 +167,10 @@ class Class_Base_Auth extends Class_Base
 
     public static function clear ()
     {
-        self::clear_session ();
         if ( Class_Base_Extension::exist_enabled_extensions ( Class_Base_Extension::EXTENSION_NAME_SHMOP ) ) {
             Class_Base_Memory::clear ();
         }
+        self::clear_session ();
     }
 
     public static function is_permission_csrf ()

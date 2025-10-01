@@ -47,7 +47,8 @@ function is_development_environment ()
         "Interface_View.php" ,
     );
     foreach ( $_development_environment_files as $index => $file ) {
-        if ( ( ! file_exists ( $file ) ) || ( ! is_file ( $file ) ) ) {
+        $_file_path = ( dirname ( __FILE__ ) . DIRECTORY_SEPARATOR . $file );
+        if ( ( ! file_exists ( $_file_path ) ) || ( ! is_file ( $_file_path ) ) ) {
             return false;
         }
     }
@@ -100,6 +101,306 @@ function check_extensions ( $extension_name )
     return false;
 }
 
+function get_current_process_username ()
+{
+
+    if ( function_exists ( 'posix_getpwuid' ) && function_exists ( 'posix_geteuid' ) ) {
+        $userInfo = posix_getpwuid ( posix_geteuid () );
+        if ( $userInfo && isset( $userInfo[ 'name' ] ) ) {
+            return $userInfo[ 'name' ];
+        }
+    }
+
+    if ( strtoupper ( substr ( PHP_OS , 0 , 3 ) ) === 'WIN' ) {
+
+        if ( extension_loaded ( 'com_dotnet' ) ) {
+            try {
+                $wmi     = new COM( 'WinMgmts:' );
+                $process = $wmi->ExecQuery ( 'SELECT * FROM Win32_Process WHERE ProcessId = ' . getmypid () );
+                foreach ( $process as $proc ) {
+                    $owner = $proc->GetOwner ();
+                    if ( $owner && isset( $owner->User ) ) {
+                        return $owner->User;
+                    }
+                }
+            } catch ( Exception $e ) {
+
+                $output = shell_exec ( 'whoami 2> nul' );
+                if ( $output ) {
+                    return trim ( $output );
+                }
+                if ( isset( $_SERVER[ 'USERNAME' ] ) ) {
+                    return $_SERVER[ 'USERNAME' ];
+                }
+                if ( isset( $_ENV[ 'USERNAME' ] ) ) {
+                    return $_ENV[ 'USERNAME' ];
+                }
+            }
+        }
+
+        return null;
+    }
+
+    if ( function_exists ( 'get_current_user' ) ) {
+        $user = get_current_user ();
+        if ( $user !== false && $user !== '' ) {
+            return $user;
+        }
+    }
+
+    $output = shell_exec ( 'whoami 2>/dev/null' );
+    if ( $output !== null ) {
+        return trim ( $output );
+    }
+
+    return null;
+}
+
+function get_current_file_owner_name ( $filePath )
+{
+    if ( ! file_exists ( $filePath ) ) {
+        return null;
+    }
+
+    $filePath = realpath ( $filePath );
+
+
+    if ( strtoupper ( substr ( PHP_OS , 0 , 3 ) ) !== 'WIN' ) {
+
+        $fileOwnerUid = fileowner ( $filePath );
+        if ( $fileOwnerUid === false ) {
+            return null;
+        }
+
+        if ( function_exists ( 'posix_getpwuid' ) ) {
+            $userInfo = posix_getpwuid ( $fileOwnerUid );
+            if ( $userInfo && isset( $userInfo[ 'name' ] ) ) {
+                return $userInfo[ 'name' ];
+            }
+        }
+
+        $output = shell_exec ( "ls -ld " . escapeshellarg ( $filePath ) . " | awk '{print \$3}' 2>/dev/null" );
+        if ( $output !== null && trim ( $output ) !== '' ) {
+            return trim ( $output );
+        }
+
+        return null;
+
+    } else {
+
+        $command = "powershell -Command \"(Get-Acl -Path '" . str_replace ( "'" , "''" , $filePath ) . "').Owner\" 2>nul";
+        $output  = shell_exec ( $command );
+
+        if ( $output !== null && trim ( $output ) !== '' ) {
+
+            $owner = trim ( $output );
+            $parts = explode ( '\\' , $owner );
+
+            return end ( $parts );
+        }
+
+        $command = "icacls " . escapeshellarg ( $filePath ) . " 2>nul";
+        $output  = shell_exec ( $command );
+
+        if ( $output !== null && preg_match ( '/.*?([^\\\]+)\\\\([^\\\]+).*?/i' , $output , $matches ) ) {
+
+            if ( isset( $matches[ 2 ] ) ) {
+                return $matches[ 2 ];
+            }
+        }
+
+        if ( extension_loaded ( 'com_dotnet' ) ) {
+            try {
+
+                $wmi          = new COM( 'WinMgmts:' );
+                $wmiPath      = str_replace ( '\\' , '\\\\' , $filePath );
+                $query        = "SELECT * FROM Win32_LogicalFileSecuritySetting WHERE Path='{$wmiPath}'";
+                $fileSettings = $wmi->ExecQuery ( $query );
+
+                foreach ( $fileSettings as $setting ) {
+
+                    $securityDescriptor = $setting->GetSecurityDescriptor ();
+
+                    if ( $securityDescriptor->Owner ) {
+
+                        $domain = $securityDescriptor->Owner->Domain;
+                        $name   = $securityDescriptor->Owner->Name;
+
+                        if ( ! empty( $domain ) ) {
+                            return $domain . '\\' . $name;
+                        } else {
+                            return $name;
+                        }
+                    }
+                }
+            } catch ( COMException $e ) {
+
+                return null;
+
+            } catch ( Exception $e ) {
+
+                return null;
+
+            }
+        }
+
+        return null;
+    }
+}
+
+function current_process_username_is_current_file_owner_username ( $file_path )
+{
+
+    $_process_username = get_current_process_username ();
+
+    if ( ( $_process_username !== null ) && ( $_process_username !== false ) ) {
+
+        $_file_username = get_current_file_owner_name ( $file_path );
+
+        if ( ( $_file_username !== null ) && ( $_file_username !== false ) ) {
+
+            if ( strcasecmp ( $_process_username , $_file_username ) == 0 ) {
+
+                return true;
+
+            } elseif ( strpos ( $_file_username , "\\" ) !== false ) {
+
+                $_file_username_items = explode ( $_file_username , "\\" );
+
+                if ( sizeof ( $_file_username_items ) > 1 ) {
+
+                    if ( strcasecmp ( $_process_username , $_file_username_items[ 1 ] ) == 0 ) {
+
+                        return true;
+
+                    }
+                }
+
+            }
+        }
+    }
+
+    return false;
+}
+
+function is_file_executable_windows ( $filePath )
+{
+    $executableExtensions = array ( 'exe' , 'bat' , 'cmd' , 'com' , 'msi' , 'pif' , 'scr' , 'vbs' , 'vbe' , 'ws' , 'wsf' , 'wsh' , 'ps1' , 'psm1' , 'msc' );
+    $extension            = strtolower ( pathinfo ( $filePath , PATHINFO_EXTENSION ) );
+
+    if ( in_array ( $extension , $executableExtensions ) ) {
+
+        $command = "icacls " . escapeshellarg ( $filePath ) . " 2>nul";
+        $output  = shell_exec ( $command );
+
+        if ( $output !== null ) {
+
+            if ( preg_match ( '/.*?\(RX\).*?/i' , $output ) ) {
+                return true;
+            }
+        }
+
+        if ( is_readable ( $filePath ) ) {
+
+            if ( in_array ( $extension , array ( 'bat' , 'cmd' , 'vbs' , 'ps1' ) ) ) {
+                return true;
+            }
+        }
+    }
+
+    if ( extension_loaded ( 'com_dotnet' ) ) {
+        try {
+            $wmi          = new COM( 'WinMgmts:' );
+            $wmiPath      = str_replace ( '\\' , '\\\\' , $filePath );
+            $query        = "SELECT * FROM Win32_LogicalFileSecuritySetting WHERE Path='{$wmiPath}'";
+            $fileSettings = $wmi->ExecQuery ( $query );
+
+            foreach ( $fileSettings as $setting ) {
+                $securityDescriptor = $setting->GetSecurityDescriptor ();
+                if ( $securityDescriptor->Dacl ) {
+                    foreach ( $securityDescriptor->Dacl as $ace ) {
+
+                        if ( $ace->AccessMask & 0x20 ) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        } catch ( Exception $e ) {
+            return false;
+        }
+    }
+
+    return false;
+}
+
+function is_file_executable_unix ( $filePath )
+{
+
+    if ( is_executable ( $filePath ) ) {
+        return true;
+    }
+
+    $perms = fileperms ( $filePath );
+
+    if ( $perms & 0x0040 || $perms & 0x0008 || $perms & 0x0001 ) {
+
+        if ( function_exists ( 'posix_geteuid' ) && function_exists ( 'posix_getegid' ) ) {
+
+            $currentUid = posix_geteuid ();
+            $currentGid = posix_getegid ();
+            $fileOwner  = fileowner ( $filePath );
+            $fileGroup  = filegroup ( $filePath );
+
+            if ( $currentUid == $fileOwner && ( $perms & 0x0040 ) ) {
+                return true;
+            }
+
+
+            if ( $currentGid == $fileGroup && ( $perms & 0x0008 ) ) {
+                return true;
+            }
+
+            if ( $perms & 0x0001 ) {
+                return true;
+            }
+
+        } else {
+
+            return true;
+        }
+    }
+
+
+    if ( function_exists ( 'posix_access' ) ) {
+        return posix_access ( $filePath , POSIX_X_OK );
+    }
+
+
+    $output = shell_exec ( "test -x " . escapeshellarg ( $filePath ) . " && echo 'executable' || echo 'not executable' 2>/dev/null" );
+    if ( strpos ( $output , 'executable' ) !== false ) {
+        return true;
+    }
+
+    return false;
+}
+
+function check_file_executable ( $filePath )
+{
+
+    if ( ! file_exists ( $filePath ) ) {
+        return false;
+    }
+
+    $filePath = realpath ( $filePath );
+
+    if ( strtoupper ( substr ( PHP_OS , 0 , 3 ) ) === 'WIN' ) {
+        return is_file_executable_windows ( $filePath );
+    }
+
+    return is_file_executable_unix ( $filePath );
+}
+
 function check_privilege_environment ()
 {
     check_key_constant_define ();
@@ -119,21 +420,22 @@ function check_privilege_environment ()
     }
 }
 
-//develop privilege init user :     0day
-//develop privilege init password : 0day_phpsploit-framework_2023v1.0
-//
-//develop privilege init user md5 :     38305ac7e5f1b870f6e92aef5e281b2d
-//develop privilege init password md5 : 6f02faa1775d964e58b227e0ef3fa7fd
+/*
+develop privilege init user :     0day
+develop privilege init password : 0day_phpsploit-framework_2023v1.0
 
-//test privilege init user :     huc0day
-//test privilege init password : 6PbmX),_+dyc@OIt3C
-//
-//test privilege init user md5 :     1cbaaf7f640765ae8f4e0766ea5236ca
-//test privilege init password md5 : 259eb52b05e6e2bafb1541afe061ba75
+develop privilege init user md5 :     38305ac7e5f1b870f6e92aef5e281b2d
+develop privilege init password md5 : 6f02faa1775d964e58b227e0ef3fa7fd
 
+test privilege init user :     huc0day
+test privilege init password : 6PbmX),_+dyc@OIt3C
 
-define ( "PRIVILEGE_USER_MODULE_USER" , "38305ac7e5f1b870f6e92aef5e281b2d" );
-define ( "PRIVILEGE_USER_MODULE_PASSWORD" , "6f02faa1775d964e58b227e0ef3fa7fd" );
+test privilege init user md5 :     1cbaaf7f640765ae8f4e0766ea5236ca
+test privilege init password md5 : 259eb52b05e6e2bafb1541afe061ba75
+*/
+
+define ( "PRIVILEGE_USER_MODULE_USER" , "1cbaaf7f640765ae8f4e0766ea5236ca" );
+define ( "PRIVILEGE_USER_MODULE_PASSWORD" , "259eb52b05e6e2bafb1541afe061ba75" );
 
 define ( 'DEBUG' , ( ( empty( $_REQUEST ) ) ? 0 : ( ( ! is_array ( $_REQUEST ) ) ? 0 : ( ( empty( $_REQUEST[ "debug" ] ) ) ? 0 : ( ( intval ( $_REQUEST[ "debug" ] ) == 0 ) ? 0 : ( 1 ) ) ) ) ) );
 define ( "DEVLOP" , ( ( is_development_environment () ? 1 : 0 ) ) );
@@ -322,6 +624,8 @@ $GLOBALS[ "ROUTE_MAPS" ] = array (
     "/report/export_vulnerability_report"                         => "Class_Controller_Report::export_vulnerability_report" ,
     "/report/clear_vulnerability_report"                          => "Class_Controller_Report::clear_vulnerability_report" ,
     "/test"                                                       => "Class_Controller_Test::index" ,
+    "/cli/create_token"                                           => "Class_Controller_Cli::create_token" ,
+    "/cli/clear_token"                                            => "Class_Controller_Cli::clear_token" ,
 );
 
 function env_init ()

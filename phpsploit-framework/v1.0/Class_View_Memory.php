@@ -73,8 +73,8 @@ class Class_View_Memory extends Class_View
         if ( ( ! array_key_exists ( "value" , $search ) ) || ( ! is_string ( $search[ "value" ] ) ) ) {
             $search[ "value" ] = "";
         }
-        $_form_top    = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Show Share Memory Data List</div>';
-        $_form_top    .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This interface displays all found shared memory data that can be controlled by the Phpsploit Framework software framework.</div>';
+        $_form_top  = '<div style="margin-top:64px;margin-bottom:16px;height: 32px;text-align: center;font-size: 18px;">Show Share Memory Data List</div>';
+        $_form_top  .= '<div style="margin-top:16px;text-align: left;font-size: 18px;"><span style="font-size: 18px;color:red;">This interface displays all found shared memory data that can be controlled by the Phpsploit Framework software framework.</div>';
         $_list      = '';
         $_list      .= '<div>';
         $_list      .= '<div style="padding-top: 32px;font-size: 18px;"><table style="width:100%;"><tr><td width="20%">search:</td><td width="80%" style="text-align: left;"><form action="' . Class_Base_Format::htmlentities ( Class_Base_Format::action ( $search[ "action" ] ) ) . '" method="post"><input name="' . Class_Base_Format::htmlentities ( $search[ "name" ] ) . '" type="text" value="' . Class_Base_Format::htmlentities ( $search[ "value" ] ) . '" style="width:60%;line-height:24px;font-size:18px;border-width:2px;text-align:center;">&nbsp;&nbsp;<input name="submit" type="submit" value="&nbsp;submit&nbsp;" style="line-height:25px;font-size:20px;border-width:2px;"></form></td></tr></table></div>';
@@ -89,11 +89,11 @@ class Class_View_Memory extends Class_View
                 $_list .= '<tr>';
                 foreach ( $item as $key => $value ) {
                     $_list .= '<td style="text-align: left;padding-top: 14px;padding-bottom: 14px;"><a href="' . $value[ "link" ] . '">' . $key . '</a> : </td><td style="text-align: left;padding-top: 14px;padding-bottom: 14px;padding-right: 64px;">' . $value[ "value" ] . '</td>';
-                    $_item_index++;
+                    $_item_index ++;
                 }
                 while ( $_item_index < $_item_size ) {
                     $_list .= '<td style="text-align: left;padding-top: 14px;padding-bottom: 14px;">&nbsp;</td><td style="text-align: left;padding-top: 14px;padding-bottom: 14px;">&nbsp;</td>';
-                    $_item_index++;
+                    $_item_index ++;
                 }
                 $_list .= '</tr>';
             }
@@ -101,13 +101,13 @@ class Class_View_Memory extends Class_View
         $_list .= '</table></div>';
         $_list .= '<div style="padding-top: 32px;font-size:18px;"><table style="width:100%;text-align: left;"><tr><td>page:</td><td style="text-align: left;padding-right:32px;">' . $page . '</td><td>page size:</td><td style="text-align: left;padding-right:32px;">' . ( empty( $list ) ? 0 : $page_size ) . '</td><td>max page:</td><td style="text-align: left;padding-right:32px;">' . ( empty( $list ) ? 0 : $max_page ) . '</td><td>row total:</td><td style="text-align: left;padding-right:32px;">' . ( empty( $list ) ? 0 : $row_total ) . '</td><td>to page:</td><td>';
         $_list .= '<select name="page" size="1" style="width:100%;height:32px;line-height:24px;font-size:18px;border-width:2px;text-align:center;" onchange="document.location.href=\'' . Class_Base_Response::get_url ( $search[ "action" ] ) . '&page=\'+this.value+\'&page_size=' . $page_size . '&key=' . Class_Base_Format::htmlentities ( $search[ "value" ] ) . '\';">';
-        for ( $index = 1 ; $index <= $max_page ; $index++ ) {
+        for ( $index = 1 ; $index <= $max_page ; $index ++ ) {
             $_list .= '<option value="' . $index . '" ' . ( ( $page != $index ) ? "" : "selected" ) . '>' . $index . '</option>';
         }
-        $_list .= "</select>";
-        $_list .= '</td><td width="10%;"></td></tr></table></div>';
-        $_list .= '</div>';
-        $_form_body = ($_form_top.$_list);
+        $_list      .= "</select>";
+        $_list      .= '</td><td width="10%;"></td></tr></table></div>';
+        $_list      .= '</div>';
+        $_form_body = ( $_form_top . $_list );
         return $_form_body;
     }
 }

@@ -35,7 +35,7 @@ class Class_Base_Block_UniqueIndex extends Class_Base_Block implements Interface
 
     public static function get_key ()
     {
-        return Interface_Base_BlockKey::UNIQUE_INDEX;
+        return Interface_Base_BlockKey::WEB_UNIQUE_INDEX;
     }
 
     public static function get_block ( $key )

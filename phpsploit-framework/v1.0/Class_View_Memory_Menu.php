@@ -58,7 +58,7 @@ class Class_View_Memory_Menu
                 array (
                     "title"    => "clear" ,
                     "describe" => "" ,
-                    "href"     => 'javascript:if(confirm("Are you sure you want to perform the operation of clearing shared memory? Note that after clearing, all discovered and operable shared memory resources will be cleared and released! Execute clear (select \'OK\'), discard clear (select \'Cancel\').")){document.location.href="'.Class_Base_Response::get_url ( "/memory/clear" , array ( "rand" => time () ) ) .'";}',
+                    "href"     => 'javascript:if(confirm("Are you sure you want to perform the operation of clearing shared memory? Note that after clearing, all discovered and operable shared memory resources will be cleared and released! Execute clear (select \'OK\'), discard clear (select \'Cancel\').")){document.location.href="' . Class_Base_Response::get_url ( "/memory/clear" , array ( "rand" => time () ) ) . '";}' ,
                 ) ,
             );
         }

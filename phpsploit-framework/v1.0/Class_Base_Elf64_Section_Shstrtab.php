@@ -64,7 +64,7 @@ class Class_Base_Elf64_Section_Shstrtab extends Class_Base
             if ( ( ! empty( self::$_section_shstrtabs[ $file_path ] ) ) && ( is_object ( self::$_section_shstrtabs[ $file_path ] ) ) && ( self::$_section_shstrtabs[ $file_path ] instanceof Class_Base_Elf64_Section_Shstrtab ) ) {
                 $_shstrtab_section_content        = self::$_section_shstrtabs[ $file_path ]->get_content ();
                 $_shstrtab_section_content_length = strlen ( $_shstrtab_section_content );
-                if ( ( is_integer ( $sh_name ) ) && ( $sh_name < $_shstrtab_section_content_length ) && ( ( $sh_name != ( -1 ) ) && ( $sh_name != ( $_shstrtab_section_content_length - 1 ) ) ) ) {
+                if ( ( is_integer ( $sh_name ) ) && ( $sh_name < $_shstrtab_section_content_length ) && ( ( $sh_name != ( - 1 ) ) && ( $sh_name != ( $_shstrtab_section_content_length - 1 ) ) ) ) {
                     $_end_dot_position = strpos ( $_shstrtab_section_content , chr ( 46 ) , ( $sh_name + 1 ) );
                     $_size             = ( $_end_dot_position - $sh_name );
                     if ( ( ( $sh_name + $_size ) < $_shstrtab_section_content_length ) ) {
@@ -87,7 +87,7 @@ class Class_Base_Elf64_Section_Shstrtab extends Class_Base
 
     public function __destruct ()
     {
-        // TODO: Implement __destruct() method.
+        /* TODO: Implement __destruct() method. */
     }
 
     public function get_content ()
@@ -109,7 +109,7 @@ class Class_Base_Elf64_Section_Shstrtab extends Class_Base
     public function get_sh_name ( $offset )
     {
         $_content_length = $this->get_content_length ();
-        if ( ( is_integer ( $offset ) ) && ( $offset < $_content_length ) && ( ( $offset != ( -1 ) ) && ( $offset != ( $_content_length - 1 ) ) ) ) {
+        if ( ( is_integer ( $offset ) ) && ( $offset < $_content_length ) && ( ( $offset != ( - 1 ) ) && ( $offset != ( $_content_length - 1 ) ) ) ) {
             $_end_dot_position = strpos ( $this->_content , chr ( 46 ) , ( $offset + 1 ) );
             $_size             = ( $_end_dot_position - $offset );
             if ( ( ( $offset + $_size ) < $_content_length ) ) {
